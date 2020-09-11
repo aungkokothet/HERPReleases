@@ -1,0 +1,1 @@
+const API_URI = "http://localhost/herp/api/controller/";

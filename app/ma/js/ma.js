@@ -1,0 +1,246 @@
+/* Developer Scripts */
+var bvar1 = "herp_info"; /* stored key for login details in local storage after successful loging */
+var bvar2 = "herp_username"; /* stored key for login details in local storage after successful loging */
+var bvar3 = "herp_login_expiry";
+
+checkAuth();
+showTopMenu();
+showMenu();
+//loadActiveMenuItem();
+
+$("#user-logout").click(function() {
+	logOut();
+});
+
+$("#account-setting").click(function() {
+	editProfile();
+});
+
+
+function editProfile() {
+
+	var extra_html_div = '';
+
+	extra_html_div += '<div class="modal fade" id="modal_password_change" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">';
+	extra_html_div += '<div class="modal-dialog ">';
+	extra_html_div += '<div class="modal-content">';
+	extra_html_div += '<div class="modal-header d-flex">';
+	extra_html_div += '<h4 class="modal-title" id="preview-title">Change Password</h4>';
+	extra_html_div += '<button type="button" class="close ml-auto" data-dismiss="modal" aria-hidden="true">×</button>';
+	extra_html_div += '</div>';
+	extra_html_div += '<div class="modal-body">';
+	extra_html_div += '<div class="form-group">';
+	extra_html_div += '<input id="current-password" class="form-control" type="password" placeholder="Current Password">';
+	extra_html_div += '</div>';
+	extra_html_div += '<div class="input-group">';
+	extra_html_div += '<input id="new_password" class="form-control" type="password" placeholder="New Password">';
+	extra_html_div += '<div class="input-group-append">';
+	extra_html_div += '<button class="btn btn-light" id="see_password" type="button"><i class="mdi mdi-eye"></i></button>';
+	extra_html_div += '</div>';
+	extra_html_div += '</div>';
+	extra_html_div += '<div class="form-group text-center mt-4">';
+	extra_html_div += '<button class="btn btn-rounded btn-info " id="btn_password_save" type="button">Save</button>';
+	extra_html_div += '</div>';
+	extra_html_div += '</div>';
+	extra_html_div += '</div>';
+	extra_html_div += '</div>';
+	extra_html_div += '</div>';
+
+	$("#js_html").html(extra_html_div);
+
+	$("#modal_password_change").modal("show");
+
+
+	$("#btn_password_save").click(function() {
+	
+		var c_p = $("#current-password").val();
+		var n_p = $("#new_password").val();
+		if(c_p != "" && n_p !="" && localStorage.emanresumami != undefined) {
+			var pvar = getPvar();
+			var end_point = API_URI + "password.php";
+			var pdata = {};
+			pdata.username = localStorage.emanresumami;
+			pdata.c_p = c_p;
+			pdata.n_p = n_p;
+			
+			$.ajax({
+				url : end_point,
+				type: "PATCH",
+				headers: {"Authorization" : pvar.access_token, "Content-Type" : "application/json"},
+				data: JSON.stringify(pdata)
+			}).always(function(data) {
+	
+			}).done(function(data) {
+				if(data.success === true) {
+					Swal.fire({
+					  type: "success",
+					  title: "Success!",
+					  text: data.messages[0],
+					  confirmButtonClass: 'btn btn-success',
+					});
+				}
+				$("#modal_password_change").modal('hide');
+			}).fail(function(data){
+				Swal.fire({
+					type: "danger",
+					title: "Failed!",
+					text: data.responseJSON.messages[0],
+					confirmButtonClass: 'btn btn-light',
+				});
+			});
+		}
+		else {
+			Swal.fire({
+				type: "warning",
+				title: "Caution!",
+				text: "Password not changed, Try Again!",
+				confirmButtonClass: 'btn btn-light',
+			});
+			return false;
+			
+		}
+	  
+	});
+
+	$("#see_password").mousedown(function() {
+		$("#new_password").attr("type", "text");
+	});
+	$("#see_password").mouseup(function() {
+		$("#new_password").attr("type", "password");
+	});
+}
+
+function logOut() {       
+    var pvar = getPvar();
+    var end_point = API_URI + "session_login.php?sessionid=" + pvar.session_id;
+    $.ajax({
+        url : end_point,      
+        type: 'DELETE',
+        headers: {"Authorization":pvar.access_token}
+    }).always(function(data) {
+        
+    }).done(function(data) {
+        if(data.success === true) {
+            cleanStorage();
+            loginPage();
+        }              
+    }).fail(function(data){
+        if(data.success === false) {
+			Swal.fire({
+				type: "error",
+				title: 'Error!',
+				text: data_response.statusText
+			});
+        }
+    }); 
+}
+
+function cleanStorage() {
+    localStorage.removeItem(bvar1);
+    localStorage.removeItem(bvar2);
+    localStorage.removeItem(bvar3);
+}
+
+function showMenu() {
+	var html_menu = "";
+	
+	html_menu += '<li class="nav-small-cap"><span class="hide-menu">Menu</span></li>';
+	
+	html_menu += '<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="user.html" ><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a></li>';
+	html_menu += '<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="session.html" ><i class="mdi mdi-login"></i><span class="hide-menu">Session</span></a></li>';
+	
+	$("#sidebarnav").html(html_menu);
+
+	/* Set active menu automatically based on menu link uri and address bar link uri */
+	var current = location.pathname;
+	$('#sidebarnav li').each(function() {
+		var $this = $(this.firstChild);
+		   
+		// if the current path is like this link, make it active
+		var a_href_path = $this.attr('href');
+		var url_path_file = window.location.pathname.split('/').pop();
+		if(a_href_path == url_path_file) {   
+			/* set page title by grabbing from menu text */        
+			$("#page_title").html(this.firstChild.innerText);
+			document.title = this.firstChild.innerText;
+		}
+	});
+}
+
+function showTopMenu() {
+	var pvar = getPvar();
+
+    var html_top_menu = '';
+    html_top_menu += '<li>';
+    html_top_menu += '<div class="dw-user-box p-3 d-flex">';
+       
+    html_top_menu += '<div class="u-text ml-2">';
+    html_top_menu += '<h4 class="mb-0" id="user_name">' + pvar.fullname + '</h4>';
+    html_top_menu += '<p class="text-success mb-0 font-14">Level-' + pvar.level + '</p>';
+    html_top_menu += '</div>';
+    html_top_menu += '</div>';
+    html_top_menu += '</li>';
+    html_top_menu += '<li role="separator" class="dropdown-divider"></li>';
+    html_top_menu += '<li class="user-list"><a class="px-3 py-2" href="javascript:void(0);" id="account-setting"><i class="mdi mdi-account"></i> Account Setting</a></li>';
+    html_top_menu += '<li role="separator" class="dropdown-divider"></li>';
+    html_top_menu += '<li class="user-list"><a class="px-3 py-2" href="javascript:void(0);" id="user-logout"><i class="mdi mdi-power"></i> Logout</a></li>';
+
+    $("#top_menu").html(html_top_menu)
+}
+
+function checkAuth() {
+	if(localStorage.getItem(bvar1) === null) {
+		loginPage();
+	}
+	else {            
+		var pvar = getPvar();
+		if(pvar !== null) {
+			if(pvar.username === localStorage.getItem(bvar2)) {
+				showPage(pvar);
+			}
+		}
+		else {
+			loginPage();
+		}
+	}
+}
+
+function getPvar() {
+	var item = window.atob(localStorage.getItem(bvar1));
+	var pvar = JSON.parse(item);
+	return pvar;
+}
+
+function showPage(pvar) {
+	$("body").removeClass("d-none");
+	$("#user-full-name").html(pvar.fullname);
+	$("#user-level").html(pvar.level);
+}
+
+function loginPage() {
+	location.replace("../index.html");
+}
+
+function dataResponseErrorUI(data_response) {
+    if(data_response.status === 401) {
+        //if unauthorize, 
+        cleanStorage();
+        loginPage();
+    }
+	if(data_response.responseJSON) {
+		Swal.fire({
+		  type: "error",
+		  title: 'Error!',
+		  text: data_response.responseJSON.messages.toString()
+		});
+	}
+	else {
+		Swal.fire({
+		  type: "error",
+		  title: 'Error!',
+		  text: data_response.statusText
+		});
+	}
+}
+
+$("#footer_text").html("Oner - Software for Hospitals © " + (new Date()).getFullYear());
