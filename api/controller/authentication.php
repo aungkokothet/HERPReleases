@@ -20,6 +20,7 @@ if(strlen($_SERVER['HTTP_AUTHORIZATION']) < 1) {
 }
 
 $accesstoken = $_SERVER['HTTP_AUTHORIZATION'];
+
 try {
     
     $query = $writeDB->prepare("select user.id, access_token_expiry, status, login_attempt, level, fullname from user join session on user.id=session.user_id where access_token = :accesstoken");

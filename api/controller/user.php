@@ -4,7 +4,6 @@ require_once('../model/User.php'); //related model file that includes Class
 require_once('../model/Response.php'); //import Response class for handling http responses
 require_once('./authentication.php'); //authentication on
 
-
 /* GET, POST, PATCH, DELETE methods will allow with authentication */
 
 if(array_key_exists("user_id", $_GET)) {
