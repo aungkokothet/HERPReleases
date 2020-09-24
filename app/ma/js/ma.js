@@ -111,27 +111,23 @@ function editProfile() {
 }
 
 function logOut() {       
-    var pvar = getPvar();
-    var end_point = API_URI + "session_login.php?sessionid=" + pvar.session_id;
+	var pvar = getPvar();
+    var end_point = API_URI + 'logout';
     $.ajax({
         url : end_point,      
-        type: 'DELETE',
-        headers: {"Authorization":pvar.access_token}
+        type: 'POST',
+		headers: {"Authorization":'Bearer'+pvar.token},
     }).always(function(data) {
         
     }).done(function(data) {
-        if(data.success === true) {
             cleanStorage();
-            loginPage();
-        }              
+			loginPage();            
     }).fail(function(data){
-        if(data.success === false) {
 			Swal.fire({
 				type: "error",
 				title: 'Error!',
-				text: data_response.statusText
+				text: data.statusText
 			});
-        }
     }); 
 }
 
@@ -147,6 +143,7 @@ function showMenu() {
 	html_menu += '<li class="nav-small-cap"><span class="hide-menu">Menu</span></li>';
 	
 	html_menu += '<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="user.html" ><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a></li>';
+	html_menu += '<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="employee.html" ><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Employee</span></a></li>';
 	html_menu += '<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="session.html" ><i class="mdi mdi-login"></i><span class="hide-menu">Session</span></a></li>';
 	
 	$("#sidebarnav").html(html_menu);

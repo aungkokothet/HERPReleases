@@ -11,11 +11,16 @@
     ],
     columns : [
       {data : "id"},
-      {data : "username"},
-      {data : "fullname"},
-      {data : "level"},
-      {data : "status"},
-      {data : "login_attempt"}
+      {data : "employee_identification_numbere"},
+      {data : "name"},
+      {data : "gender"},
+      {data : "education"},
+      {data : "phone_number"},
+      {data : "emergency_contact_phone"},
+      {data : "date of birth"},
+      {data : "nrc_number"},
+      {data : "status"}
+
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -282,7 +287,7 @@ function deleteObj() {
 
 function load() {
     var pvar = getPvar();
-    var end_point = API_URI + "users";
+    var end_point = API_URI + "";
     $.ajax({
         url : end_point,
         type: 'POST',

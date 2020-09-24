@@ -1,1 +1,1 @@
-const API_URI = "http://localhost/herp/api/controller/";
+const API_URI = "https://onermm.ml/api/";

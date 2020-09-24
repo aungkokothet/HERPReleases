@@ -32,7 +32,7 @@ $("#user-login").click(function() {
 	var auth_data = {"username": user_name, "password": user_password};
     $.ajax(
     {
-      url : API_URI + 'session_login.php',      
+      url : API_URI + 'login',      
       type: 'POST',
       dataType : "JSON",
       headers: {"Content-Type":"application/json"},
@@ -40,29 +40,27 @@ $("#user-login").click(function() {
     }).always(function(data){
 
     }).done(function(data){
-      if(data.success === true) {
+      console.log(data)
         /*  
         1 day expiry access token
         */
-        var bec = window.btoa(JSON.stringify(data.data));
+        var bec = window.btoa(JSON.stringify(data));
 
         localStorage.setItem(bvar1, bec);
         localStorage.setItem(bvar2, user_name);
         
         //access token expiry time
         var d = new Date();
-        var expiry_time = d.getTime() + (data.data.access_token_expiry*1000);
+        var expiry_time = d.getTime() + (data.expire_in*1000);
         localStorage.setItem(bvar3, expiry_time);        
         
         loginSuccess();
       
-      }
     }).fail(function(data){
-
       Swal.fire({
           type: 'error',
           title: 'Warning',
-          text: data.responseJSON.messages[0]
+          text: data.responseJSON.message
       });
 
       loggingInEnd();	  
@@ -82,24 +80,23 @@ function refreshAccessToken() {
   var end_point = API_URI + "session_login.php?sessionid=" + pvar.session_id;
   $.ajax({
       url : end_point,      
-      type: 'PATCH',
-      headers: {"Authorization":pvar.access_token, "Content-Type" : "application/json"},
-      data: JSON.stringify({ "refresh_token": pvar.refresh_token }),
+      type: 'POST',
+      headers: {"Authorization":"Bearer"+pvar.token, "Content-Type" : "application/json"},
   }).always(function(data) {
       
   }).done(function(data) {
-      if(data.success === true) {
-          pvar.access_token = data.data.access_token;
-          pvar.refresh_token = data.data.refresh_token;
-          var bec = window.btoa(JSON.stringify(pvar));
-          localStorage.setItem(bvar1, bec);
+          pvar.access_token = data.token;
+          var bec = window.btoa(JSON.stringify(data));
 
-           //reset new access token expiry time
+          localStorage.setItem(bvar1, bec);
+          localStorage.setItem(bvar2, user_name);
+          
+          //access token expiry time
           var d = new Date();
-          var expiry_time = d.getTime() + (data.data.access_token_expiry*1000);
-          localStorage.setItem(bvar3, expiry_time);
+          var expiry_time = d.getTime() + (data.expire_in*1000);
+          localStorage.setItem(bvar3, expiry_time);  
           location.reload();
-      }
+
   }).fail(function(data){
       if(data.success === false) {          
           localStorage.removeItem(bvar1);
@@ -116,8 +113,9 @@ function loginSuccess() {
 		location.replace("./ma/user.html");
 	}
 	else {
-		location.replace("home.html");
-	}
+		location.replace("./ma/user.html");// TODO: include user level as level in return JSON from api
+  }
+                                        // TODO: write employee table with separate html file
 }
 
 function getPvar() {
