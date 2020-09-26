@@ -144,7 +144,6 @@ function showMenu() {
 	
 	html_menu += '<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="user.html" ><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a></li>';
 	html_menu += '<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="employee.html" ><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Employee</span></a></li>';
-	html_menu += '<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="session.html" ><i class="mdi mdi-login"></i><span class="hide-menu">Session</span></a></li>';
 	
 	$("#sidebarnav").html(html_menu);
 

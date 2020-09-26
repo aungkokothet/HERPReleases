@@ -247,12 +247,11 @@ function saveObj() {
     if(isnew) { //inserting new
         request_type = "POST";
         data_send.employee_identification_number = $("#employee_id").val()
-        data_send.id = $("#data_id").val();
         data_send.name = $("#name").val()
         data_send.gender = $("#gender").val();
         data_send.education = $("#education").val();
         data_send.marital_status = $("#marital_status").val()
-        data_send.number_of_children = $("#num_of_children").val();
+        data_send.number_of_children = $("#num_of_children").val() === '' ? null : $("#num_of_children").val();
         data_send.live_with_parent = $("#live_with_parent").val();
         data_send.live_with_spouse_parent = $("#live_with_spouse").val();
         data_send.phone_number = $("#phone").val();
@@ -277,7 +276,7 @@ function saveObj() {
             data_send[fieldname] = obj.value;
         });    
     }
-    
+    console.log(data_send)
     var pvar = getPvar();
     $.ajax({
         url : end_point,
@@ -302,8 +301,9 @@ function saveObj() {
 }
 
 function deleteObj() {
+  console.log(datatable.rows({selected: true}).data()[0])
     var user_id = datatable.rows({selected:  true}).data()[0].id;
-    end_point = API_URI + "employee/" + user_id + '/remove';
+    end_point = API_URI + "employees/" + user_id + '/remove';
     
     var pvar = getPvar();
     $.ajax({
@@ -314,7 +314,7 @@ function deleteObj() {
     }).always(function(data_response) {
   
     }).done(function(data_response) {
-            toastr.warning(data_response.messages[0], 'Warning', { positionClass: 'toastr toast-top-left', containerId: 'toast-top-left', timeOut: 2000 });
+            toastr.warning(data_response.message, 'Warning', { positionClass: 'toastr toast-top-left', containerId: 'toast-top-left', timeOut: 2000 });
             load(); //to reload table after successfully deleted
   
     }).fail(function(data_response) {
