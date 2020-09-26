@@ -11,7 +11,7 @@
     ],
     columns : [
       {data : "id"},
-      {data : "employee_identification_numbere"},
+      {data : "employee_identification_number"},
       {data : "name"},
       {data : "gender"},
       {data : "education"},
@@ -146,12 +146,28 @@ function hideDataEntryPanel() {
 }
 
 function clearDataEntryPanel() {
-    $("#username").prop("disabled", false)
     $("input").removeClass("is-valid");
-    $("#username, #password, #fullname").val("");
-    $("#level, #status").prop("selectedIndex", 0).trigger('change');
-    $("#login_attempt").val("0");
-    $("#btn_reset_login_attempt").prop("disabled", true);
+    $("#data_id").val('');
+    $("#employee_id").val('')
+    $("#name").val('')
+    $("#gender").val('');
+    $("#education").val('');
+    $("#marital_status").val('').trigger("change");
+    $("#num_of_children").val('');
+    $("#live_with_parent").val('');
+    $("#live_with_spouse").val('');
+    $("#phone").val('');
+    $("#emergacy_phone").val('');
+    $("#DOB").val('');
+    $("#nrc").val('');
+    $("#bank").val('');
+    $("#tax").val('')
+    $("#passport").val('')
+    $("#address").val('')
+    $("#position").val('')
+    $("#depertment").val('')
+    $("#status").val('')
+
 }
 
 function newButtonClick() {
@@ -174,12 +190,26 @@ function editButtonClick() {
         $("#btn_reset_login_attempt").prop("disabled", false);
 
         $("#data_id").val(data[0].id);
-        $("#username").val(data[0].username).prop("disabled", true);
-        $("#password").val("");
-        $("#fullname").val(data[0].fullname);
-        $("#level").val(data[0].level).trigger("change");
-        $("#status").val(data[0].status).trigger("change");
-        $("#login_attempt").val(data[0].login_attempt);
+        $("#employee_id").val(data[0].employee_identification_number)
+        $("#name").val(data[0].name)
+        $("#gender").val(data[0].gender);
+        $("#education").val(data[0].education);
+        $("#marital_status").val(data[0].marital_status).trigger("change");
+        $("#num_of_children").val(data[0].number_of_children);
+        $("#live_with_parent").val(data[0].live_with_parent);
+        $("#live_with_spouse").val(data[0].live_with_spouse_parent);
+        $("#phone").val(data[0].phone_number);
+        $("#emergacy_phone").val(data[0].emergacy_contact_phone);
+        $("#DOB").val(data[0].date_of_birth);
+        $("#nrc").val(data[0].nrc_number);
+        $("#bank").val(data[0].bank_account_number);
+        $("#tax").val(data[0].tax_id)
+        $("#passport").val(data[0].passport_number)
+        $("#address").val(data[0].address)
+        $("#position").val(data[0].position_id)
+        $("#depertment").val(data[0].department_id)
+        $("#status").val(data[0].status)
+
         showDataEntryPanel();
     }
     else {
@@ -211,29 +241,37 @@ function deleteButtonClick() {
 
 function saveObj() {
     var request_type = "POST";
-    var end_point = API_URI + "users/add";
+    var end_point = API_URI + "employees/add";
     var data_send = {};
-
-    var user_id = $("#data_id").val(); //for edit
-    var username = $("#username").val();
-    var password = $("#password").val();
-    var fullname = $("#fullname").val();
-    var level = $("#level").val();
-    var status = $("#status").val();
-    var login_attempt = $("#login_attempt").val();
 
     if(isnew) { //inserting new
         request_type = "POST";
-        data_send.username = username;
-        data_send.password = password;
-        data_send.fullname = fullname;
-        data_send.level = level;
-        data_send.status = status;
-        data_send.login_attempt = login_attempt;
+        data_send.employee_identification_number = $("#employee_id").val()
+        data_send.id = $("#data_id").val();
+        data_send.name = $("#name").val()
+        data_send.gender = $("#gender").val();
+        data_send.education = $("#education").val();
+        data_send.marital_status = $("#marital_status").val()
+        data_send.number_of_children = $("#num_of_children").val();
+        data_send.live_with_parent = $("#live_with_parent").val();
+        data_send.live_with_spouse_parent = $("#live_with_spouse").val();
+        data_send.phone_number = $("#phone").val();
+        data_send.emergacy_contact_phone = $("#emergacy_phone").val();
+        data_send.date_of_birth = $("#DOB").val();
+        data_send.nrc_number = $("#nrc").val();
+        data_send.bank_account_number = $("#bank").val();
+        data_send.tax_id = $("#tax").val()
+        data_send.passport_number = $("#passport").val()
+        data_send.address = $("#address").val()
+        data_send.position_id = $("#position").val()
+        data_send.department_id = $("#depertment").val()
+        data_send.status = $("#status").val()
     }
     else { //editing update
-        request_type = "PATCH"
-        end_point = API_URI + "users/" + user_id + '/update';
+        request_type = "POST"
+        end_point = API_URI + "employees/" + user_id + '/update';
+        data_send = datatable.rows({selected:  true}).data()[0];
+
         $.each($(".is-valid"), function(index, obj) {
             var fieldname = obj.attributes.name.value;
             data_send[fieldname] = obj.value;
@@ -245,18 +283,18 @@ function saveObj() {
         url : end_point,
         type: request_type,
         dataType : "JSON",
-        headers: {"Authorization":"Bearer"+pvar.token, "Content-Type" : "application/json"},
+        headers: {"Authorization":"Bearer "+pvar.token, "Content-Type" : "application/json"},
         data: JSON.stringify(data_send)
     }).always(function(data_response) {
-  
+      console.log(data_response)
+
     }).done(function(data_response) {
-      console.log('succ',data_response)
-        if(data_response.success === true) {
-            toastr.success(data_response.messages[0], 'Success', { positionClass: 'toastr toast-top-left', containerId: 'toast-top-left', timeOut: 2000 });
+  
+            toastr.success(data_response.message, 'Success', { positionClass: 'toastr toast-top-left', containerId: 'toast-top-left', timeOut: 2000 });
             load(); //to reload table after successfully saved
             clearDataEntryPanel();
             hideDataEntryPanel();
-        }              
+               
     }).fail(function(data_response) {
       console.log('fail',data_response)  
       //dataResponseErrorUI(data_response);// TODO: enable this 
@@ -265,21 +303,20 @@ function saveObj() {
 
 function deleteObj() {
     var user_id = datatable.rows({selected:  true}).data()[0].id;
-    end_point = API_URI + "user.php?user_id=" + user_id;
+    end_point = API_URI + "employee/" + user_id + '/remove';
     
     var pvar = getPvar();
     $.ajax({
         url : end_point,
-        type: "DELETE",
+        type: "POST",
         dataType : "JSON",
-        headers: {"Authorization" : pvar.access_token}
+        headers: {"Authorization" : 'Bearer ' + pvar.token}
     }).always(function(data_response) {
   
     }).done(function(data_response) {
-        if(data_response.success === true) {
             toastr.warning(data_response.messages[0], 'Warning', { positionClass: 'toastr toast-top-left', containerId: 'toast-top-left', timeOut: 2000 });
             load(); //to reload table after successfully deleted
-        }
+  
     }).fail(function(data_response) {
         dataResponseErrorUI(data_response);
     });
@@ -287,11 +324,11 @@ function deleteObj() {
 
 function load() {
     var pvar = getPvar();
-    var end_point = API_URI + "";
+    var end_point = API_URI + "employees";
     $.ajax({
         url : end_point,
         type: 'POST',
-        headers: {"Authorization":'Bearer'+pvar.token}
+        headers: {"Authorization":'Bearer '+pvar.token}
     }).always(function(data_response) {
 
     }).done(function(data_response) {

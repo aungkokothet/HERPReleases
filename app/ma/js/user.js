@@ -212,6 +212,7 @@ function saveObj() {
     var user_id = $("#data_id").val(); //for edit
     var username = $("#username").val();
     var password = $("#password").val();
+    var confirmpwd = $('#password_confirmation').val()
     var fullname = $("#fullname").val();
     var level = $("#level").val();
     var status = $("#status").val();
@@ -221,20 +222,21 @@ function saveObj() {
         request_type = "POST";
         data_send.username = username;
         data_send.password = password;
+        data_send.password_confirmation = confirmpwd;
         data_send.fullname = fullname;
         data_send.level = level;
         data_send.status = status;
         data_send.login_attempt = login_attempt;
     }
     else { //editing update
-        request_type = "PATCH"
+        request_type = "POST"
         end_point = API_URI + "users/" + user_id + '/update';
+        var data_send = datatable.rows({selected:  true}).data()[0];
         $.each($(".is-valid"), function(index, obj) {
             var fieldname = obj.attributes.name.value;
             data_send[fieldname] = obj.value;
         });    
     }
-    
     var pvar = getPvar();
     $.ajax({
         url : end_point,
@@ -246,35 +248,34 @@ function saveObj() {
   
     }).done(function(data_response) {
       console.log('succ',data_response)
-        if(data_response.success === true) {
-            toastr.success(data_response.messages[0], 'Success', { positionClass: 'toastr toast-top-left', containerId: 'toast-top-left', timeOut: 2000 });
+
+            toastr.success(data_response.message, 'Success', { positionClass: 'toastr toast-top-left', containerId: 'toast-top-left', timeOut: 2000 });
             load(); //to reload table after successfully saved
             clearDataEntryPanel();
             hideDataEntryPanel();
-        }              
+
     }).fail(function(data_response) {
-      console.log('fail',data_response)  
-      //dataResponseErrorUI(data_response);// TODO: enable this 
+      console.log(data_response)
+      dataResponseErrorUI(data_response);
     });
 }
 
 function deleteObj() {
     var user_id = datatable.rows({selected:  true}).data()[0].id;
-    end_point = API_URI + "user.php?user_id=" + user_id;
+    end_point = API_URI + "users/" + user_id + "/remove";
     
     var pvar = getPvar();
     $.ajax({
         url : end_point,
-        type: "DELETE",
+        type: "POST",
         dataType : "JSON",
-        headers: {"Authorization" : pvar.access_token}
+        headers: {"Authorization" : 'Bearer ' + pvar.token}
     }).always(function(data_response) {
-  
-    }).done(function(data_response) {
-        if(data_response.success === true) {
-            toastr.warning(data_response.messages[0], 'Warning', { positionClass: 'toastr toast-top-left', containerId: 'toast-top-left', timeOut: 2000 });
+      
+    }).done(function(data_response) {      
+            toastr.warning(data_response.message, 'Warning', { positionClass: 'toastr toast-top-left', containerId: 'toast-top-left', timeOut: 2000 });
             load(); //to reload table after successfully deleted
-        }
+
     }).fail(function(data_response) {
         dataResponseErrorUI(data_response);
     });
@@ -286,7 +287,7 @@ function load() {
     $.ajax({
         url : end_point,
         type: 'POST',
-        headers: {"Authorization":'Bearer'+pvar.token}
+        headers: {'Authorization': 'Bearer '+ pvar.token, "Content-Type" : "application/json"}
     }).always(function(data_response) {
 
     }).done(function(data_response) {

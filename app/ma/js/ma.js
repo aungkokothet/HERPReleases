@@ -166,14 +166,15 @@ function showMenu() {
 
 function showTopMenu() {
 	var pvar = getPvar();
+	var userName = localStorage.getItem(bvar2)
 
     var html_top_menu = '';
     html_top_menu += '<li>';
     html_top_menu += '<div class="dw-user-box p-3 d-flex">';
        
     html_top_menu += '<div class="u-text ml-2">';
-    html_top_menu += '<h4 class="mb-0" id="user_name">' + pvar.fullname + '</h4>';
-    html_top_menu += '<p class="text-success mb-0 font-14">Level-' + pvar.level + '</p>';
+    html_top_menu += '<h4 class="mb-0" id="user_name">' + userName + '</h4>';
+    html_top_menu += '<p class="text-success mb-0 font-14">Level-' + pvar.user_level + '</p>';
     html_top_menu += '</div>';
     html_top_menu += '</div>';
     html_top_menu += '</li>';

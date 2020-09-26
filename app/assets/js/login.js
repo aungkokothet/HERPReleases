@@ -51,7 +51,7 @@ $("#user-login").click(function() {
         
         //access token expiry time
         var d = new Date();
-        var expiry_time = d.getTime() + (data.expire_in*1000);
+        var expiry_time = d.getTime() + (data.expires_in*1000);
         localStorage.setItem(bvar3, expiry_time);        
         
         loginSuccess();
@@ -93,7 +93,7 @@ function refreshAccessToken() {
           
           //access token expiry time
           var d = new Date();
-          var expiry_time = d.getTime() + (data.expire_in*1000);
+          var expiry_time = d.getTime() + (data.expires_in*1000);
           localStorage.setItem(bvar3, expiry_time);  
           location.reload();
 
