@@ -1,4 +1,5 @@
 
+  accessLevel = 6
   var isnew = true;  
 
   var datatable = $("#datatable").DataTable({
@@ -65,7 +66,7 @@ datatable.on('user-select', function ( e, dt, type, cell, originalEvent ) {
 
 $(document).ready(function() {
   "use strict"
-
+  checkVasibality(accessLevel)
   // init list view datatable
   load();
 
@@ -141,6 +142,8 @@ function hideDataEntryPanel() {
 }
 
 function clearDataEntryPanel() {
+    $("#password").parent().parent().parent().prop('hidden', false);
+    $("#password_confirmation").parent().parent().parent().prop('hidden', false)
     $("#username").prop("disabled", false)
     $("input").removeClass("is-valid");
     $("#username, #password, #fullname").val("");
@@ -170,7 +173,8 @@ function editButtonClick() {
 
         $("#data_id").val(data[0].id);
         $("#username").val(data[0].username).prop("disabled", true);
-        $("#password").val("");
+        $("#password").parent().parent().parent().prop('hidden', true);
+        $("#password_confirmation").parent().parent().parent().prop('hidden', true)
         $("#fullname").val(data[0].fullname);
         $("#level").val(data[0].level).trigger("change");
         $("#status").val(data[0].status).trigger("change");

@@ -1,7 +1,11 @@
 
+  var accessLevel = 5
+
   var isnew = true;  
 
   var datatable = $("#datatable").DataTable({
+
+    "scrollX" : true,
 
     columnDefs: [
       {
@@ -15,11 +19,26 @@
       {data : "name"},
       {data : "gender"},
       {data : "education"},
+      {data : "join_date"},
+      {data : "permanent_date"},
+      {data : "marital_status"},
+      {data : "number_of_children"},
+      {data : "live_with_parent"},
+      {data : "live_with_spouse_parent"},
       {data : "phone_number"},
       {data : "emergency_contact_phone"},
       {data : "date of birth"},
       {data : "nrc_number"},
-      {data : "status"}
+      {data : "bank_account_number"},
+      {data : "passport_number"},
+      {data : "address"},
+      {data : "position"},
+      {data : "department"},
+      {data : "status"},
+      {data : "created_user_login_id"},
+      {data : "updated_user_login_id"},
+      {data : "created_time"},
+      {data : "updated_time"}
 
     ],
     dom:
@@ -70,7 +89,7 @@ datatable.on('user-select', function ( e, dt, type, cell, originalEvent ) {
 
 $(document).ready(function() {
   "use strict"
-
+  checkVasibality(accessLevel)
   // init list view datatable
   load();
 
@@ -161,7 +180,6 @@ function clearDataEntryPanel() {
     $("#DOB").val('');
     $("#nrc").val('');
     $("#bank").val('');
-    $("#tax").val('')
     $("#passport").val('')
     $("#address").val('')
     $("#position").val('')
@@ -197,13 +215,12 @@ function editButtonClick() {
         $("#marital_status").val(data[0].marital_status).trigger("change");
         $("#num_of_children").val(data[0].number_of_children);
         $("#live_with_parent").val(data[0].live_with_parent);
-        $("#live_with_spouse").val(data[0].live_with_spouse_parent);
+        $("#live_with_spouse_parent").val(data[0].live_with_spouse_parent);
         $("#phone").val(data[0].phone_number);
         $("#emergacy_phone").val(data[0].emergacy_contact_phone);
         $("#DOB").val(data[0].date_of_birth);
         $("#nrc").val(data[0].nrc_number);
         $("#bank").val(data[0].bank_account_number);
-        $("#tax").val(data[0].tax_id)
         $("#passport").val(data[0].passport_number)
         $("#address").val(data[0].address)
         $("#position").val(data[0].position_id)
@@ -253,23 +270,23 @@ function saveObj() {
         data_send.marital_status = $("#marital_status").val()
         data_send.number_of_children = $("#num_of_children").val() === '' ? null : $("#num_of_children").val();
         data_send.live_with_parent = $("#live_with_parent").val();
-        data_send.live_with_spouse_parent = $("#live_with_spouse").val();
+        data_send.live_with_spouse_parent = $("#live_with_spouse_parent").val();
         data_send.phone_number = $("#phone").val();
         data_send.emergacy_contact_phone = $("#emergacy_phone").val();
         data_send.date_of_birth = $("#DOB").val();
         data_send.nrc_number = $("#nrc").val();
         data_send.bank_account_number = $("#bank").val();
-        data_send.tax_id = $("#tax").val()
         data_send.passport_number = $("#passport").val()
         data_send.address = $("#address").val()
         data_send.position_id = $("#position").val()
-        data_send.department_id = $("#depertment").val()
+        data_send.department_id = $("#department").val()
         data_send.status = $("#status").val()
+        data_send.tax_id = 000 //TODO: REMOVE THIS WHEN BACKEND DISABLE TAX ID 
     }
     else { //editing update
         request_type = "POST"
-        end_point = API_URI + "employees/" + user_id + '/update';
         data_send = datatable.rows({selected:  true}).data()[0];
+        end_point = API_URI + "employees/" + data_send.id + '/update';
 
         $.each($(".is-valid"), function(index, obj) {
             var fieldname = obj.attributes.name.value;
@@ -295,8 +312,7 @@ function saveObj() {
             hideDataEntryPanel();
                
     }).fail(function(data_response) {
-      console.log('fail',data_response)  
-      //dataResponseErrorUI(data_response);// TODO: enable this 
+      dataResponseErrorUI(data_response);
     });
 }
 
@@ -330,9 +346,11 @@ function load() {
         type: 'POST',
         headers: {"Authorization":'Bearer '+pvar.token}
     }).always(function(data_response) {
-
+      console.log(data_response)
     }).done(function(data_response) {
-        loadTable(data_response.data);        
+        loadTable(data_response.data.employees);
+        loadDepartment(data_response.data.departments)
+        loadPositions(data_response.data.positions)        
                    
     }).fail(function(data_response) {
         dataResponseErrorUI(data_response);
@@ -340,8 +358,28 @@ function load() {
 }
 
 function loadTable(table_data) {
-    datatable.clear().draw();  
-    datatable.rows.add(table_data).draw(); 
+    datatable.clear().draw(); 
+    data = table_data.map(x => ({...x,
+          department : x.department.name,
+          position : x.position.name,
+    }))
+    datatable.rows.add(data).draw(); 
+}
+
+function loadDepartment(deps){
+  var extra_html = ''
+  deps.forEach(ele => {
+    extra_html += `<option value=${ele.id}>${ele.name}</option>`
+    $("#department").html(extra_html)
+  });
+}
+
+function loadPositions(pos){
+  var extra_html = ''
+  pos.forEach(ele => {
+    extra_html += `<option value=${ele.id}>${ele.name}</option>`
+  })
+  $("#position").html(extra_html)
 }
 
 /*----- End Function Section ------*/

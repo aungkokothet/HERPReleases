@@ -138,12 +138,13 @@ function cleanStorage() {
 }
 
 function showMenu() {
+	lev = getPvar().user_level
 	var html_menu = "";
 	
 	html_menu += '<li class="nav-small-cap"><span class="hide-menu">Menu</span></li>';
 	
-	html_menu += '<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="user.html" ><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a></li>';
-	html_menu += '<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="employee.html" ><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Employee</span></a></li>';
+	html_menu += lev < 6 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="user.html" ><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="employee.html" ><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Employee</span></a></li>';
 	
 	$("#sidebarnav").html(html_menu);
 
@@ -224,11 +225,11 @@ function dataResponseErrorUI(data_response) {
         cleanStorage();
         loginPage();
     }
-	if(data_response.responseJSON) {
+	if(data_response.responseText) {
 		Swal.fire({
 		  type: "error",
 		  title: 'Error!',
-		  text: data_response.responseJSON.messages.toString()
+		  text: data_response.responseText
 		});
 	}
 	else {
@@ -237,6 +238,18 @@ function dataResponseErrorUI(data_response) {
 		  title: 'Error!',
 		  text: data_response.statusText
 		});
+	}
+}
+
+function checkVasibality(accessLevel){
+	console.log(getPvar().user_level, accessLevel)
+	if (getPvar().user_level < accessLevel){
+		Swal.fire({
+			type: "error",
+			title: "Unauthorize",
+			text: "You are not authorize to view this page"
+		}).then(
+		function(){console.log('haha');location.replace('../index.html')})
 	}
 }
 
