@@ -143,8 +143,10 @@ function showMenu() {
 	
 	html_menu += '<li class="nav-small-cap"><span class="hide-menu">Menu</span></li>';
 	
-	html_menu += lev < 6 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="user.html" ><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="employee.html" ><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Employee</span></a></li>';
+	html_menu += lev < 6 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="user.html" ><i class="mdi mdi-account"></i><span class="hide-menu">Users</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="employee.html" ><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Employees</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="department.html" ><i class="mdi  mdi-hospital-building"></i><span class="hide-menu">Departments</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="position.html" ><i class="mdi  mdi-clipboard-account"></i><span class="hide-menu">Positions</span></a></li>'
 	
 	$("#sidebarnav").html(html_menu);
 
