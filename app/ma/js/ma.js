@@ -146,8 +146,11 @@ function showMenu() {
 	html_menu += lev < 6 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="user.html" ><i class="mdi mdi-account"></i><span class="hide-menu">Users</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="employee.html" ><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Employees</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="department.html" ><i class="mdi  mdi-hospital-building"></i><span class="hide-menu">Departments</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="position.html" ><i class="mdi  mdi-clipboard-account"></i><span class="hide-menu">Positions</span></a></li>'
-	
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="position.html" ><i class="mdi  mdi-clipboard-account"></i><span class="hide-menu">Positions</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="doctors.html" ><i class="mdi  mdi-medical-bag"></i><span class="hide-menu">Doctors</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="patients.html" ><i class="mdi  mdi-needle"></i><span class="hide-menu">Patients</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="appointments.html" ><i class="mdi  mdi-calendar"></i><span class="hide-menu">Appointments</span></a></li>';
+
 	$("#sidebarnav").html(html_menu);
 
 	/* Set active menu automatically based on menu link uri and address bar link uri */

@@ -172,11 +172,15 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Employee Id</th>
                                         <th>Name</th>
                                         <th>Phone</th>
-                                        <th>Department</th>
-                                        <th>Consultation Charge</th>
+                                        <th>Date of Birth</th>
+                                        <th>Address</th>
+                                        <th>Township</th>
+                                        <th>Region</th>
+                                        <th>Blood Group</th>
+                                        <th>Gender</th>
+                                        <th>Status</th>
                                         <th>Created at</th>
                                         <th>Updated at</th>
                                     </tr>
@@ -204,42 +208,75 @@
                                 <input type="hidden" id="data_id">
 
                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Employee Id</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" id="employee_id" name="employee_id">
-                                    </div>
-                                </div>
-
-                                <div class="form-group mt-4 row">
                                     <label for="username" class="col-md-2 col-form-label">Name</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="doctor_name" name="name">
+                                        <input class="form-control" type="text" id="patient_name" name="name">
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-4 row">
                                     <label for="username" class="col-md-2 col-form-label">Phone</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="doctor_phone" name="phone">
+                                        <input class="form-control" type="text" id="patient_phone" name="phone">
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Date of Birth</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="date_of_birth" name="date_of_birth" placeholder='yyyy-mm-dd'>
+                                    </div>
+                                </div>
+
+                                 <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Address</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_address" name="address">
+                                    </div>
+                                </div>
+
+                                 <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Township</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_township" name="township">
+                                    </div>
+                                </div>
+
+                                 <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Region</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_region" name="region">
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Blood Group</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="blood_group" name="blood_group">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="level" class="col-md-2 col-form-label">Department</label>
+                                    <label for="level" class="col-md-2 col-form-label">Gender</label>
                                     <div class="col-md-10">
-                                        <select class="custom-select col-12" id="department" name="department_id">
-                                            <option value='1'>1</option>
+                                        <select class="custom-select col-12" id="gender" name="gender">
+                                            <option value='Male'>Male</option>
+                                            <option value='Female'>Female</option>
                                         </select>
-                                </div>
-
-                                </div>
-
-                                <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Consultation Charge</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" id="consultation_charge" name="consultation_charge">
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Status</label>
+                                    <div class="col-md-10">
+                                        <select class="custom-select col-12" id="status" name="status">
+                                            <option value='1'>Active</option>
+                                            <option value='0'>Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                        
 
                                 <hr>
                                 <button type="button" class="btn btn-info waves-effect waves-light mr-2" id="btn_save">Save</button>
@@ -304,7 +341,7 @@
     <script src="./js/ma.js"></script>
 
     <!-- Page JavaScript -->
-    <script src="./js/doctors.js"></script>
+    <script src="./js/patients.js"></script>
 
     <!-- End JS -->
 </body>

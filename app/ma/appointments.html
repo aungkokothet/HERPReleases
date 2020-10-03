@@ -172,13 +172,18 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Employee Id</th>
-                                        <th>Name</th>
-                                        <th>Phone</th>
-                                        <th>Department</th>
-                                        <th>Consultation Charge</th>
-                                        <th>Created at</th>
-                                        <th>Updated at</th>
+                                        <th>Patient Id</th>
+                                        <th>Doctor Id</th>
+                                        <th>OPD Room Id</th>
+                                        <th>Appoiment Time</th>
+                                        <th>Status</th>
+                                        <th>Appoiment Type</th>
+                                        <th>Source</th>
+                                        <th>Created Time</th>
+                                        <th>Created User Id</th>
+                                        <th>Created User Login Id</th>
+                                        <th>Updated Time</th>
+                                        <th>Updated User Login Id</th>
                                     </tr>
                                 </thead>
                              
@@ -204,40 +209,61 @@
                                 <input type="hidden" id="data_id">
 
                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Employee Id</label>
+                                    <label for="username" class="col-md-2 col-form-label">Patient</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="employee_id" name="employee_id">
+                                        <input class="form-control" type="text" id="patient_id" name="patient_id">
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Name</label>
+                                    <label for="username" class="col-md-2 col-form-label">Doctor</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="doctor_name" name="name">
+                                        <input class="form-control" type="text" id="doctor_id" name="doctor_id">
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Phone</label>
+                                    <label for="username" class="col-md-2 col-form-label">OTD Room</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="doctor_phone" name="phone">
+                                        <input class="form-control" type="text" id="opd_room_id" name="opd_room_id">
+                                    </div>
+                                </div>
+
+                                 <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Appointment Time</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="appointment_time" name="appoiment_time">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="level" class="col-md-2 col-form-label">Department</label>
+                                    <label for="level" class="col-md-2 col-form-label">Status</label>
                                     <div class="col-md-10">
-                                        <select class="custom-select col-12" id="department" name="department_id">
-                                            <option value='1'>1</option>
+                                        <select class="custom-select col-12" id="status" name="status">
+                                            <option value='1'>Active</option>
+                                            <option value='0'>Inactive</option>
                                         </select>
+                                    </div>
                                 </div>
 
+                                 <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Appointment Type</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="appointment_type" name="appoiment_type">
+                                    </div>
                                 </div>
 
                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Consultation Charge</label>
+                                    <label for="username" class="col-md-2 col-form-label">Source</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="consultation_charge" name="consultation_charge">
+                                        <input class="form-control" type="text" id="source" name="source">
+                                    </div>
+                                </div>
+
+                                 <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Created User Id</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="create_user_id" name="create_user_id">
                                     </div>
                                 </div>
 
@@ -304,7 +330,7 @@
     <script src="./js/ma.js"></script>
 
     <!-- Page JavaScript -->
-    <script src="./js/doctors.js"></script>
+    <script src="./js/appointments.js"></script>
 
     <!-- End JS -->
 </body>

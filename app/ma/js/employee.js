@@ -281,7 +281,7 @@ function saveObj() {
         data_send.position_id = $("#position").val()
         data_send.department_id = $("#department").val()
         data_send.status = $("#status").val()
-        data_send.tax_id = 000 //TODO: REMOVE THIS WHEN BACKEND DISABLE TAX ID 
+        //data_send.tax_id = 000 //TODO: REMOVE THIS WHEN BACKEND DISABLE TAX ID 
     }
     else { //editing update
         request_type = "POST"

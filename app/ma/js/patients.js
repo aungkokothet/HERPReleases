@@ -4,6 +4,8 @@
 
   var datatable = $("#datatable").DataTable({
 
+    scrollX: true,
+
     columnDefs: [
       {
         orderable: true,
@@ -12,11 +14,15 @@
     ],
     columns : [
       {data : "id"},
-      {data : "employee_id"},
       {data : "name"},
       {data : "phone"},
-      {data : "department_id"},
-      {data : "consultation_charge"},
+      {data : "date_of_birth"},
+      {data : "address"},
+      {data : "township"},
+      {data : "region"},
+      {data : "blood_group"},
+      {data : "gender"},
+      {data : "status"},
       {data : "created_time"},
       {data : "updated_time"}
     ],
@@ -145,7 +151,9 @@ function hideDataEntryPanel() {
 
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
-    $("#employee_id, #doctor_name, #doctor_phone, #department, #consultation_charge").val("");
+    $("#date_of_birth, #doctor_name, #doctor_phone, #patient_address, #patient_township, #patient_region, #blood_group").val("");
+    $("#gender").val('Male');
+    $("#status").val(1);
 }
 
 function newButtonClick() {
@@ -167,11 +175,15 @@ function editButtonClick() {
         $("#data_entry_panel_title").html("Edit");
 
         $("#data_id").val(data[0].id);
-        $("#employee_id").val(data[0].employee_id).prop('disabled', true)
-        $("#doctor_name").val(data[0].name);
-        $("#doctor_phone").val(data[0].phone);
-        $("#department").val(data[0].department_id);
-        $("#consultation_charge").val(data[0].consultation_charge);
+        $("#date_of_birth").val(data[0].date_of_birth)
+        $("#patient_name").val(data[0].name);
+        $("#patient_phone").val(data[0].phone);
+        $("#patient_address").val(data[0].address);
+        $("#patient_township").val(data[0].township);
+        $("#patient_region").val(data[0].region);
+        $("#blood_group").val(data[0].blood_group);
+        $("#gender").val(data[0].gender);
+        $("#status").val(data[0].status);
         showDataEntryPanel();
     }
     else {
@@ -203,22 +215,26 @@ function deleteButtonClick() {
 
 function saveObj() {
     var request_type = "POST";
-    var end_point = API_URI + "doctors/add";
+    var end_point = API_URI + "patients/add";
     var data_send = {};
 
     var user_id = $("#data_id").val(); //for edit
 
     if(isnew) { //inserting new
         request_type = "POST";
-        data_send.name = $("#doctor_name").val();
-        data_send.phone = $("#doctor_phone").val();
-        data_send.department_id = $("#department").val();
-        data_send.employee_id = $("#employee_id").val();
-        data_send.consultation_charge = $("#consultation_charge").val();
+        data_send.name = $("#patient_name").val();
+        data_send.phone = $("#patient_phone").val();
+        data_send.date_of_birth = $("#date_of_birth").val();
+        data_send.address = $("#patient_address").val();
+        data_send.township = $("#patient_township").val();
+        data_send.region = $("#patient_region").val();
+        data_send.blood_group = $("#blood_group").val();
+        data_send.gender = $("#gender").val();
+        data_send.status = $("#status").val()
     }
     else { //editing update
         request_type = "POST"
-        end_point = API_URI + "doctors/" + user_id + '/update';
+        end_point = API_URI + "patients/" + user_id + '/update';
         var data_send = datatable.rows({selected:  true}).data()[0];
         $.each($(".is-valid"), function(index, obj) {
             var fieldname = obj.attributes.name.value;
@@ -250,7 +266,7 @@ function saveObj() {
 
 function deleteObj() {
     var user_id = datatable.rows({selected:  true}).data()[0].id;
-    end_point = API_URI + "doctors/" + user_id + "/remove";
+    end_point = API_URI + "patients/" + user_id + "/remove";
     
     var pvar = getPvar();
     $.ajax({
@@ -271,7 +287,7 @@ function deleteObj() {
 
 function load() {
     var pvar = getPvar();
-    var end_point = API_URI + "doctors";
+    var end_point = API_URI + "patients";
     $.ajax({
         url : end_point,
         type: 'POST',

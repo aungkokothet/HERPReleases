@@ -4,6 +4,8 @@
 
   var datatable = $("#datatable").DataTable({
 
+    scrollX: true,
+
     columnDefs: [
       {
         orderable: true,
@@ -12,13 +14,18 @@
     ],
     columns : [
       {data : "id"},
-      {data : "employee_id"},
-      {data : "name"},
-      {data : "phone"},
-      {data : "department_id"},
-      {data : "consultation_charge"},
+      {data : "patient_id"},
+      {data : "doctor_id"},
+      {data : "opd_room_id"},
+      {data : "appointment_time"},
+      {data : "status"},
+      {data : "appointment_type"},
+      {data : "source"},
       {data : "created_time"},
-      {data : "updated_time"}
+      {data : "create_user_id"},
+      {data : "created_user_login_id"},
+      {data : "updated_time"},
+      {data : "updated_user_login_id"}
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -145,7 +152,9 @@ function hideDataEntryPanel() {
 
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
-    $("#employee_id, #doctor_name, #doctor_phone, #department, #consultation_charge").val("");
+    $("#patient_id, #doctor_id, #opd_room_id, #appointment_time, #appointment_type, #source, #create_user_id").val("");
+    $("#status").val(1)
+
 }
 
 function newButtonClick() {
@@ -167,11 +176,14 @@ function editButtonClick() {
         $("#data_entry_panel_title").html("Edit");
 
         $("#data_id").val(data[0].id);
-        $("#employee_id").val(data[0].employee_id).prop('disabled', true)
-        $("#doctor_name").val(data[0].name);
-        $("#doctor_phone").val(data[0].phone);
-        $("#department").val(data[0].department_id);
-        $("#consultation_charge").val(data[0].consultation_charge);
+        $("#patient_id").val(data[0].patient_id)
+        $("#doctor_id").val(data[0].doctor_id);
+        $("#opd_room_id").val(data[0].opd_room_id);
+        $("#appointment_time").val(data[0].appointment_time);
+        $("#status").val(data[0].status);
+        $("#appointment_type").val(data[0].appointment_type);
+        $("#source").val(data[0].source);
+        $("#create_user_id").val(data[0].create_user_id)
         showDataEntryPanel();
     }
     else {
@@ -203,28 +215,32 @@ function deleteButtonClick() {
 
 function saveObj() {
     var request_type = "POST";
-    var end_point = API_URI + "doctors/add";
+    var end_point = API_URI + "appointments/add";
     var data_send = {};
 
     var user_id = $("#data_id").val(); //for edit
 
     if(isnew) { //inserting new
         request_type = "POST";
-        data_send.name = $("#doctor_name").val();
-        data_send.phone = $("#doctor_phone").val();
-        data_send.department_id = $("#department").val();
-        data_send.employee_id = $("#employee_id").val();
-        data_send.consultation_charge = $("#consultation_charge").val();
+        data_send.patient_id = $("#patient_id").val();
+        data_send.doctor_id = $("#doctor_id").val();
+        data_send.opd_room_id = $("#opd_room_id").val();
+        data_send.appointment_time = $("#appointment_time").val();
+        data_send.status = $("#status").val();
+        data_send.appointment_type = $("#appointment_type").val();
+        data_send.source = $("#source").val();
+        data_send.create_user_id = $("#create_user_id").val()
     }
     else { //editing update
         request_type = "POST"
-        end_point = API_URI + "doctors/" + user_id + '/update';
+        end_point = API_URI + "appointments/" + user_id + '/update';
         var data_send = datatable.rows({selected:  true}).data()[0];
         $.each($(".is-valid"), function(index, obj) {
             var fieldname = obj.attributes.name.value;
             data_send[fieldname] = obj.value;
         });    
     }
+    console.log(data_send)
     var pvar = getPvar();
     $.ajax({
         url : end_point,
@@ -250,7 +266,7 @@ function saveObj() {
 
 function deleteObj() {
     var user_id = datatable.rows({selected:  true}).data()[0].id;
-    end_point = API_URI + "doctors/" + user_id + "/remove";
+    end_point = API_URI + "appointments/" + user_id + "/remove";
     
     var pvar = getPvar();
     $.ajax({
@@ -271,7 +287,7 @@ function deleteObj() {
 
 function load() {
     var pvar = getPvar();
-    var end_point = API_URI + "doctors";
+    var end_point = API_URI + "appointments";
     $.ajax({
         url : end_point,
         type: 'POST',
