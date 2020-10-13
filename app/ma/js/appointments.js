@@ -1,5 +1,5 @@
 
-  accessLevel = 5
+  accessLevel = 0
   var isnew = true;  
 
   var datatable = $("#datatable").DataTable({
@@ -19,7 +19,6 @@
       {data : "opd_room_id"},
       {data : "appointment_time"},
       {data : "status"},
-      {data : "appointment_type"},
       {data : "source"},
       {data : "created_time"},
       {data : "create_user_id"},
@@ -152,7 +151,7 @@ function hideDataEntryPanel() {
 
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
-    $("#patient_id, #doctor_id, #opd_room_id, #appointment_time, #appointment_type, #source, #create_user_id").val("");
+    $("#patient_id, #doctor_id, #opd_room_id, #appointment_time, #source, #create_user_id").val("");
     $("#status").val(1)
 
 }
@@ -181,7 +180,6 @@ function editButtonClick() {
         $("#opd_room_id").val(data[0].opd_room_id);
         $("#appointment_time").val(data[0].appointment_time);
         $("#status").val(data[0].status);
-        $("#appointment_type").val(data[0].appointment_type);
         $("#source").val(data[0].source);
         $("#create_user_id").val(data[0].create_user_id)
         showDataEntryPanel();
@@ -227,7 +225,6 @@ function saveObj() {
         data_send.opd_room_id = $("#opd_room_id").val();
         data_send.appointment_time = $("#appointment_time").val();
         data_send.status = $("#status").val();
-        data_send.appointment_type = $("#appointment_type").val();
         data_send.source = $("#source").val();
         data_send.create_user_id = $("#create_user_id").val()
     }

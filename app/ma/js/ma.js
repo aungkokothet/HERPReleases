@@ -149,7 +149,10 @@ function showMenu() {
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="position.html" ><i class="mdi  mdi-clipboard-account"></i><span class="hide-menu">Positions</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="doctors.html" ><i class="mdi  mdi-medical-bag"></i><span class="hide-menu">Doctors</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="patients.html" ><i class="mdi  mdi-needle"></i><span class="hide-menu">Patients</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="appointments.html" ><i class="mdi  mdi-calendar"></i><span class="hide-menu">Appointments</span></a></li>';
+	html_menu += lev < 0 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="appointments.html" ><i class="mdi  mdi-calendar"></i><span class="hide-menu">Appointments</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="diagnosis_report.html" ><i class="mdi  mdi-file-chart"></i><span class="hide-menu">Diagnosis Report</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="medical_record.html" ><i class="mdi  mdi-book-plus"></i><span class="hide-menu">Medical Record</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="opdroom.html" ><i class="mdi  mdi-home"></i><span class="hide-menu">OPD Rooms</span></a></li>';
 
 	$("#sidebarnav").html(html_menu);
 
@@ -254,7 +257,10 @@ function checkVasibality(accessLevel){
 			title: "Unauthorize",
 			text: "You are not authorize to view this page"
 		}).then(
-		function(){console.log('haha');location.replace('../index.html')})
+		function(){
+			cleanStorage();
+			loginPage()
+	})
 	}
 }
 

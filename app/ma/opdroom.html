@@ -19,8 +19,6 @@
     <link href="../assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
     <link href="../assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="../assets/css/style.css" rel="stylesheet">
-    <link href="../assets/libs/searchDropdown/fstdropdown.min.css" rel="stylesheet">
-    
 
     <style>
         .plugin-details {
@@ -174,13 +172,10 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Employee Id</th>
                                         <th>Name</th>
-                                        <th>Phone</th>
-                                        <th>Department</th>
-                                        <th>Consultation Charge</th>
-                                        <th>Created at</th>
-                                        <th>Updated at</th>
+                                        <th>Location</th>
+                                        <th>Current Doctor Id</th>
+                                        <th>Current Queue Token</th>
                                     </tr>
                                 </thead>
                              
@@ -205,35 +200,31 @@
                             <div class="form">
                                 <input type="hidden" id="data_id">
 
-                            <div class="form-group row">
-                                    <label for="level" class="col-md-2 col-form-label">Employee Id</label>
-                                    <div class="col-md-10">
-                                        <select class="fstdropdown-select" id="employee_id" name="employee_id">
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-
                                 <div class="form-group mt-4 row">
                                     <label for="username" class="col-md-2 col-form-label">Name</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="doctor_name" name="name">
+                                        <input class="form-control" type="text" id="name" name="name">
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Phone</label>
+                                    <label for="username" class="col-md-2 col-form-label">Location</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="doctor_phone" name="phone">
+                                        <input class="form-control" type="text" id="location" name="location">
                                     </div>
                                 </div>
 
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Current Doctor Id</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="current_doctor_id" name="current_doctor_id" >
+                                    </div>
                                 </div>
 
                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Consultation Charge</label>
+                                    <label for="username" class="col-md-2 col-form-label">Current Queue Id</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="consultation_charge" name="consultation_charge">
+                                        <input class="form-control" type="text" id="current_queue_id" name="current_queue_id" >
                                     </div>
                                 </div>
 
@@ -293,8 +284,6 @@
     <script src="../assets/libs/toastr/build/toastr.min.js"></script>
     <script src="../assets/libs/sweetalert2/dist/sweetalert2.min.js"></script>
     <script src="../assets/libs/datatables/datatables.min.js"></script>
-    <script src="../assets/libs/searchDropdown/fstdropdown.min.js"></script>
-   
 
     <!-- Common JavaScript -->
     <script src="../assets/js/config.js"></script>
@@ -302,7 +291,7 @@
     <script src="./js/ma.js"></script>
 
     <!-- Page JavaScript -->
-    <script src="./js/doctors.js"></script>
+    {% comment %} <script src="./js/patients.js"></script> {% endcomment %}
 
     <!-- End JS -->
 </body>

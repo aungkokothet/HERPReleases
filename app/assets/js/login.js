@@ -21,7 +21,8 @@ var bvar3 = "herp_login_expiry";
 
 });
   
-$("#user-login").click(function() {
+$("#loginform").submit(function(e) {
+  e.preventDefault()
     loggingInBegin();    
     var user_name = $("#user-name").val();
     var user_password = $("#user-password").val();
@@ -113,9 +114,9 @@ function loginSuccess() {
 		location.replace("./ma/user.html");
 	}
 	else {
-		location.replace("./ma/user.html");// TODO: include user level as level in return JSON from api
+		location.replace("./ma/appointments.html");
   }
-                                        // TODO: write employee table with separate html file
+                                        
 }
 
 function getPvar() {

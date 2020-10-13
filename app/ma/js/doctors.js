@@ -15,7 +15,7 @@
       {data : "employee_id"},
       {data : "name"},
       {data : "phone"},
-      {data : "department_id"},
+      {data : "department"},
       {data : "consultation_charge"},
       {data : "created_time"},
       {data : "updated_time"}
@@ -81,6 +81,8 @@ $(document).ready(function() {
 
 });
 
+$("#employee_id").change(employeeIdOnChange)
+
 /*----- Start Event Section ------*/
 
 /* 
@@ -145,7 +147,9 @@ function hideDataEntryPanel() {
 
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
-    $("#employee_id, #doctor_name, #doctor_phone, #department, #consultation_charge").val("");
+    $("select").removeClass("is-valid");
+    $("#employee_id, #doctor_name, #doctor_phone, #consultation_charge").val("");
+    $("#doctor_name").prop('disabled', false)
 }
 
 function newButtonClick() {
@@ -167,10 +171,9 @@ function editButtonClick() {
         $("#data_entry_panel_title").html("Edit");
 
         $("#data_id").val(data[0].id);
-        $("#employee_id").val(data[0].employee_id).prop('disabled', true)
-        $("#doctor_name").val(data[0].name);
+        $("#employee_id").val(data[0].employee_id)
+        $("#doctor_name").val(data[0].name).prop('disabled', false);
         $("#doctor_phone").val(data[0].phone);
-        $("#department").val(data[0].department_id);
         $("#consultation_charge").val(data[0].consultation_charge);
         showDataEntryPanel();
     }
@@ -277,9 +280,10 @@ function load() {
         type: 'POST',
         headers: {'Authorization': 'Bearer '+ pvar.token, "Content-Type" : "application/json"}
     }).always(function(data_response) {
-
+      console.log(data_response)
     }).done(function(data_response) {
-        loadTable(data_response.data);        
+        loadTable(data_response.data.doctors);
+        loadEmployees(data_response.data.employees)        
                    
     }).fail(function(data_response) {
         dataResponseErrorUI(data_response);
@@ -287,8 +291,30 @@ function load() {
 }
 
 function loadTable(table_data) {
-    datatable.clear().draw();  
-    datatable.rows.add(table_data).draw(); 
+    datatable.clear().draw(); 
+    data = table_data.map(x => ({
+      ...x,
+      employee_id: x.employee.id,
+      department_id: x.employee.department.id,
+      department: x.employee.department.name
+    })) 
+    datatable.rows.add(data).draw(); 
+}
+
+function loadEmployees(data){
+  var options = '<option value="" disabled selected>Choose employee Id</option>'
+  data.forEach(ele => 
+    options += `<option value=${ele.id} name=${ele.name}>${ele.id}</option>`
+  )
+  $("#employee_id").html(options);
+  document.getElementById("employee_id").fstdropdown.rebind();
+
+}
+
+function employeeIdOnChange(){
+  e = document.getElementById('employee_id');
+  name = e.options[e.selectedIndex].getAttribute('name');
+  $("#doctor_name").val(name)
 }
 
 /*----- End Function Section ------*/

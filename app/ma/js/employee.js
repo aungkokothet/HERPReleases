@@ -27,7 +27,7 @@
       {data : "live_with_spouse_parent"},
       {data : "phone_number"},
       {data : "emergency_contact_phone"},
-      {data : "date of birth"},
+      {data : "date_of_birth"},
       {data : "nrc_number"},
       {data : "bank_account_number"},
       {data : "passport_number"},
@@ -166,6 +166,7 @@ function hideDataEntryPanel() {
 
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
+    $("select").removeClass("is-valid")
     $("#data_id").val('');
     $("#employee_id").val('')
     $("#name").val('')
@@ -281,7 +282,6 @@ function saveObj() {
         data_send.position_id = $("#position").val()
         data_send.department_id = $("#department").val()
         data_send.status = $("#status").val()
-        //data_send.tax_id = 000 //TODO: REMOVE THIS WHEN BACKEND DISABLE TAX ID 
     }
     else { //editing update
         request_type = "POST"

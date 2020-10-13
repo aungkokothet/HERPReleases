@@ -92,6 +92,12 @@ $("#btn-see-password").mousedown(function() {
   $("#password").attr("type", "password");
 });
 
+$("#btn-see-password-confirm").mousedown(function() {
+  $("#password-confirmation").attr("type", "text");
+}).mouseup(function() {
+  $("#password-confirmation").attr("type", "password");
+});
+
 $("#btn_reset_login_attempt").click(function() {
   $("#login_attempt").val("0");
   $("#login_attempt").addClass("is-valid");
@@ -144,12 +150,15 @@ function hideDataEntryPanel() {
 function clearDataEntryPanel() {
     $("#password").parent().parent().parent().prop('hidden', false);
     $("#password_confirmation").parent().parent().parent().prop('hidden', false)
+    $("#password_confirmation").val('')
     $("#username").prop("disabled", false)
     $("input").removeClass("is-valid");
+    $("select").removeClass("is-valid");
     $("#username, #password, #fullname").val("");
+    $("#status").prop('disabled', false)
     $("#level, #status").prop("selectedIndex", 0).trigger('change');
     $("#login_attempt").val("0");
-    $("#btn_reset_login_attempt").prop("disabled", true);
+    $("#login_attempt").parent().parent().parent().prop("hidden", true);
 }
 
 function newButtonClick() {
@@ -178,7 +187,10 @@ function editButtonClick() {
         $("#fullname").val(data[0].fullname);
         $("#level").val(data[0].level).trigger("change");
         $("#status").val(data[0].status).trigger("change");
-        $("#login_attempt").val(data[0].login_attempt);
+        if(data[0].level === 6){
+          $("#status").prop('disabled', true)
+        }
+        $("#login_attempt").val(data[0].login_attempt).parent().parent().parent().prop('hidden', false);
         showDataEntryPanel();
     }
     else {
@@ -242,6 +254,7 @@ function saveObj() {
         });    
     }
     var pvar = getPvar();
+    console.log(data_send)
     $.ajax({
         url : end_point,
         type: request_type,
