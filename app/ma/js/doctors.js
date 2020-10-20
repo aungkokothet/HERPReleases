@@ -16,7 +16,8 @@
       {data : "name"},
       {data : "phone"},
       {data : "department"},
-      {data : "consultation_charge"},
+      {data : "opd_charge"},
+      {data : "ipd_charge"},
       {data : "created_time"},
       {data : "updated_time"}
     ],
@@ -148,7 +149,7 @@ function hideDataEntryPanel() {
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
     $("select").removeClass("is-valid");
-    $("#employee_id, #doctor_name, #doctor_phone, #consultation_charge").val("");
+    $("#employee_id, #doctor_name, #doctor_phone, #opd_charge, #ipd_charge").val("");
     $("#doctor_name").prop('disabled', false)
 }
 
@@ -174,7 +175,8 @@ function editButtonClick() {
         $("#employee_id").val(data[0].employee_id)
         $("#doctor_name").val(data[0].name).prop('disabled', false);
         $("#doctor_phone").val(data[0].phone);
-        $("#consultation_charge").val(data[0].consultation_charge);
+        $("#opd_charge").val(data[0].opd_charge);
+        $("#ipd_charge").val(data[0].ipd_charge);
         showDataEntryPanel();
     }
     else {
@@ -217,7 +219,8 @@ function saveObj() {
         data_send.phone = $("#doctor_phone").val();
         data_send.department_id = $("#department").val();
         data_send.employee_id = $("#employee_id").val();
-        data_send.consultation_charge = $("#consultation_charge").val();
+        data_send.opd_charge = $("#opd_charge").val();
+        data_send.ipd_charge = $("#ipd_charge").val();
     }
     else { //editing update
         request_type = "POST"

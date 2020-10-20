@@ -19,8 +19,6 @@
     <link href="../assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
     <link href="../assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="../assets/css/style.css" rel="stylesheet">
-    <link href="../assets/libs/searchDropdown/fstdropdown.min.css" rel="stylesheet">
-    
 
     <style>
         .plugin-details {
@@ -169,23 +167,26 @@
 							<button class="btn btn-outline-info" id="btn_edit"><i class="mdi mdi-pencil"></i>&nbsp;Edit</button>
 							<button class="btn btn-outline-danger" id="btn_delete"><i class="mdi mdi-delete"></i>&nbsp;Delete</button>
                             <hr>
-
+                            <div style={"overflow-x" : "inherit"}>
                             <table id="datatable" class="table table-bordered display">
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Employee Id</th>
                                         <th>Name</th>
-                                        <th>Phone</th>
-                                        <th>Department</th>
-                                        <th>OPD Charge</th>
-                                        <th>IPD Charge</th>
-                                        <th>Created at</th>
-                                        <th>Updated at</th>
+                                        <th>Category Id</th>
+                                        <th>Universal Product Code</th>
+                                        <th>Sale Price</th>
+                                        <th>Purchase Price</th>
+                                        <th>Supplier Id</th>
+                                        <th>Created User Id</th>
+                                        <th>Created At</th>
+                                        <th>Updated User Id</th>
+                                        <th>Updated At</th>
                                     </tr>
                                 </thead>
                              
                             </table>
+                            </div>
 
 							</div>
 						</div>
@@ -206,44 +207,48 @@
                             <div class="form">
                                 <input type="hidden" id="data_id">
 
-                            <div class="form-group row">
-                                    <label for="level" class="col-md-2 col-form-label">Employee Id</label>
-                                    <div class="col-md-10">
-                                        <select class="fstdropdown-select" id="employee_id" name="employee_id">
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-
                                 <div class="form-group mt-4 row">
                                     <label for="username" class="col-md-2 col-form-label">Name</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="doctor_name" name="name">
+                                        <input class="form-control" type="text" id="name" name="name">
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Phone</label>
+                                    <label for="username" class="col-md-2 col-form-label">Pharmacy Category Id</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="doctor_phone" name="phone">
-                                    </div>
-                                </div>
-
-                                </div>
-
-                                <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">OPD Charge</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" id="opd_charge" name="opd_charge">
+                                        <input class="form-control" type="text" id="pharmacy_category_id" name="pharmacy_category_id">
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">IPD Charge</label>
+                                    <label for="username" class="col-md-2 col-form-label">Universal Product Code</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="ipd_charge" name="ipd_charge">
+                                        <input class="form-control" type="text" id="universal_product_code" name="universal_product_code">
                                     </div>
                                 </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Sale Price</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="number" id="sale_price" name="sale_price">
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Purchase Price</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="number" id="purchase_price" name="purchase_price">
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Supplier Id</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="number" id="supplier_id" name="supplier_id">
+                                    </div>
+                                </div>
+
 
                                 <hr>
                                 <button type="button" class="btn btn-info waves-effect waves-light mr-2" id="btn_save">Save</button>
@@ -301,8 +306,6 @@
     <script src="../assets/libs/toastr/build/toastr.min.js"></script>
     <script src="../assets/libs/sweetalert2/dist/sweetalert2.min.js"></script>
     <script src="../assets/libs/datatables/datatables.min.js"></script>
-    <script src="../assets/libs/searchDropdown/fstdropdown.min.js"></script>
-   
 
     <!-- Common JavaScript -->
     <script src="../assets/js/config.js"></script>
@@ -310,7 +313,7 @@
     <script src="./js/ma.js"></script>
 
     <!-- Page JavaScript -->
-    <script src="./js/doctors.js"></script>
+    <script src="./js/pharmacy_items.js"></script>
 
     <!-- End JS -->
 </body>

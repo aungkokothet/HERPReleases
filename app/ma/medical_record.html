@@ -208,9 +208,9 @@
                                     <label for="level" class="col-md-2 col-form-label">Record Type</label>
                                     <div class="col-md-10">
                                         <select class="custom-select col-12" id="record_type" name="record_type">
-                                            <option value='0'>Inpatient</option>
-                                            <option value='1'>Outpatient</option>
-                                            <option value='2'>Emergency</option>
+                                            <option value='Inpatient'>Inpatient</option>
+                                            <option value='Outpatient'>Outpatient</option>
+                                            <option value='Emergency'>Emergency</option>
                                         </select>
                                     </div>
                                 </div>
@@ -225,14 +225,14 @@
                                 <div class="form-group mt-4 row">
                                     <label for="username" class="col-md-2 col-form-label">Doctor Note</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="doctor_note" name="doctor_note">
+                                        <input class="form-control" type="text" id="doctor_notes" name="doctor_notes">
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-4 row">
                                     <label for="username" class="col-md-2 col-form-label">Attachement</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="attachement" name="attachement" >
+                                        <input class="form-control" type="text" id="attachment" name="attachment" >
                                     </div>
                                 </div>
 
@@ -299,7 +299,7 @@
     <script src="./js/ma.js"></script>
 
     <!-- Page JavaScript -->
-    {% comment %} <script src="./js/patients.js"></script> {% endcomment %}
+    <script src="./js/medical_records.js"></script>
 
     <!-- End JS -->
 </body>

@@ -5,7 +5,6 @@
 
   var datatable = $("#datatable").DataTable({
 
-    "scrollX" : true,
 
     columnDefs: [
       {
@@ -15,31 +14,13 @@
     ],
     columns : [
       {data : "id"},
-      {data : "employee_identification_number"},
       {data : "name"},
-      {data : "gender"},
-      {data : "education"},
-      {data : "join_date"},
-      {data : "permanent_date"},
-      {data : "marital_status"},
-      {data : "number_of_children"},
-      {data : "live_with_parent"},
-      {data : "live_with_spouse_parent"},
-      {data : "phone_number"},
-      {data : "emergency_contact_phone"},
-      {data : "date_of_birth"},
-      {data : "nrc_number"},
-      {data : "bank_account_number"},
-      {data : "passport_number"},
+      {data : "phone"},
       {data : "address"},
-      {data : "position"},
-      {data : "department"},
-      {data : "status"},
-      {data : "created_user_login_id"},
-      {data : "updated_user_login_id"},
+      {data : "created_user_id"},
       {data : "created_time"},
+      {data : "updated_user_id"},
       {data : "updated_time"}
-
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -166,26 +147,10 @@ function hideDataEntryPanel() {
 
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
-    $("select").removeClass("is-valid")
     $("#data_id").val('');
-    $("#employee_id").val('')
-    $("#name").val('')
-    $("#gender").val('');
-    $("#education").val('');
-    $("#marital_status").val('').trigger("change");
-    $("#num_of_children").val('');
-    $("#live_with_parent").val('');
-    $("#live_with_spouse").val('');
+    $("#name").val('');
     $("#phone").val('');
-    $("#emergancy_phone").val('');
-    $("#DOB").val('');
-    $("#nrc").val('');
-    $("#bank").val('');
-    $("#passport").val('')
-    $("#address").val('')
-    $("#position").val('')
-    $("#depertment").val('')
-    $("#status").val('')
+    $("#address").val('');
 
 }
 
@@ -209,24 +174,9 @@ function editButtonClick() {
         $("#btn_reset_login_attempt").prop("disabled", false);
 
         $("#data_id").val(data[0].id);
-        $("#employee_id").val(data[0].employee_identification_number)
-        $("#name").val(data[0].name)
-        $("#gender").val(data[0].gender);
-        $("#education").val(data[0].education);
-        $("#marital_status").val(data[0].marital_status).trigger("change");
-        $("#num_of_children").val(data[0].number_of_children);
-        $("#live_with_parent").val(data[0].live_with_parent);
-        $("#live_with_spouse_parent").val(data[0].live_with_spouse_parent);
-        $("#phone").val(data[0].phone_number);
-        $("#emergacy_phone").val(data[0].emergacy_contact_phone);
-        $("#DOB").val(data[0].date_of_birth);
-        $("#nrc").val(data[0].nrc_number);
-        $("#bank").val(data[0].bank_account_number);
-        $("#passport").val(data[0].passport_number)
-        $("#address").val(data[0].address)
-        $("#position").val(data[0].position_id)
-        $("#depertment").val(data[0].department_id)
-        $("#status").val(data[0].status)
+        $("#name").val(data[0].name);
+        $("#phone").val(data[0].phone);
+        $("#address").val(data[0].address);
 
         showDataEntryPanel();
     }
@@ -259,34 +209,20 @@ function deleteButtonClick() {
 
 function saveObj() {
     var request_type = "POST";
-    var end_point = API_URI + "employees/add";
+    var end_point = API_URI + "suppliers/add";
     var data_send = {};
 
     if(isnew) { //inserting new
         request_type = "POST";
-        data_send.employee_identification_number = $("#employee_id").val()
-        data_send.name = $("#name").val()
-        data_send.gender = $("#gender").val();
-        data_send.education = $("#education").val();
-        data_send.marital_status = $("#marital_status").val()
-        data_send.number_of_children = $("#num_of_children").val() === '' ? null : $("#num_of_children").val();
-        data_send.live_with_parent = $("#live_with_parent").val();
-        data_send.live_with_spouse_parent = $("#live_with_spouse_parent").val();
-        data_send.phone_number = $("#phone").val();
-        data_send.emergacy_contact_phone = $("#emergacy_phone").val();
-        data_send.date_of_birth = $("#DOB").val();
-        data_send.nrc_number = $("#nrc").val();
-        data_send.bank_account_number = $("#bank").val();
-        data_send.passport_number = $("#passport").val()
-        data_send.address = $("#address").val()
-        data_send.position_id = $("#position").val()
-        data_send.department_id = $("#department").val()
-        data_send.status = $("#status").val()
+        data_send.name = $("#name").val();
+        data_send.phone = $("#phone").val();
+        data_send.address = $("#address").val();
+
     }
     else { //editing update
         request_type = "POST"
         data_send = datatable.rows({selected:  true}).data()[0];
-        end_point = API_URI + "employees/" + data_send.id + '/update';
+        end_point = API_URI + "suppliers/" + data_send.id + '/update';
 
         $.each($(".is-valid"), function(index, obj) {
             var fieldname = obj.attributes.name.value;
@@ -319,7 +255,7 @@ function saveObj() {
 function deleteObj() {
   console.log(datatable.rows({selected: true}).data()[0])
     var user_id = datatable.rows({selected:  true}).data()[0].id;
-    end_point = API_URI + "employees/" + user_id + '/remove';
+    end_point = API_URI + "suppliers/" + user_id + '/remove';
     
     var pvar = getPvar();
     $.ajax({
@@ -340,7 +276,7 @@ function deleteObj() {
 
 function load() {
     var pvar = getPvar();
-    var end_point = API_URI + "employees";
+    var end_point = API_URI + "suppliers";
     $.ajax({
         url : end_point,
         type: 'POST',
@@ -348,9 +284,7 @@ function load() {
     }).always(function(data_response) {
       console.log(data_response)
     }).done(function(data_response) {
-        loadTable(data_response.data.employees);
-        loadDepartment(data_response.data.departments)
-        loadPositions(data_response.data.positions)        
+        loadTable(data_response.data);       
                    
     }).fail(function(data_response) {
         dataResponseErrorUI(data_response);
@@ -359,28 +293,7 @@ function load() {
 
 function loadTable(table_data) {
     datatable.clear().draw(); 
-    data = table_data.map(x => ({...x,
-          department : x.department.name,
-          department_id: x.department.id,
-          position : x.position.name,
-    }))
-    datatable.rows.add(data).draw(); 
-}
-
-function loadDepartment(deps){
-  var extra_html = ''
-  deps.forEach(ele => {
-    extra_html += `<option value=${ele.id}>${ele.name}</option>`
-    $("#department").html(extra_html)
-  });
-}
-
-function loadPositions(pos){
-  var extra_html = ''
-  pos.forEach(ele => {
-    extra_html += `<option value=${ele.id}>${ele.name}</option>`
-  })
-  $("#position").html(extra_html)
+    datatable.rows.add(table_data).draw(); 
 }
 
 /*----- End Function Section ------*/
