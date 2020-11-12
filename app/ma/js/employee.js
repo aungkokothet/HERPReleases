@@ -150,6 +150,13 @@ $("#btn_delete").click(function() {
     deleteButtonClick();
 });
 
+// $("#DOB").on("change", function() {
+//   this.setAttribute(
+//       "data-date",
+//       moment(this.value, "MM-DD-YYYY")
+//       .format( this.getAttribute("data-date-format") )
+//   )
+// }).trigger("change")
 /*----- End Event Section ------*/
 /*------------------------------*/
 
@@ -363,6 +370,8 @@ function loadTable(table_data) {
           department : x.department.name,
           department_id: x.department.id,
           position : x.position.name,
+          created_time: moment(x.created_time).format('hh:mm/MMM-DD-YYYY'),
+          updated_time: moment(x.updated_time).format('hh:mm/MMM-DD-YYYY')
     }))
     datatable.rows.add(data).draw(); 
 }

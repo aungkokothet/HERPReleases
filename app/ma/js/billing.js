@@ -308,8 +308,15 @@ function load() {
 }
 
 function loadTable(table_data) {
+    var data = table_data.map(x => ({
+      ...x,
+      bill_date_time: moment(x.bill_date_time).format('hh:mm/MMM-DD-YYYY'),
+      discharge_date_time: moment(x.discharge_date_time).format('hh:mm/MMM-DD-YYYY'),
+      created_time: moment(x.created_time).format('hh:mm/MMM-DD-YYYY'),
+      updated_time: moment(x.updated_time).format('hh:mm/MMM-DD-YYYY')
+    }))
     datatable.clear().draw();  
-    datatable.rows.add(table_data).draw(); 
+    datatable.rows.add(data).draw(); 
 }
 
 /*----- End Function Section ------*/

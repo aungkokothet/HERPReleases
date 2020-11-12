@@ -3,7 +3,7 @@
   var isnew = true;  
 
   var datatable = $("#datatable").DataTable({
-
+    scrollX: true,
     columnDefs: [
       {
         orderable: true,
@@ -299,7 +299,9 @@ function loadTable(table_data) {
       ...x,
       employee_id: x.employee.id,
       department_id: x.employee.department.id,
-      department: x.employee.department.name
+      department: x.employee.department.name,
+      created_time: moment(x.created_time).format('hh:mm/MMM-DD-YYYY'),
+      updated_time: moment(x.updated_time).format('hh:mm/MMM-DD-YYY')
     })) 
     datatable.rows.add(data).draw(); 
 }
