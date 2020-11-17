@@ -1,10 +1,11 @@
 
-  accessLevel = 5
+  var accessLevel = 5
+
   var isnew = true;  
 
   var datatable = $("#datatable").DataTable({
 
-    scrollX: true,
+    "scrollX" : true,
 
     columnDefs: [
       {
@@ -14,16 +15,11 @@
     ],
     columns : [
       {data : "id"},
-      {data : "patient_id"},
-      {data : "patient_type"},
-      {data : "inpatient_care_id"},
-      {data : "emergency_care_id"},
-      {data : "appointment_id"},
-      {data : "bill"},
-      {data : "discount"},
-      {data : "tax_amount"},
-      {data : "discharge"},
-      {data : "status"},
+      {data : "pharmacy_issue_id"},
+      {data : "pharmacy_item_id"},
+      {data : "quantity"},
+      {data : "sale_price"},
+      {data : "amount"},
       {data : "created_user_id"},
       {data : "created"},
       {data : "updated_user_id"},
@@ -154,9 +150,10 @@ function hideDataEntryPanel() {
 
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
-    $("#patient_id #inpatient_care_id #emergency_care_id #appointment_id #bill_date_time #discount #tax_amount #discharge_date_time ").val("");
-    $("#patient_type").val('Inpatient');
-    $("#status").val(1);
+    $("select").removeClass("is-valid");
+    $("#data_id, #pharmacy_item_id, #quantity, #sale_price, #amount").val('');
+    $("#pharmacy_issue_id").val('');
+
 }
 
 function newButtonClick() {
@@ -178,16 +175,12 @@ function editButtonClick() {
         $("#data_entry_panel_title").html("Edit");
 
         $("#data_id").val(data[0].id);
-        $("#patient_id").val(data[0].patient_id)
-        $("#patient_type").val(data[0].patient_type);
-        $("#inpatient_care_id").val(data[0].inpatient_care_id);
-        $("#emergency_care_id").val(data[0].emergency_care_id);
-        $("#appointment_id").val(data[0].appointment_id);
-        $("#bill_date_time").val(data[0].bill_date_time);
-        $("#discount").val(data[0].discount);
-        $("#tax_amount").val(data[0].tax_amount);
-        $("#discharge_date_time").val(data[0].discharge_date_time);
-        $("#status").val(data[0].status);
+        $("#pharmacy_issue_id").val(data[0].pharmacy_issue_id);
+        $("#pharmacy_item_id").val(data[0].pharmacy_item_id);
+        $("#quantity").val(data[0].quantity);
+        $("#sale_price").val(data[0].sale_price);
+        $("#amount").val(data[0].amount);
+
         showDataEntryPanel();
     }
     else {
@@ -219,59 +212,55 @@ function deleteButtonClick() {
 
 function saveObj() {
     var request_type = "POST";
-    var end_point = API_URI + "bills/add";
+    var end_point = API_URI + "pharmacy_issue_items/add";
     var data_send = {};
-
-    var user_id = $("#data_id").val(); //for edit
 
     if(isnew) { //inserting new
         request_type = "POST";
-        data_send.patient_id = $("#patient_id").val();
-        data_send.patient_type = $("#patient_type").val();
-        data_send.inpatient_care_id = $("#inpatient_care_id").val();
-        data_send.emergency_care_id = $("#emergency_care_id").val();
-        data_send.appointment_id = $("#appointment_id").val();
-        data_send.bill_date_time = $("#bill_date_time").val();
-        data_send.discount = $("#discount").val();
-        data_send.tax_amount = $("#tax_amount").val();
-        data_send.discharge_date_time = $("#discharge_date_time").val();
-        data_send.status = $("#status").val()
+        data_send.pharmacy_issue_id = $("#pharmacy_issue_id").val();
+        data_send.pharmacy_item_id = $("#pharmacy_item_id").val();
+        data_send.quantity = $("#quantity").val();        
+        data_send.sale_price = $("#sale_price").val();
+        data_send.amount = $("#amount").val();
+        data_send.id = 12//delete this
     }
     else { //editing update
         request_type = "POST"
-        end_point = API_URI + "bills/" + user_id + '/update';
-        var data_send = datatable.rows({selected:  true}).data()[0];
+        data_send = datatable.rows({selected:  true}).data()[0];
+        end_point = API_URI + "pharmacy_issue_items/" + data_send.id + '/update';
+
         $.each($(".is-valid"), function(index, obj) {
             var fieldname = obj.attributes.name.value;
             data_send[fieldname] = obj.value;
         });    
     }
+    console.log(data_send)
     var pvar = getPvar();
     $.ajax({
         url : end_point,
         type: request_type,
         dataType : "JSON",
-        headers: {"Authorization":"Bearer"+pvar.token, "Content-Type" : "application/json"},
+        headers: {"Authorization":"Bearer "+pvar.token, "Content-Type" : "application/json"},
         data: JSON.stringify(data_send)
     }).always(function(data_response) {
-  
-    }).done(function(data_response) {
-      console.log('succ',data_response)
+      console.log(data_response)
 
+    }).done(function(data_response) {
+  
             toastr.success(data_response.message, 'Success', { positionClass: 'toastr toast-top-left', containerId: 'toast-top-left', timeOut: 2000 });
             load(); //to reload table after successfully saved
             clearDataEntryPanel();
             hideDataEntryPanel();
-
+               
     }).fail(function(data_response) {
-      console.log(data_response)
       dataResponseErrorUI(data_response);
     });
 }
 
 function deleteObj() {
+  console.log(datatable.rows({selected: true}).data()[0])
     var user_id = datatable.rows({selected:  true}).data()[0].id;
-    end_point = API_URI + "bills/" + user_id + "/remove";
+    end_point = API_URI + "pharmacy_issue_items/" + user_id + '/remove';
     
     var pvar = getPvar();
     $.ajax({
@@ -280,11 +269,11 @@ function deleteObj() {
         dataType : "JSON",
         headers: {"Authorization" : 'Bearer ' + pvar.token}
     }).always(function(data_response) {
-      
-    }).done(function(data_response) {      
+  
+    }).done(function(data_response) {
             toastr.warning(data_response.message, 'Warning', { positionClass: 'toastr toast-top-left', containerId: 'toast-top-left', timeOut: 2000 });
             load(); //to reload table after successfully deleted
-
+  
     }).fail(function(data_response) {
         dataResponseErrorUI(data_response);
     });
@@ -292,15 +281,15 @@ function deleteObj() {
 
 function load() {
     var pvar = getPvar();
-    var end_point = API_URI + "bills";
+    var end_point = API_URI + "pharmacy_issue_items";
     $.ajax({
         url : end_point,
         type: 'POST',
-        headers: {'Authorization': 'Bearer '+ pvar.token, "Content-Type" : "application/json"}
+        headers: {"Authorization":'Bearer '+pvar.token}
     }).always(function(data_response) {
-        
+      console.log(data_response)
     }).done(function(data_response) {
-        loadTable(data_response.data);        
+        loadTable(data_response.data);       
                    
     }).fail(function(data_response) {
         dataResponseErrorUI(data_response);
@@ -310,12 +299,10 @@ function load() {
 function loadTable(table_data) {
     var data = table_data.map(x => ({
       ...x,
-      bill: moment(x.bill_date_time).format('hh:mm/MMM-DD-YYYY'),
-      discharge: moment(x.discharge_date_time).format('hh:mm/MMM-DD-YYYY'),
-      created: moment(x.created_time).format('hh:mm/MMM-DD-YYYY'),
-      updated: moment(x.updated_time).format('hh:mm/MMM-DD-YYYY')
+      created: moment(x.created_time).format('MMM-DD-YYYY'),
+      updated: moment(x.updated_time).format('MMM-DD-YYYY')
     }))
-    datatable.clear().draw();  
+    datatable.clear().draw(); 
     datatable.rows.add(data).draw(); 
 }
 

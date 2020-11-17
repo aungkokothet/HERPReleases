@@ -159,6 +159,22 @@ function showMenu() {
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="billing.html" ><i class="mdi  mdi-credit-card"></i><span class="hide-menu">Billing</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="service_items.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Service Items</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="service_category.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Service Categories</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="bill_service_items.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Bill Service Items</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="bill_service_receipt.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Bill Service Receipt</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="phermacy_issues.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Phermacy Issues</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="phermacy_issue_items.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Phermacy Issue Items</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_warehouse.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Phermacy Warehouse</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_inventory.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Phermacy Inventory</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_sale.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Phermacy Sale</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_sale_receipt.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Phermacy Sale Receipt</span></a></li>';
+
+
+
+
+
+
+
+
 
 
 	$("#sidebarnav").html(html_menu);

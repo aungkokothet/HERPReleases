@@ -4,8 +4,6 @@
 
   var datatable = $("#datatable").DataTable({
 
-    scrollX: true,
-
     columnDefs: [
       {
         orderable: true,
@@ -14,20 +12,10 @@
     ],
     columns : [
       {data : "id"},
-      {data : "patient_id"},
-      {data : "patient_type"},
-      {data : "inpatient_care_id"},
-      {data : "emergency_care_id"},
-      {data : "appointment_id"},
-      {data : "bill"},
-      {data : "discount"},
-      {data : "tax_amount"},
-      {data : "discharge"},
-      {data : "status"},
-      {data : "created_user_id"},
-      {data : "created"},
-      {data : "updated_user_id"},
-      {data : "updated"}
+      {data : "bill_id"},
+      {data : "service_item_id"},
+      {data : "charge"},
+      {data : "charge_type"},
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -154,9 +142,10 @@ function hideDataEntryPanel() {
 
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
-    $("#patient_id #inpatient_care_id #emergency_care_id #appointment_id #bill_date_time #discount #tax_amount #discharge_date_time ").val("");
-    $("#patient_type").val('Inpatient');
-    $("#status").val(1);
+    $("#bill_id").val('');
+    $("#service_item_id").val('');
+    $("#charge").val(0);
+    $("#charge_type").val('');
 }
 
 function newButtonClick() {
@@ -178,16 +167,10 @@ function editButtonClick() {
         $("#data_entry_panel_title").html("Edit");
 
         $("#data_id").val(data[0].id);
-        $("#patient_id").val(data[0].patient_id)
-        $("#patient_type").val(data[0].patient_type);
-        $("#inpatient_care_id").val(data[0].inpatient_care_id);
-        $("#emergency_care_id").val(data[0].emergency_care_id);
-        $("#appointment_id").val(data[0].appointment_id);
-        $("#bill_date_time").val(data[0].bill_date_time);
-        $("#discount").val(data[0].discount);
-        $("#tax_amount").val(data[0].tax_amount);
-        $("#discharge_date_time").val(data[0].discharge_date_time);
-        $("#status").val(data[0].status);
+        $("#service_item_id").val(data[0].service_item_id)
+        $("#bill_id").val(data[0].bill_id);
+        $("#charge").val(data[0].charge);
+        $("#charge_type").val(data[0].charge_type);
         showDataEntryPanel();
     }
     else {
@@ -219,27 +202,23 @@ function deleteButtonClick() {
 
 function saveObj() {
     var request_type = "POST";
-    var end_point = API_URI + "bills/add";
+    var end_point = API_URI + "bill_service_items/add";
     var data_send = {};
 
     var user_id = $("#data_id").val(); //for edit
 
     if(isnew) { //inserting new
         request_type = "POST";
-        data_send.patient_id = $("#patient_id").val();
-        data_send.patient_type = $("#patient_type").val();
-        data_send.inpatient_care_id = $("#inpatient_care_id").val();
-        data_send.emergency_care_id = $("#emergency_care_id").val();
-        data_send.appointment_id = $("#appointment_id").val();
-        data_send.bill_date_time = $("#bill_date_time").val();
-        data_send.discount = $("#discount").val();
-        data_send.tax_amount = $("#tax_amount").val();
-        data_send.discharge_date_time = $("#discharge_date_time").val();
-        data_send.status = $("#status").val()
+        data_send.id = 1; //delete this
+        data_send.bill_id = $("#bill_id").val();
+        data_send.service_item_id = $("#service_item_id").val();
+        data_send.charge = $("#charge").val();
+        data_send.charge_type = $("#charge_type").val();
+        data_send.id = 20//delete this
     }
     else { //editing update
         request_type = "POST"
-        end_point = API_URI + "bills/" + user_id + '/update';
+        end_point = API_URI + "bill_service_items/" + user_id + '/update';
         var data_send = datatable.rows({selected:  true}).data()[0];
         $.each($(".is-valid"), function(index, obj) {
             var fieldname = obj.attributes.name.value;
@@ -271,7 +250,7 @@ function saveObj() {
 
 function deleteObj() {
     var user_id = datatable.rows({selected:  true}).data()[0].id;
-    end_point = API_URI + "bills/" + user_id + "/remove";
+    end_point = API_URI + "bill_service_items/" + user_id + "/remove";
     
     var pvar = getPvar();
     $.ajax({
@@ -292,13 +271,13 @@ function deleteObj() {
 
 function load() {
     var pvar = getPvar();
-    var end_point = API_URI + "bills";
+    var end_point = API_URI + "bill_service_items";
     $.ajax({
         url : end_point,
         type: 'POST',
         headers: {'Authorization': 'Bearer '+ pvar.token, "Content-Type" : "application/json"}
     }).always(function(data_response) {
-        
+
     }).done(function(data_response) {
         loadTable(data_response.data);        
                    
@@ -308,15 +287,8 @@ function load() {
 }
 
 function loadTable(table_data) {
-    var data = table_data.map(x => ({
-      ...x,
-      bill: moment(x.bill_date_time).format('hh:mm/MMM-DD-YYYY'),
-      discharge: moment(x.discharge_date_time).format('hh:mm/MMM-DD-YYYY'),
-      created: moment(x.created_time).format('hh:mm/MMM-DD-YYYY'),
-      updated: moment(x.updated_time).format('hh:mm/MMM-DD-YYYY')
-    }))
-    datatable.clear().draw();  
-    datatable.rows.add(data).draw(); 
+    datatable.clear().draw(); 
+    datatable.rows.add(table_data).draw(); 
 }
 
 /*----- End Function Section ------*/
