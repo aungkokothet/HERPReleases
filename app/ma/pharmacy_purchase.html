@@ -167,29 +167,23 @@
 							<button class="btn btn-outline-info" id="btn_edit"><i class="mdi mdi-pencil"></i>&nbsp;Edit</button>
 							<button class="btn btn-outline-danger" id="btn_delete"><i class="mdi mdi-delete"></i>&nbsp;Delete</button>
                             <hr>
-
+                            <div style={"overflow-x" : "inherit"}>
                             <table id="datatable" class="table table-bordered display">
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Patient Id</th>
-                                        <th>Patient Type</th>
-                                        <th>Inpatient Care Id</th>
-                                        <th>Emergency Care Id</th>
-                                        <th>Appointment Id</th>
-                                        <th>Bill Date Time</th>
+                                        <th>Date</th>
+                                        <th>Supplier Id</th>
+                                        <th>Total Amount</th>
                                         <th>Discount</th>
-                                        <th>Tax Amount</th>
-                                        <th>Discharge Date Time</th>
                                         <th>Status</th>
-                                        <th>Created By</th>
-                                        <th>Created at</th>
-                                        <th>Updated By</th>
-                                        <th>Updated at</th>
+                                        <th>Created User Id</th>
+                                        <th>Updated User Id</th>
                                     </tr>
                                 </thead>
                              
                             </table>
+                            </div>
 
 							</div>
 						</div>
@@ -210,48 +204,26 @@
                             <div class="form">
                                 <input type="hidden" id="data_id">
 
-                                <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Patient Id</label>
+                                  <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Supplier Id</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="patient_id" name="patient_id">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="level" class="col-md-2 col-form-label">Patient Type</label>
-                                    <div class="col-md-10">
-                                        <select class="custom-select col-12" id="patient_type" name="patient_type">
-                                            <option value='Inpatient'>Inpatient</option>
-                                            <option value='Outpatient'>Outpatient</option>
+                                        <select class="custom-select col-12" id="supplier_id" name="supplier_id">
+                                            <option value='1'>Default</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Inpatient Care Id</label>
+                                    <label for="username" class="col-md-2 col-form-label">Date</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="inpatient_care_id" name="inpatient_care_id" >
+                                        <input class="form-control" type="date" id="date" name="date">
                                     </div>
                                 </div>
 
-                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Emergency Care Id</label>
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Total Amount</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="emergency_care_id" name="emergency_care_id">
-                                    </div>
-                                </div>
-
-                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Appointment Id</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" id="appointment_id" name="appointment_id">
-                                    </div>
-                                </div>
-
-                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Bill Date</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="date" id="bill_date_time" name="bill_date_time">
+                                        <input class="form-control" type="number" id="total_amount" name="total_amount">
                                     </div>
                                 </div>
 
@@ -259,20 +231,6 @@
                                     <label for="username" class="col-md-2 col-form-label">Discount</label>
                                     <div class="col-md-10">
                                         <input class="form-control" type="number" id="discount" name="discount">
-                                    </div>
-                                </div>
-
-                                <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Tax Amount</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="number" id="tax_amount" name="tax_amount">
-                                    </div>
-                                </div>
-
-                                <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Discharge Date</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="date" id="discharge_date_time" name="discharge_date_time">
                                     </div>
                                 </div>
 
@@ -351,7 +309,7 @@
 
 
     <!-- Page JavaScript -->
-    <script src="./js/billing.js"></script>
+    <script src="./js/pharmacy_purchase.js"></script>
 
     <!-- End JS -->
 </body>

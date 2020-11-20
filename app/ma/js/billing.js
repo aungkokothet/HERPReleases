@@ -183,10 +183,10 @@ function editButtonClick() {
         $("#inpatient_care_id").val(data[0].inpatient_care_id);
         $("#emergency_care_id").val(data[0].emergency_care_id);
         $("#appointment_id").val(data[0].appointment_id);
-        $("#bill_date_time").val(data[0].bill_date_time);
+        $("#bill_date_time").val(moment(data[0].bill_date_time).format('YYYY-MM-DD'));
         $("#discount").val(data[0].discount);
         $("#tax_amount").val(data[0].tax_amount);
-        $("#discharge_date_time").val(data[0].discharge_date_time);
+        $("#discharge_date_time").val(moment(data[0].discharge_date_time).format('YYYY-MM-DD'));
         $("#status").val(data[0].status);
         showDataEntryPanel();
     }
@@ -236,6 +236,7 @@ function saveObj() {
         data_send.tax_amount = $("#tax_amount").val();
         data_send.discharge_date_time = $("#discharge_date_time").val();
         data_send.status = $("#status").val()
+        data_send.id = 333//delete this
     }
     else { //editing update
         request_type = "POST"

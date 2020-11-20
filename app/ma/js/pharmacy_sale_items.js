@@ -5,6 +5,7 @@
 
   var datatable = $("#datatable").DataTable({
 
+    "scrollX" : true,
 
     columnDefs: [
       {
@@ -14,11 +15,15 @@
     ],
     columns : [
       {data : "id"},
-      {data : "name"},
-      {data : "location"},
-      {data : "current_doctor_id"},
-      {data : "current_doctor_name"},
-      {data : "current_queue_token"}
+      {data : "pharmacy_sale_id"},
+      {data : "pharmacy_item_id"},
+      {data : "quantity"},
+      {data : "sale_price"},
+      {data : "amount"},
+      {data : "created_user_id"},
+      {data : "created"},
+      {data : "updated_user_id"},
+      {data : "updated"}
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -145,10 +150,8 @@ function hideDataEntryPanel() {
 
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
-    $("select").removeClass("is-valid")
-    $("#data_id").val('');
-    $("#name, #location, #current_queue_token").val('');
-    $("#current_doctor_id").val('');
+    $("select").removeClass("is-valid");
+    $("#data_id, #pharmacy_sale_id, #pharmacy_item_id, #sale_price, #quantity, #amount").val('');
 
 }
 
@@ -171,10 +174,11 @@ function editButtonClick() {
         $("#data_entry_panel_title").html("Edit");
 
         $("#data_id").val(data[0].id);
-        $("#name").val(data[0].name);
-        $("#location").val(data[0].location);
-        $("#current_doctor_id").val(data[0].current_doctor_id);
-        $("#current_queue_token").val(data[0].current_queue_token);
+        $("#pharmacy_sale_id").val(data[0].pharmacy_sale_id);
+        $("#pharmacy_item_id").val(data[0].pharmacy_item_id);
+        $("#quantity").val(data[0].quantity);
+        $("#sale_price").val(data[0].sale_price);
+        $("#amount").val(data[0].amount);
 
         showDataEntryPanel();
     }
@@ -207,20 +211,22 @@ function deleteButtonClick() {
 
 function saveObj() {
     var request_type = "POST";
-    var end_point = API_URI + "opd_rooms/add";
+    var end_point = API_URI + "pharmacy_sale_items/add";
     var data_send = {};
 
     if(isnew) { //inserting new
         request_type = "POST";
-        data_send.name = $("#name").val();
-        data_send.location = $("#location").val();
-        data_send.current_doctor_id = $("#current_doctor_id").val();
-        data_send.current_queue_token = $("#current_queue_token").val();
+        data_send.pharmacy_sale_id = $("#pharmacy_sale_id").val();
+        data_send.pharmacy_item_id = $("#pharmacy_item_id").val();
+        data_send.quantity = $("#quantity").val();        
+        data_send.sale_price = $("#sale_price").val();
+        data_send.amount = $("#amount").val();
+        data_send.id = 12//delete this
     }
     else { //editing update
         request_type = "POST"
         data_send = datatable.rows({selected:  true}).data()[0];
-        end_point = API_URI + "opd_rooms/" + data_send.id + '/update';
+        end_point = API_URI + "pharmacy_sale_items/" + data_send.id + '/update';
 
         $.each($(".is-valid"), function(index, obj) {
             var fieldname = obj.attributes.name.value;
@@ -253,7 +259,7 @@ function saveObj() {
 function deleteObj() {
   console.log(datatable.rows({selected: true}).data()[0])
     var user_id = datatable.rows({selected:  true}).data()[0].id;
-    end_point = API_URI + "opd_rooms/" + user_id + '/remove';
+    end_point = API_URI + "pharmacy_sale_items/" + user_id + '/remove';
     
     var pvar = getPvar();
     $.ajax({
@@ -274,7 +280,7 @@ function deleteObj() {
 
 function load() {
     var pvar = getPvar();
-    var end_point = API_URI + "opd_rooms";
+    var end_point = API_URI + "pharmacy_sale_items";
     $.ajax({
         url : end_point,
         type: 'POST',
@@ -290,9 +296,10 @@ function load() {
 }
 
 function loadTable(table_data) {
-    data = table_data.map(x => ({
-        ...x,
-        current_doctor_name: x.doctor && x.doctor.name
+    var data = table_data.map(x => ({
+      ...x,
+      created: moment(x.created_time).format('MMM-DD-YYYY'),
+      updated: moment(x.updated_time).format('MMM-DD-YYYY')
     }))
     datatable.clear().draw(); 
     datatable.rows.add(data).draw(); 

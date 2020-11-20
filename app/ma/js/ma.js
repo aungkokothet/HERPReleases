@@ -153,20 +153,28 @@ function showMenu() {
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="diagnosis_report.html" ><i class="mdi  mdi-file-chart"></i><span class="hide-menu">Diagnosis Report</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="medical_record.html" ><i class="mdi  mdi-book-plus"></i><span class="hide-menu">Medical Record</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="opdroom.html" ><i class="mdi  mdi-home"></i><span class="hide-menu">OPD Rooms</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_category.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Pharmacy Categories</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="suppliers.html" ><i class="mdi  mdi-truck"></i><span class="hide-menu">Suppliers</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_items.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Pharmacy Items</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="billing.html" ><i class="mdi  mdi-credit-card"></i><span class="hide-menu">Billing</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="service_items.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Service Items</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="service_category.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Service Categories</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="bill_service_items.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Bill Service Items</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="bill_service_receipt.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Bill Service Receipt</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="phermacy_issues.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Phermacy Issues</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="phermacy_issue_items.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Phermacy Issue Items</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_warehouse.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Phermacy Warehouse</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_inventory.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Phermacy Inventory</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_sale.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Phermacy Sale</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_sale_receipt.html" ><i class="mdi  mdi-domain"></i><span class="hide-menu">Phermacy Sale Receipt</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_category.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Pharmacy Categories</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_items.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Pharmacy Items</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="phermacy_issues.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Phermacy Issues</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="phermacy_issue_items.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Phermacy Issue Items</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_warehouse.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Phermacy Warehouse</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_inventory.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Phermacy Inventory</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_sale.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Phermacy Sale</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_sale_receipt.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Phermacy Sale Receipt</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_sale_items.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Phermacy Sale Items</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_purchase.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Pharmacy Purchase</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_purchase_items.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Pharmacy Purchase Items</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_purchase_payment.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Pharmacy Purchase Payment</span></a></li>';
+
+
+
+
 
 
 

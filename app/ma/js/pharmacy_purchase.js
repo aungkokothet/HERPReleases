@@ -5,6 +5,7 @@
 
   var datatable = $("#datatable").DataTable({
 
+    "scrollX" : true,
 
     columnDefs: [
       {
@@ -14,11 +15,13 @@
     ],
     columns : [
       {data : "id"},
-      {data : "name"},
-      {data : "location"},
-      {data : "current_doctor_id"},
-      {data : "current_doctor_name"},
-      {data : "current_queue_token"}
+      {data : "date_mod"},
+      {data : "supplier_id"},
+      {data : "total_amount"},
+      {data : "discount"},
+      {data : "status_mod"},
+      {data : "created_user_id"},
+      {data : "updated_user_id"}
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -145,10 +148,8 @@ function hideDataEntryPanel() {
 
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
-    $("select").removeClass("is-valid")
-    $("#data_id").val('');
-    $("#name, #location, #current_queue_token").val('');
-    $("#current_doctor_id").val('');
+    $("select").removeClass("is-valid");
+    $("#data_id, #supplier_id, #date, #status, #total_amount, #discount").val('');
 
 }
 
@@ -171,10 +172,11 @@ function editButtonClick() {
         $("#data_entry_panel_title").html("Edit");
 
         $("#data_id").val(data[0].id);
-        $("#name").val(data[0].name);
-        $("#location").val(data[0].location);
-        $("#current_doctor_id").val(data[0].current_doctor_id);
-        $("#current_queue_token").val(data[0].current_queue_token);
+        $("#supplier_id").val(data[0].supplier_id);
+        $("#date").val(moment(data[0].date).format('YYYY-MM-DD'));
+        $("#status").val(data[0].status);
+        $("#discount").val(data[0].discount);
+        $("#total_amount").val(data[0].total_amount);
 
         showDataEntryPanel();
     }
@@ -207,20 +209,22 @@ function deleteButtonClick() {
 
 function saveObj() {
     var request_type = "POST";
-    var end_point = API_URI + "opd_rooms/add";
+    var end_point = API_URI + "pharmacy_purchases/add";
     var data_send = {};
 
     if(isnew) { //inserting new
         request_type = "POST";
-        data_send.name = $("#name").val();
-        data_send.location = $("#location").val();
-        data_send.current_doctor_id = $("#current_doctor_id").val();
-        data_send.current_queue_token = $("#current_queue_token").val();
+        data_send.supplier_id = $("#supplier_id").val();
+        data_send.date = $("#date").val();        
+        data_send.status = $("#status").val();
+        data_send.discount = $("#discount").val();
+        data_send.total_amount = $("#total_amount").val();
+        data_send.id = 12//delete this
     }
     else { //editing update
         request_type = "POST"
         data_send = datatable.rows({selected:  true}).data()[0];
-        end_point = API_URI + "opd_rooms/" + data_send.id + '/update';
+        end_point = API_URI + "pharmacy_purchases/" + data_send.id + '/update';
 
         $.each($(".is-valid"), function(index, obj) {
             var fieldname = obj.attributes.name.value;
@@ -253,7 +257,7 @@ function saveObj() {
 function deleteObj() {
   console.log(datatable.rows({selected: true}).data()[0])
     var user_id = datatable.rows({selected:  true}).data()[0].id;
-    end_point = API_URI + "opd_rooms/" + user_id + '/remove';
+    end_point = API_URI + "pharmacy_purchases/" + user_id + '/remove';
     
     var pvar = getPvar();
     $.ajax({
@@ -274,7 +278,7 @@ function deleteObj() {
 
 function load() {
     var pvar = getPvar();
-    var end_point = API_URI + "opd_rooms";
+    var end_point = API_URI + "pharmacy_purchases";
     $.ajax({
         url : end_point,
         type: 'POST',
@@ -290,9 +294,10 @@ function load() {
 }
 
 function loadTable(table_data) {
-    data = table_data.map(x => ({
-        ...x,
-        current_doctor_name: x.doctor && x.doctor.name
+    var data = table_data.map(x => ({
+      ...x,
+     date_mod: moment(x.date).format('MMM-DD-YYYY'),
+     status_mod: x.status?'Active':'Inactive'
     }))
     datatable.clear().draw(); 
     datatable.rows.add(data).draw(); 

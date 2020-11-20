@@ -289,6 +289,7 @@ function saveObj() {
         data_send.position_id = $("#position").val()
         data_send.department_id = $("#department").val()
         data_send.status = $("#status").val()
+        data_send.tax_id = 12 //remove this
     }
     else { //editing update
         request_type = "POST"
