@@ -166,6 +166,7 @@
 							<button class="btn btn-outline-info" id="btn_new"><i class="mdi mdi-plus"></i>&nbsp;New</button>
 							<button class="btn btn-outline-info" id="btn_edit"><i class="mdi mdi-pencil"></i>&nbsp;Edit</button>
 							<button class="btn btn-outline-danger" id="btn_delete"><i class="mdi mdi-delete"></i>&nbsp;Delete</button>
+                            <button class="btn btn-outline-info" id="btn_receipt"><i class="mdi mdi-pencil"></i>&nbsp;Receipt</button>
                             <hr>
                             <div style={"overflow-x" : "inherit"}>
                             <table id="datatable" class="table table-bordered display">
@@ -188,6 +189,33 @@
 
 							</div>
 						</div>
+                    </div>
+                </div>
+
+                <div class="row d-none" id='bill_request'>
+                    <div class='col-md-12'>
+                        <div class='card'>
+                            <div class="card-header d-flex align-items-center">
+                                <h4 class="card-title" id="data_entry_panel_title">Collected Amount</h4>
+                                <div class="card-actions ml-auto">
+                                    <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                    <a class="btn-close" ><i class="mdi mdi-close"></i></a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class='form'>
+                                    <div class="form-group mt-4 row">
+                                        <label for="username" class="col-md-2 col-form-label">Collected Amount</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="number" id="collected_amount" name="collected_amount" >
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <button type="button" class="btn btn-info waves-effect waves-light mr-2" id="btn_receipt_go">Create</button>
+                                    <button type="button" class="btn btn-light waves-effect waves-light mr-2" id="btn_receipt_cancel">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

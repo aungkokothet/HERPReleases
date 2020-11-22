@@ -132,7 +132,15 @@ $("#btn_save").click(function() {
 $("#btn_delete").click(function() {
     deleteButtonClick();
 });
-
+$("#btn_receipt").click(function(){
+  showBill();
+})
+$("#btn_receipt_cancel").click(function(){
+  hideBill();
+})
+$("#btn_receipt_go").click(function(){
+  createBill();
+})
 /*----- End Event Section ------*/
 /*------------------------------*/
 
@@ -147,6 +155,15 @@ function hideDataEntryPanel() {
     $("#data_entry_panel").addClass("d-none");
 }
 
+function showBill(){
+  $("#bill_request").removeClass("d-none");
+  $("#data_table_panel").addClass("d-none");
+}
+
+function hideBill(){
+  $("#bill_request").addClass("d-none");
+  $("#data_table_panel").removeClass("d-none");
+}
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
     $("select").removeClass("is-valid");
@@ -307,5 +324,8 @@ function loadTable(table_data) {
     datatable.rows.add(data).draw(); 
 }
 
+function createBill(){
+  window.location = 'pharmacy_sale_receipt.html'
+}
 /*----- End Function Section ------*/
 /*---------------------------------*/
