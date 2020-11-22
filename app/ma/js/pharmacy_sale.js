@@ -325,7 +325,7 @@ function loadTable(table_data) {
 }
 
 function createBill(){
-  window.location = 'pharmacy_sale_item.html'
+  window.location = 'pharmacy_sale_items.html'
 }
 /*----- End Function Section ------*/
 /*---------------------------------*/
