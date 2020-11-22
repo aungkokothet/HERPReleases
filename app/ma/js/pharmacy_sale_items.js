@@ -17,6 +17,7 @@
       {data : "id"},
       {data : "pharmacy_sale_id"},
       {data : "pharmacy_item_id"},
+      {data : "name"},
       {data : "quantity"},
       {data : "sale_price"},
       {data : "amount"},
@@ -298,6 +299,7 @@ function load() {
 function loadTable(table_data) {
     var data = table_data.map(x => ({
       ...x,
+      name: "Biogesis-Paracatmol-100mg-",
       created: moment(x.created_time).format('MMM-DD-YYYY'),
       updated: moment(x.updated_time).format('MMM-DD-YYYY')
     }))
