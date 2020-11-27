@@ -157,14 +157,11 @@ function showMenu() {
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_inventory.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Pharmacy Inventory</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_sale.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Pharmacy Sale</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="pharmacy_purchase.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Pharmacy Purchase</span></a></li>';
-
-
-
-
-
-
-
-
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="salary.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Salary</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="attadance.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Attadance</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="payroll.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Payroll</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="leave_request.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Leave Requests</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="leave_type.html" ><i class="mdi  mdi-pill"></i><span class="hide-menu">Leave Types</span></a></li>';
 
 
 

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <title></title>
+    <!-- This page css -->
+    <link href="../../dist/css/style.css" rel="stylesheet">
+    
+    <!-- This page plugin CSS -->    
+    <link href="../assets/libs/datatables/datatables.min.css" rel="stylesheet">
+    <link href="../assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
+    <link href="../assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
+
+    <style>
+        .plugin-details {
+            display: none;
+        }
+
+        .plugin-details-active {
+            display: block;
+        }
+
+        .font-18 {
+            font-size: 18px !important;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.scss -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+                            class="mdi mdi-menu mdi-close icon-lg"></i></a>
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-brand">
+                        <!-- Logo icon -->
+                        <a href="javascript:void(0);">
+                            <b class="logo-icon">
+                                <!-- Light Logo icon -->
+                                <img src="../assets/images/logo-light-icon.png" alt="homepage" class="icon-logo" />
+                            </b>
+                            <!--End Logo icon -->
+                        </a>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!-- ============================================================== -->
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                        data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="mdi mdi-dots-vertical icon-lg"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+				<div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin1">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav mr-auto">
+                        <!-- This is  -->
+                       
+
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav">
+
+                        <!-- Profile -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="mdi mdi-settings "></i>
+                            </a>
+                            <div class="dropdown-menu mailbox dropdown-menu-right scale-up">
+                                <ul id="top_menu" class="dropdown-user list-style-none">
+                                   
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+						
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="page-breadcrumb mb-3">
+                    <div class="d-flex align-items-center">
+                        <h2 class="page-title text-truncate text-dark font-weight-medium mb-0" id="page_title"></h2>
+						
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                            
+                <div class="row" id="data_table_panel">
+                    <div class="col-md-12">
+                        <div class="card">
+							<div class="card-body">
+							<button class="btn btn-outline-info" id="btn_new"><i class="mdi mdi-plus"></i>&nbsp;New</button>
+							<button class="btn btn-outline-info" id="btn_edit"><i class="mdi mdi-pencil"></i>&nbsp;Edit</button>
+							<button class="btn btn-outline-danger" id="btn_delete"><i class="mdi mdi-delete"></i>&nbsp;Delete</button>
+                            <hr>
+                            <div style={"overflow-x" : "inherit"}>
+                            <table id="datatable" class="table table-bordered display">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Employee Id</th>
+                                        <th>Time In</th>
+                                        <th>Time Out</th>
+                                        <th>Created User Id</th>
+                                        <th>Created At</th>
+                                        <th>Updated User Id</th>
+                                        <th>Updated At</th>
+                                    </tr>
+                                </thead>
+                             
+                            </table>
+                            </div>
+
+							</div>
+						</div>
+                    </div>
+                </div>
+
+                <div class="row d-none" id="data_entry_panel">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <h4 class="card-title" id="data_entry_panel_title">New</h4>
+                            <div class="card-actions ml-auto">
+                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <a class="btn-close" ><i class="mdi mdi-close"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form">
+                                <input type="hidden" id="data_id">
+
+                                  <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Employee Id</label>
+                                    <div class="col-md-10">
+                                        <select class="custom-select col-12" id="employee_id" name="employee_id">
+                                            <option value='1'>Default</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Time In</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="datetime-local" id="time_in" name="time_in">
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Time Out</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="datetime-local" id="time_out" name="time_out">
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <button type="button" class="btn btn-info waves-effect waves-light mr-2" id="btn_save">Save</button>
+                                <button type="button" class="btn btn-light waves-effect waves-light mr-2" id="btn_cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer text-center" id="footer_text">
+               
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+
+    <!-- This div tag is for html codes injection from js file if needed -->
+    <div id="js_html"></div>
+
+
+    <!-- End Page -->
+    <!-- ============================================================== -->
+
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+
+    <!-- apps -->
+    <script src="../../dist/js/app.min.js"></script>
+    <script src="../../dist/js/app.init.js"></script>
+    <script src="../../dist/js/app-style-switcher.js"></script>
+
+    <script src="../../dist/js/sidebarmenu.js"></script>
+
+    <!-- This page plugins -->    
+    <script src="../assets/libs/toastr/build/toastr.min.js"></script>
+    <script src="../assets/libs/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="../assets/libs/datatables/datatables.min.js"></script>
+
+    <!-- Common JavaScript -->
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="./js/ma.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+
+    <!-- Page JavaScript -->
+    <script src="./js/attendance.js"></script>
+
+    <!-- End JS -->
+</body>
+
+</html>
