@@ -18,6 +18,7 @@
     <link href="../assets/libs/datatables/datatables.min.css" rel="stylesheet">
     <link href="../assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
     <link href="../assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="../assets/libs/searchDropdown/fstdropdown.min.css" rel="stylesheet">
     <link href="../assets/css/style.css" rel="stylesheet">
 
     <style>
@@ -172,6 +173,7 @@
                                 <thead>
                                     <tr>
                                         <th></th>
+                                        <th>Queue Ticket</th>
                                         <th>Patient Id</th>
                                         <th>Doctor Id</th>
                                         <th>OPD Room Id</th>
@@ -180,9 +182,8 @@
                                         <th>Source</th>
                                         <th>Created Time</th>
                                         <th>Created User Id</th>
-                                        <th>Created User Login Id</th>
                                         <th>Updated Time</th>
-                                        <th>Updated User Login Id</th>
+                                        <th>Updated User Id</th>
                                     </tr>
                                 </thead>
                              
@@ -210,28 +211,34 @@
                                 <div class="form-group mt-4 row">
                                     <label for="username" class="col-md-2 col-form-label">Patient</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="patient_id" name="patient_id">
+                                        <select class="fstdropdown-select" type="text" id="patient_id" name="patient_id">
+
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-4 row">
                                     <label for="username" class="col-md-2 col-form-label">Doctor</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="doctor_id" name="doctor_id">
+                                        <select class="fstdropdown-select" type="text" id="doctor_id" name="doctor_id">
+
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">OTD Room</label>
+                                    <label for="username" class="col-md-2 col-form-label">OPD Room</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="opd_room_id" name="opd_room_id">
+                                        <select class="form-control" id="opd_room_id" name="opd_room_id" disabled>
+                                        
+                                        </select>
                                     </div>
                                 </div>
 
                                  <div class="form-group mt-4 row">
                                     <label for="username" class="col-md-2 col-form-label">Appointment Time</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="date-time" id="appointment_time" name="appoiment_time">
+                                        <input class="form-control" type="datetime-local" id="appointment_time" name="appoiment_time">
                                     </div>
                                 </div>
 
@@ -249,14 +256,11 @@
                                 <div class="form-group mt-4 row">
                                     <label for="username" class="col-md-2 col-form-label">Source</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="source" name="source">
-                                    </div>
-                                </div>
-
-                                 <div class="form-group mt-4 row">
-                                    <label for="username" class="col-md-2 col-form-label">Created User Id</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" type="text" id="create_user_id" name="create_user_id">
+                                        <select class="form-control" id="source" name="source">
+                                            <option value='Phone Call'>Phone Call</option>
+                                            <option value='Walk In'>Walk In</option>
+                                            <option value='Online'>Online</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -316,6 +320,8 @@
     <script src="../assets/libs/toastr/build/toastr.min.js"></script>
     <script src="../assets/libs/sweetalert2/dist/sweetalert2.min.js"></script>
     <script src="../assets/libs/datatables/datatables.min.js"></script>
+    <script src="../assets/libs/searchDropdown/fstdropdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
     <!-- Common JavaScript -->
     <script src="../assets/js/config.js"></script>

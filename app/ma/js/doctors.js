@@ -150,7 +150,8 @@ function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
     $("select").removeClass("is-valid");
     $("#employee_id, #doctor_name, #doctor_phone, #opd_charge, #ipd_charge").val("");
-    $("#doctor_name").prop('disabled', false)
+    $("#doctor_name").prop('disabled', false);
+    document.getElementById("employee_id").fstdropdown.rebind();
 }
 
 function newButtonClick() {
@@ -298,8 +299,8 @@ function loadTable(table_data) {
     data = table_data.map(x => ({
       ...x,
       employee_id: x.employee.id,
-      department_id: x.employee.department.id,
-      department: x.employee.department.name,
+      department_id: x.department.id,
+      department: x.department.name,
       created_time: moment(x.created_time).format('hh:mm/MMM-DD-YYYY'),
       updated_time: moment(x.updated_time).format('hh:mm/MMM-DD-YYY')
     })) 

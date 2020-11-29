@@ -2,6 +2,8 @@
   accessLevel = 0
   var isnew = true;  
 
+  var opdRooms = []
+
   var datatable = $("#datatable").DataTable({
 
     scrollX: true,
@@ -14,17 +16,17 @@
     ],
     columns : [
       {data : "id"},
+      {data : "queue_ticket_number"},
       {data : "patient_id"},
       {data : "doctor_id"},
       {data : "opd_room_id"},
-      {data : "appointment_time"},
-      {data : "status"},
+      {data : "appointment_time_mod"},
+      {data : "status_mod"},
       {data : "source"},
       {data : "created_time"},
-      {data : "create_user_id"},
-      {data : "created_user_login_id"},
+      {data : "created_user_id"},
       {data : "updated_time"},
-      {data : "updated_user_login_id"}
+      {data : "updated_user_id"}
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -93,6 +95,7 @@ $(document).ready(function() {
 This section organizes user interactions and events on UI that call functions
 */
 
+$("#doctor_id").on("change",fillOpd)
 //password field reveal event function when button click in entry form
 $("#btn-see-password").mousedown(function() {
   $("#password").attr("type", "text");
@@ -151,8 +154,11 @@ function hideDataEntryPanel() {
 
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
-    $("#patient_id, #doctor_id, #opd_room_id, #appointment_time, #source, #create_user_id").val("");
-    $("#status").val(1)
+    $("#patient_id, #doctor_id, #opd_room_id, #appointment_time").val("");
+    $("#source").val('Walk In')
+    $("#status").val(0)
+    document.getElementById("doctor_id").fstdropdown.rebind();
+    document.getElementById("patient_id").fstdropdown.rebind();
 
 }
 
@@ -178,7 +184,7 @@ function editButtonClick() {
         $("#patient_id").val(data[0].patient_id)
         $("#doctor_id").val(data[0].doctor_id);
         $("#opd_room_id").val(data[0].opd_room_id);
-        $("#appointment_time").val(data[0].appointment_time);
+        $("#appointment_time").val(moment(data[0].appointment_time).format('YYYY-MM-DDTHH:MM'));
         $("#status").val(data[0].status);
         $("#source").val(data[0].source);
         $("#create_user_id").val(data[0].create_user_id)
@@ -292,17 +298,67 @@ function load() {
     }).always(function(data_response) {
 
     }).done(function(data_response) {
-        loadTable(data_response.data);        
+        loadTable(data_response.data); 
+        loadPatient(data_response.data.patients)  
+        loadDoctor(data_response.data.doctors)   
+        loadOpdRooms(data_response.data.opds)  
                    
     }).fail(function(data_response) {
         dataResponseErrorUI(data_response);
     });
 }
-
-function loadTable(table_data) {
-    datatable.clear().draw();  
-    datatable.rows.add(table_data).draw(); 
+function getStatus(num){
+  switch(num){
+    case 0: return 'open';
+    case 1: return 'complete';
+    case 2: return 'cancel'
+  }
 }
 
+function loadTable(table_data) {
+    var data = table_data.appointments.map(x => ({
+      ...x,
+      status_mod: getStatus(x.status),
+      appointment_time_mod: moment(x.appointment_time).format('MMM DD, YYYY, hh:MM A')
+    }))
+    datatable.clear().draw();  
+    datatable.rows.add(data).draw(); 
+}
+
+function loadPatient(data){
+  var options = '<option value="" disabled selected>Choose patient</option>';
+  data.forEach(ele => 
+    options += `<option value=${ele.id} name=${ele.name}>${ele.name}, ${ele.phone}</option>`
+  )
+  $("#patient_id").html(options);
+  document.getElementById("patient_id").fstdropdown.rebind();
+}
+
+function loadDoctor(data){
+  var options = '<option value="" disabled selected>Choose doctor</option>';
+  data.forEach(ele => 
+    options += `<option value=${ele.id} name=${ele.name}>${ele.name}</option>`)
+  $("#doctor_id").html(options);
+  document.getElementById("doctor_id").fstdropdown.rebind();
+}
+
+function loadOpdRooms(data){
+  var options = "<option value=''></option>";
+  options += "<option value='-1'>No opd room for current doctor</option>"
+  data.forEach(ele => 
+      options += `<option value=${ele.id}>${ele.name}</option>`)
+  $("#opd_room_id").html(options)
+  opdRooms = data
+}
+
+function fillOpd(e){
+  doctorId = e.target.value;
+  opd = opdRooms.filter(x => x.current_doctor_id==doctorId)
+  if(opd[0])
+    $("#opd_room_id").val(opd[0].id)
+  else
+    $("#opd_room_id").val(-1)
+}
+  
 /*----- End Function Section ------*/
 /*---------------------------------*/
