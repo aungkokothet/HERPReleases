@@ -2,7 +2,8 @@
   accessLevel = 0
   var isnew = true;  
 
-  var opdRooms = []
+  var opdRooms = [];
+  var doctors = [];
 
   var datatable = $("#datatable").DataTable({
 
@@ -18,15 +19,14 @@
       {data : "id"},
       {data : "queue_ticket_number"},
       {data : "patient_id"},
+      {data : "patient_name"},
       {data : "doctor_id"},
+      {data : "doctor_name"},
       {data : "opd_room_id"},
+      {data : "opd_room_name"},
       {data : "appointment_time_mod"},
       {data : "status_mod"},
       {data : "source"},
-      {data : "created_time"},
-      {data : "created_user_id"},
-      {data : "updated_time"},
-      {data : "updated_user_id"}
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -137,6 +137,12 @@ $("#btn_save").click(function() {
 $("#btn_delete").click(function() {
     deleteButtonClick();
 });
+$("#btn_detail").click(function() {
+   detailButtonClick();
+})
+$("#detail-btn_cancel, .detail-btn-close").click(function(){
+  hideDetailPanel();
+})
 
 /*----- End Event Section ------*/
 /*------------------------------*/
@@ -155,11 +161,22 @@ function hideDataEntryPanel() {
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
     $("#patient_id, #doctor_id, #opd_room_id, #appointment_time").val("");
+    $("#doctor-schedule").html('<p></p>')
     $("#source").val('Walk In')
     $("#status").val(0)
     document.getElementById("doctor_id").fstdropdown.rebind();
     document.getElementById("patient_id").fstdropdown.rebind();
 
+}
+
+function showDetailPanel(){
+  $("#data_table_panel").addClass("d-none");
+  $("#detail_panel").removeClass("d-none");
+}
+
+function hideDetailPanel(){
+  $("#data_table_panel").removeClass("d-none");
+  $("#detail_panel").addClass("d-none");
 }
 
 function newButtonClick() {
@@ -185,6 +202,8 @@ function editButtonClick() {
         $("#doctor_id").val(data[0].doctor_id);
         $("#opd_room_id").val(data[0].opd_room_id);
         $("#appointment_time").val(moment(data[0].appointment_time).format('YYYY-MM-DDTHH:MM'));
+        doctor = doctors.filter(x => x.id==data[0].doctor_id)
+        $("#doctor-schedule").html(`<p>${doctor[0].schedule}</p>`)
         $("#status").val(data[0].status);
         $("#source").val(data[0].source);
         $("#create_user_id").val(data[0].create_user_id)
@@ -194,6 +213,35 @@ function editButtonClick() {
         return false;
     }
 }
+
+function detailButtonClick() {
+  if(datatable.rows('.selected').any()) {
+      isnew = false;
+
+      var data = datatable.rows({selected:  true}).data();
+
+      $("#data_entry_panel_title").html("Detail");
+
+      $("#detail-patient-id").val(data[0].patient_id);
+      $("#detail-patient-name").val(data[0].patient_name);
+      $("#detail-doctor-id").val(data[0].doctor_id);
+      $("#detail-doctor-name").val(data[0].doctor_name);
+      $("#detail-opdroom-id").val(data[0].opd_room_id);
+      $("#detail-opdroom-name").val(data[0].opd_room_name);
+      $("#detail-appointmenttime").val(moment(data[0].appointment_time).format('YYYY-MM-DDTHH:MM'));
+      $("#detail-status").val(data[0].status_mod);
+      $("#detail-source").val(data[0].source);
+      doctor = doctors.filter(x => x.id==data[0].doctor_id)
+      $("#detail-doctor-schedule").html(`<p>${doctor[0].schedule}</p>`)
+      $("#detail-created_time").val(moment(data[0].created_time).format('YYYY-MM-DDTHH:MM'));
+      $("#detail-updated_time").val(moment(data[0].updated_time).format('YYYY-MM-DDTHH:MM'));
+      showDetailPanel();
+  }
+  else {
+      return false;
+  }
+}
+
 
 function deleteButtonClick() {
     if (datatable.rows('.selected').any()) {
@@ -238,6 +286,8 @@ function saveObj() {
         request_type = "POST"
         end_point = API_URI + "appointments/" + user_id + '/update';
         var data_send = datatable.rows({selected:  true}).data()[0];
+        data_send.patient_id = $("#patient_id").val();
+        data_send.doctor_id = $("#doctor_id").val();
         $.each($(".is-valid"), function(index, obj) {
             var fieldname = obj.attributes.name.value;
             data_send[fieldname] = obj.value;
@@ -340,6 +390,7 @@ function loadDoctor(data){
     options += `<option value=${ele.id} name=${ele.name}>${ele.name}</option>`)
   $("#doctor_id").html(options);
   document.getElementById("doctor_id").fstdropdown.rebind();
+  doctors = data
 }
 
 function loadOpdRooms(data){
@@ -354,10 +405,13 @@ function loadOpdRooms(data){
 function fillOpd(e){
   doctorId = e.target.value;
   opd = opdRooms.filter(x => x.current_doctor_id==doctorId)
+  doctor = doctors.filter(x => x.id==doctorId)
+  console.log(doctor)
   if(opd[0])
     $("#opd_room_id").val(opd[0].id)
   else
     $("#opd_room_id").val(-1)
+  $("#doctor-schedule").html(`<p>${doctor[0].schedule}</p>`)
 }
   
 /*----- End Function Section ------*/

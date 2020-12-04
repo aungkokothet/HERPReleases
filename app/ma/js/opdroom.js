@@ -128,6 +128,12 @@ $("#btn_save").click(function() {
 $("#btn_delete").click(function() {
     deleteButtonClick();
 });
+$("#btn_appointment").click(function(){
+  showAppointmentTable();
+});
+$("#btn_appointment_close, #btn_appointment_cancel").click(function(){
+  hideAppointmentTable();
+});
 
 /*----- End Event Section ------*/
 /*------------------------------*/
@@ -141,6 +147,16 @@ function showDataEntryPanel() {
 function hideDataEntryPanel() {
     $("#data_table_panel").removeClass("d-none");
     $("#data_entry_panel").addClass("d-none");
+}
+
+function showAppointmentTable(){
+  $("#data_table_panel").addClass('d-none');
+  $("#appointment_edit_panel").removeClass('d-none');
+}
+
+function hideAppointmentTable(){
+  $("#data_table_panel").removeClass("d-none");
+  $("#appointment_edit_panel").addClass("d-none");
 }
 
 function clearDataEntryPanel() {
@@ -203,6 +219,29 @@ function deleteButtonClick() {
       else {
         return false;
       }
+}
+
+function appointmentButtonClick() {
+  if(datatable.rows('.selected').any()) {
+      isnew = false;
+
+      var data = datatable.rows({selected:  true}).data();
+
+      $("#appointment_edit_title").html("Appointment Edit");
+
+      $("#patient_id").val(data[0].patient_id)
+      $("#doctor_id").val(data[0].doctor_id);
+      $("#opd_room_id").val(data[0].opd_room_id);
+      $("#appointment_time").val(moment(data[0].appointment_time).format('YYYY-MM-DDTHH:MM'));
+      doctor = doctors.filter(x => x.id==data[0].doctor_id)
+      $("#doctor-schedule").html(`<p>${doctor[0].schedule}</p>`)
+      $("#status").val(data[0].status);
+      $("#source").val(data[0].source);
+      showAppointmentTable();
+  }
+  else {
+      return false;
+  }
 }
 
 function saveObj() {

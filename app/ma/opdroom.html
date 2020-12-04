@@ -166,6 +166,7 @@
 							<button class="btn btn-outline-info" id="btn_new"><i class="mdi mdi-plus"></i>&nbsp;New</button>
 							<button class="btn btn-outline-info" id="btn_edit"><i class="mdi mdi-pencil"></i>&nbsp;Edit</button>
 							<button class="btn btn-outline-danger" id="btn_delete"><i class="mdi mdi-delete"></i>&nbsp;Delete</button>
+                            <button class="btn btn-outline-info" id="btn_appointment"><i class="mdi mdi-pencil"></i>&nbsp;Edit Appointment</button>
                             <hr>
 
                             <table id="datatable" class="table table-bordered display">
@@ -232,6 +233,77 @@
                                 <hr>
                                 <button type="button" class="btn btn-info waves-effect waves-light mr-2" id="btn_save">Save</button>
                                 <button type="button" class="btn btn-light waves-effect waves-light mr-2" id="btn_cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="row d-none" id="appointment_edit_panel">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <h4 class="card-title" id="appointment_edit_title">New</h4>
+                            <div class="card-actions ml-auto">
+                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <a class="btn-close" id='btn_appointment_close'><i class="mdi mdi-close"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form">
+                                <input type="hidden" id="data_id">
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Patient</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_id" name="patient_id">
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Doctor</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="doctor_id" name="doctor_id">
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">OPD Room</label>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id="opd_room_id" name="opd_room_id" disabled>
+                                        
+                                        </select>
+                                    </div>
+                                </div>
+
+                                 <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Appointment Time</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" disabled type="datetime-local" id="appointment_time" name="appoiment_time">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Status</label>
+                                    <div class="col-md-10">
+                                        <select class="custom-select col-12" id="status" name="status">
+                                            <option value='0'>Open</option>
+                                            <option value='1'>Complete</option>
+                                            <option value='2'>Cancel</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Source</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" id="source" name="source" disabled>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <button type="button" class="btn btn-info waves-effect waves-light mr-2" id="btn_appointment_save">Save</button>
+                                <button type="button" class="btn btn-light waves-effect waves-light mr-2" id="btn_appointment_cancel">Cancel</button>
                             </div>
                         </div>
                     </div>

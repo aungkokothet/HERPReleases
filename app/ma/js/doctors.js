@@ -3,7 +3,7 @@
   var isnew = true;  
 
   var datatable = $("#datatable").DataTable({
-    scrollX: true,
+
     columnDefs: [
       {
         orderable: true,
@@ -16,10 +16,9 @@
       {data : "name"},
       {data : "phone"},
       {data : "department"},
+      {data : "schedule"},
       {data : "opd_charge"},
       {data : "ipd_charge"},
-      {data : "created_time"},
-      {data : "updated_time"}
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -149,7 +148,7 @@ function hideDataEntryPanel() {
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
     $("select").removeClass("is-valid");
-    $("#employee_id, #doctor_name, #doctor_phone, #opd_charge, #ipd_charge").val("");
+    $("#employee_id, #doctor_name, #doctor_phone, #opd_charge, #ipd_charge, #schedule").val("");
     $("#doctor_name").prop('disabled', false);
     document.getElementById("employee_id").fstdropdown.rebind();
 }
@@ -176,6 +175,7 @@ function editButtonClick() {
         $("#employee_id").val(data[0].employee_id)
         $("#doctor_name").val(data[0].name).prop('disabled', false);
         $("#doctor_phone").val(data[0].phone);
+        $("#schedule").val(data[0].schedule);
         $("#opd_charge").val(data[0].opd_charge);
         $("#ipd_charge").val(data[0].ipd_charge);
         showDataEntryPanel();
@@ -218,8 +218,8 @@ function saveObj() {
         request_type = "POST";
         data_send.name = $("#doctor_name").val();
         data_send.phone = $("#doctor_phone").val();
-        data_send.department_id = $("#department").val();
         data_send.employee_id = $("#employee_id").val();
+        data_send.schedule = $("#schedule").val();
         data_send.opd_charge = $("#opd_charge").val();
         data_send.ipd_charge = $("#ipd_charge").val();
     }
@@ -227,6 +227,8 @@ function saveObj() {
         request_type = "POST"
         end_point = API_URI + "doctors/" + user_id + '/update';
         var data_send = datatable.rows({selected:  true}).data()[0];
+        data_send.employee_id = $("#employee_id").val();
+        data_send.name = $("#doctor_name").val();
         $.each($(".is-valid"), function(index, obj) {
             var fieldname = obj.attributes.name.value;
             data_send[fieldname] = obj.value;
@@ -299,10 +301,10 @@ function loadTable(table_data) {
     data = table_data.map(x => ({
       ...x,
       employee_id: x.employee.id,
-      department_id: x.department.id,
-      department: x.department.name,
-      created_time: moment(x.created_time).format('hh:mm/MMM-DD-YYYY'),
-      updated_time: moment(x.updated_time).format('hh:mm/MMM-DD-YYY')
+      department_id: x.department ? x.department.id:'-',
+      department: x.department ? x.department.name: '-',
+      created: moment(x.created_time).format('hh:mm/MMM-DD-YYYY'),
+      updated: moment(x.updated_time).format('hh:mm/MMM-DD-YYY')
     })) 
     datatable.rows.add(data).draw(); 
 }

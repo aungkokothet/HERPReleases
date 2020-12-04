@@ -17,9 +17,8 @@
       {data : "name"},
       {data : "phone"},
       {data : "date_of_birth_mod"},
+      {data : 'age'},
       {data : "address"},
-      {data : "township"},
-      {data : "region"},
       {data : "blood_group"},
       {data : "gender"},
       {data : "status_mod"},
@@ -151,7 +150,7 @@ function hideDataEntryPanel() {
 
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
-    $("#date_of_birth, #doctor_name, #doctor_phone, #patient_address, #patient_township, #patient_region, #blood_group").val("");
+    $("#date_of_birth, #doctor_name, #doctor_phone, #patient_address, #blood_group, #age").val("");
     $("#gender").val('Male');
     $("#status").val(1);
 }
@@ -175,12 +174,11 @@ function editButtonClick() {
         $("#data_entry_panel_title").html("Edit");
 
         $("#data_id").val(data[0].id);
-        $("#date_of_birth").val(data[0].date_of_birth)
+        $("#date_of_birth").val(data[0].date_of_birth);
+        $("#age").val(data[0].age);
         $("#patient_name").val(data[0].name);
         $("#patient_phone").val(data[0].phone);
         $("#patient_address").val(data[0].address);
-        $("#patient_township").val(data[0].township);
-        $("#patient_region").val(data[0].region);
         $("#blood_group").val(data[0].blood_group);
         $("#gender").val(data[0].gender);
         $("#status").val(data[0].status);
@@ -225,9 +223,8 @@ function saveObj() {
         data_send.name = $("#patient_name").val();
         data_send.phone = $("#patient_phone").val();
         data_send.date_of_birth = $("#date_of_birth").val();
+        data_send.age = $("#age").val();
         data_send.address = $("#patient_address").val();
-        data_send.township = $("#patient_township").val();
-        data_send.region = $("#patient_region").val();
         data_send.blood_group = $("#blood_group").val();
         data_send.gender = $("#gender").val();
         data_send.status = $("#status").val()
@@ -305,7 +302,7 @@ function load() {
 function loadTable(table_data) {
     var data = table_data.map(x => ({
       ...x,
-      status_mod: x.status ? 'Active': 'Inactive',
+      status_mod: x.status ? 'Inpatient': 'Outpatient',
       date_of_birth_mod: moment(x.date_of_birth).format('MMM DD, YYYY'),
       created_time: moment(x.created_time).format('hh:mm/MMM DD, YYYY'),
       updated_time: moment(x.updated_time).format('hh:mm/MMM DD, YYYY')
