@@ -13,7 +13,7 @@
       }
     ],
     columns : [
-      {data : "id"},
+      {data : "id_mod"},
       {data : "name"},
       {data : "location"},
       {data : "current_doctor_id"},
@@ -331,6 +331,7 @@ function load() {
 function loadTable(table_data) {
     data = table_data.map(x => ({
         ...x,
+        id_mod: padToFour(x.id),
         current_doctor_name: x.doctor && x.doctor.name
     }))
     datatable.clear().draw(); 

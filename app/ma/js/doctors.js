@@ -3,7 +3,6 @@
   var isnew = true;  
 
   var datatable = $("#datatable").DataTable({
-
     columnDefs: [
       {
         orderable: true,
@@ -11,7 +10,7 @@
       }
     ],
     columns : [
-      {data : "id"},
+      {data : "id_mod"},
       {data : "employee_id"},
       {data : "name"},
       {data : "phone"},
@@ -102,7 +101,7 @@ $("#btn_reset_login_attempt").click(function() {
 });
 
 //editing user data detect
-$("input").on("input", function() {
+$("input, textarea").on("input", function() {
   if(!isnew) {
     $(this).addClass("is-valid");
   }  
@@ -300,6 +299,7 @@ function loadTable(table_data) {
     datatable.clear().draw(); 
     data = table_data.map(x => ({
       ...x,
+      id_mod: padToFour(x.id),
       employee_id: x.employee.id,
       department_id: x.department ? x.department.id:'-',
       department: x.department ? x.department.name: '-',

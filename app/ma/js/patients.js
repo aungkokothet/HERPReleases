@@ -13,7 +13,7 @@
       }
     ],
     columns : [
-      {data : "id"},
+      {data : "id_mod"},
       {data : "name"},
       {data : "phone"},
       {data : "date_of_birth_mod"},
@@ -302,6 +302,7 @@ function load() {
 function loadTable(table_data) {
     var data = table_data.map(x => ({
       ...x,
+      id_mod: padToFour(x.id),
       status_mod: x.status ? 'Inpatient': 'Outpatient',
       date_of_birth_mod: moment(x.date_of_birth).format('MMM DD, YYYY'),
       created_time: moment(x.created_time).format('hh:mm/MMM DD, YYYY'),

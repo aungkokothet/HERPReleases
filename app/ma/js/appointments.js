@@ -16,7 +16,7 @@
       }
     ],
     columns : [
-      {data : "id"},
+      {data : "id_mod"},
       {data : "queue_ticket_number"},
       {data : "patient_id"},
       {data : "patient_name"},
@@ -222,19 +222,19 @@ function detailButtonClick() {
 
       $("#data_entry_panel_title").html("Detail");
 
-      $("#detail-patient-id").val(data[0].patient_id);
-      $("#detail-patient-name").val(data[0].patient_name);
-      $("#detail-doctor-id").val(data[0].doctor_id);
-      $("#detail-doctor-name").val(data[0].doctor_name);
-      $("#detail-opdroom-id").val(data[0].opd_room_id);
-      $("#detail-opdroom-name").val(data[0].opd_room_name);
-      $("#detail-appointmenttime").val(moment(data[0].appointment_time).format('YYYY-MM-DDTHH:MM'));
-      $("#detail-status").val(data[0].status_mod);
-      $("#detail-source").val(data[0].source);
+      $("#detail-patient-id").html(data[0].patient_id);
+      $("#detail-patient-name").html(data[0].patient_name);
+      $("#detail-doctor-id").html(data[0].doctor_id);
+      $("#detail-doctor-name").html(data[0].doctor_name);
+      $("#detail-opdroom-id").html(data[0].opd_room_id);
+      $("#detail-opdroom-name").html(data[0].opd_room_name);
+      $("#detail-appointmenttime").html(moment(data[0].appointment_time).format('MMM-DD-YYYY, HH:MM A'));
+      $("#detail-status").html(data[0].status_mod);
+      $("#detail-source").html(data[0].source);
       doctor = doctors.filter(x => x.id==data[0].doctor_id)
       $("#detail-doctor-schedule").html(`<p>${doctor[0].schedule}</p>`)
-      $("#detail-created_time").val(moment(data[0].created_time).format('YYYY-MM-DDTHH:MM'));
-      $("#detail-updated_time").val(moment(data[0].updated_time).format('YYYY-MM-DDTHH:MM'));
+      $("#detail-created_time").html(moment(data[0].created_time).format('MMM-DD-YYYY, HH:MM A'));
+      $("#detail-updated_time").html(moment(data[0].updated_time).format('MMM-DD-YYYY, HH:MM A'));
       showDetailPanel();
   }
   else {
@@ -368,6 +368,7 @@ function getStatus(num){
 function loadTable(table_data) {
     var data = table_data.appointments.map(x => ({
       ...x,
+      id_mod: padToFour(x.id),
       status_mod: getStatus(x.status),
       appointment_time_mod: moment(x.appointment_time).format('MMM DD, YYYY, hh:MM A')
     }))
@@ -378,7 +379,7 @@ function loadTable(table_data) {
 function loadPatient(data){
   var options = '<option value="" disabled selected>Choose patient</option>';
   data.forEach(ele => 
-    options += `<option value=${ele.id} name=${ele.name}>${ele.name}, ${ele.phone}</option>`
+    options += `<option value=${ele.id} name=${ele.name}>${ele.name}, ${ele.phone}, ${ele.age}</option>`
   )
   $("#patient_id").html(options);
   document.getElementById("patient_id").fstdropdown.rebind();
