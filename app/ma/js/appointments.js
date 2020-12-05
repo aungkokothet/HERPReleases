@@ -369,6 +369,9 @@ function loadTable(table_data) {
     var data = table_data.appointments.map(x => ({
       ...x,
       id_mod: padToFour(x.id),
+      patient_name: x.patient.name,
+      doctor_name: x.doctor.name,
+      opd_room_name: x.opd.name,
       status_mod: getStatus(x.status),
       appointment_time_mod: moment(x.appointment_time).format('MMM DD, YYYY, hh:MM A')
     }))
