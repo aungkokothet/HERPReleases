@@ -18,11 +18,11 @@
     columns : [
       {data : "id_mod"},
       {data : "queue_ticket_number"},
-      {data : "patient_id"},
       {data : "patient_name"},
-      {data : "doctor_id"},
+      {data : "patient_age"},
+      {data : "patient_phone"},
       {data : "doctor_name"},
-      {data : "opd_room_id"},
+      {data : "doctor_schedule"},
       {data : "opd_room_name"},
       {data : "appointment_time_mod"},
       {data : "status_mod"},
@@ -224,17 +224,19 @@ function detailButtonClick() {
 
       $("#detail-patient-id").html(data[0].patient_id);
       $("#detail-patient-name").html(data[0].patient_name);
+      $("#detail-patient-age").html(data[0].patient_age);
+      $("#detail-patient-phone").html(data[0].patient_phone);
       $("#detail-doctor-id").html(data[0].doctor_id);
       $("#detail-doctor-name").html(data[0].doctor_name);
       $("#detail-opdroom-id").html(data[0].opd_room_id);
       $("#detail-opdroom-name").html(data[0].opd_room_name);
-      $("#detail-appointmenttime").html(moment(data[0].appointment_time).format('MMM-DD-YYYY, HH:MM A'));
+      $("#detail-appointmenttime").html(moment(data[0].appointment_time).format('MMM DD, YYYY, HH:MM A'));
       $("#detail-status").html(data[0].status_mod);
       $("#detail-source").html(data[0].source);
       doctor = doctors.filter(x => x.id==data[0].doctor_id)
       $("#detail-doctor-schedule").html(`<p>${doctor[0].schedule}</p>`)
-      $("#detail-created_time").html(moment(data[0].created_time).format('MMM-DD-YYYY, HH:MM A'));
-      $("#detail-updated_time").html(moment(data[0].updated_time).format('MMM-DD-YYYY, HH:MM A'));
+      $("#detail-created_time").html(moment(data[0].created_time).format('MMM DD, YYYY, HH:MM A'));
+      $("#detail-updated_time").html(moment(data[0].updated_time).format('MMM DD, YYYY, HH:MM A'));
       showDetailPanel();
   }
   else {
@@ -370,7 +372,10 @@ function loadTable(table_data) {
       ...x,
       id_mod: padToFour(x.id),
       patient_name: x.patient.name,
+      patient_age: x.patient.age,
+      patient_phone: x.patient.phone,
       doctor_name: x.doctor.name,
+      doctor_schedule: x.doctor.schedule,
       opd_room_name: x.opd.name,
       status_mod: getStatus(x.status),
       appointment_time_mod: moment(x.appointment_time).format('MMM DD, YYYY, hh:MM A')

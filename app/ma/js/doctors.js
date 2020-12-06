@@ -300,9 +300,8 @@ function loadTable(table_data) {
     data = table_data.map(x => ({
       ...x,
       id_mod: padToFour(x.id),
-      employee_id: x.employee.id,
-      department_id: x.department ? x.department.id:'-',
-      department: x.department ? x.department.name: '-',
+      employee_id: x.employee ? x.employee.id: "-",
+      department: x.employee ? x.employee.department.name: '-',
       created: moment(x.created_time).format('hh:mm/MMM-DD-YYYY'),
       updated: moment(x.updated_time).format('hh:mm/MMM-DD-YYY')
     })) 
@@ -312,7 +311,7 @@ function loadTable(table_data) {
 function loadEmployees(data){
   var options = '<option value="" disabled selected>Choose employee Id</option>'
   data.forEach(ele => 
-    options += `<option value=${ele.id} name=${ele.name}>${ele.id}</option>`
+    options += `<option value=${ele.id} name=${ele.name} phone=${ele.phone_number} dept=${ele.department ? ele.department.name : '-'} post=${ele.position ? ele.position.name : '-'}>${ele.id}</option>`
   )
   $("#employee_id").html(options);
   document.getElementById("employee_id").fstdropdown.rebind();
@@ -322,7 +321,13 @@ function loadEmployees(data){
 function employeeIdOnChange(){
   e = document.getElementById('employee_id');
   name = e.options[e.selectedIndex].getAttribute('name');
-  $("#doctor_name").val(name)
+  post = e.options[e.selectedIndex].getAttribute('post');
+  dept = e.options[e.selectedIndex].getAttribute('dept');
+  phone = e.options[e.selectedIndex].getAttribute('phone');
+  $("#doctor_name").val(name);
+  $("#doctor_phone").val(phone);
+  $("#doctor_department").val(dept);
+  $("#doctor_position").val(post);
 }
 
 /*----- End Function Section ------*/

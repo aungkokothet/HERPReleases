@@ -4,7 +4,6 @@
 
   var datatable = $("#datatable").DataTable({
 
-    scrollX: true,
 
     columnDefs: [
       {
@@ -19,11 +18,9 @@
       {data : "date_of_birth_mod"},
       {data : 'age'},
       {data : "address"},
-      {data : "blood_group"},
       {data : "gender"},
       {data : "status_mod"},
-      {data : "created_time"},
-      {data : "updated_time"}
+      {data : "blood_group"},
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -152,7 +149,7 @@ function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
     $("#date_of_birth, #doctor_name, #doctor_phone, #patient_address, #blood_group, #age").val("");
     $("#gender").val('Male');
-    $("#status").val(1);
+    $("#status").val(0);
 }
 
 function newButtonClick() {

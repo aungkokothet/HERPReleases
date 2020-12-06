@@ -15,7 +15,7 @@
     ],
     columns : [
       {data : "id"},
-      {data : "employee_identification_number"},
+      {data : "id_mod"},
       {data : "name"},
       {data : "gender"},
       {data : "education"},
@@ -216,7 +216,6 @@ function editButtonClick() {
         $("#btn_reset_login_attempt").prop("disabled", false);
 
         $("#data_id").val(data[0].id);
-        $("#employee_id").val(data[0].employee_identification_number)
         $("#name").val(data[0].name)
         $("#gender").val(data[0].gender);
         $("#education").val(data[0].education);
@@ -271,7 +270,6 @@ function saveObj() {
 
     if(isnew) { //inserting new
         request_type = "POST";
-        data_send.employee_identification_number = $("#employee_id").val()
         data_send.name = $("#name").val()
         data_send.gender = $("#gender").val();
         data_send.education = $("#education").val();
@@ -368,6 +366,7 @@ function load() {
 function loadTable(table_data) {
     datatable.clear().draw(); 
     data = table_data.map(x => ({...x,
+          id_mod: padToFour(x.id),
           department : x.department.name,
           department_id: x.department.id,
           position : x.position.name,
