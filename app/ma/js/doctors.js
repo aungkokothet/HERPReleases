@@ -129,6 +129,13 @@ $("#btn_save").click(function() {
 $("#btn_delete").click(function() {
     deleteButtonClick();
 });
+$("#btn-detail-cancel, #btn-detail-close").click(function(){
+  hideDetailPanel();
+});
+$("#btn_detail").click(function(){
+  detailButtonClick();
+})
+
 
 /*----- End Event Section ------*/
 /*------------------------------*/
@@ -142,6 +149,16 @@ function showDataEntryPanel() {
 function hideDataEntryPanel() {
     $("#data_table_panel").removeClass("d-none");
     $("#data_entry_panel").addClass("d-none");
+}
+
+function showDetailPanel(){
+  $("#detail_panel").removeClass('d-none');
+  $("#data_table_panel").addClass('d-none');
+}
+
+function hideDetailPanel(){
+  $("#detail_panel").addClass('d-none');
+  $("#data_table_panel").removeClass("d-none");
 }
 
 function clearDataEntryPanel() {
@@ -159,6 +176,27 @@ function newButtonClick() {
     
     clearDataEntryPanel();
     showDataEntryPanel();
+}
+
+function detailButtonClick(){
+  if(datatable.rows('.selected').any()) {
+    isnew = false;
+
+    var data = datatable.rows({selected:  true}).data();
+
+    $("#detail-id").html(data[0].id);
+    $("#detail-employee_id").html(data[0].employee_id)
+    $("#detail-doctor_name").html(data[0].name);
+    $("#detail-doctor_phone").html(data[0].phone);
+    $("#detail-doctor-department").html(data[0].department);
+    $("#detail-doctor-position").html(data[0].position ? data[0].position.name : '-');
+    $("#detail-schedule").html(data[0].schedule);
+    $("#detail-opd_charge").html(data[0].opd_charge);
+    $("#detail-ipd_charge").html(data[0].ipd_charge);
+    $("#created").html(moment(data[0].created_time).format("MMM DD, YYYY HH:MM A"));
+    $("#updated").html(moment(data[0].updated_time).format("MMM DD, YYYY HH:MM A"));
+    showDetailPanel()
+  }
 }
 
 function editButtonClick() {

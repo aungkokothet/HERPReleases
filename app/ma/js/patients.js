@@ -17,10 +17,10 @@
       {data : "phone"},
       {data : "date_of_birth_mod"},
       {data : 'age'},
-      {data : "address"},
+      {data : "address_mod"},
       {data : "gender"},
       {data : "status_mod"},
-      {data : "blood_group"},
+      {data : "blood_group_mod"},
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -130,6 +130,12 @@ $("#btn_save").click(function() {
 $("#btn_delete").click(function() {
     deleteButtonClick();
 });
+$("#btn_detail").click(function() {
+  detailButtonClick();
+})
+$("#btn-detail-cancel, .btn-detail-close").click(function(){
+ hideDetailPanel();
+})
 
 /*----- End Event Section ------*/
 /*------------------------------*/
@@ -150,6 +156,16 @@ function clearDataEntryPanel() {
     $("#date_of_birth, #doctor_name, #doctor_phone, #patient_address, #blood_group, #age").val("");
     $("#gender").val('Male');
     $("#status").val(0);
+}
+
+function showDetailPanel(){
+  $("#data_table_panel").addClass("d-none");
+  $("#detail_panel").removeClass("d-none");
+}
+
+function hideDetailPanel(){
+  $("#data_table_panel").removeClass("d-none");
+  $("#detail_panel").addClass("d-none");
 }
 
 function newButtonClick() {
@@ -184,6 +200,32 @@ function editButtonClick() {
     else {
         return false;
     }
+}
+
+function detailButtonClick(){
+  if(datatable.rows('.selected').any()) {
+    isnew = false;
+
+    var data = datatable.rows({selected:  true}).data();
+
+    $("#data_entry_panel_title").html("Edit");
+
+    $("#detail-id").html(data[0].id);
+    $("#detail-date_of_birth").html(data[0].date_of_birth==''?'-':data[0].date_of_birth);
+    $("#detail-age").html(data[0].age);
+    $("#detail-patient_name").html(data[0].name);
+    $("#detail-patient_phone").html(data[0].phone);
+    $("#detail-patient_address").html(data[0].address==''?'-':data[0].address);
+    $("#detail-blood_group").html(data[0].blood_group==''?'-':data[0].blood_group);
+    $("#detail-gender").html(data[0].gender);
+    $("#detail-status").html(data[0].status);
+    $("#created").html(data[0].created_time);
+    $("#updated").html(data[0].updated_time);
+    showDetailPanel();
+  }
+  else {
+      return false;
+  }
 }
 
 function deleteButtonClick() {
@@ -301,9 +343,11 @@ function loadTable(table_data) {
       ...x,
       id_mod: padToFour(x.id),
       status_mod: x.status ? 'Inpatient': 'Outpatient',
-      date_of_birth_mod: moment(x.date_of_birth).format('MMM DD, YYYY'),
-      created_time: moment(x.created_time).format('hh:mm/MMM DD, YYYY'),
-      updated_time: moment(x.updated_time).format('hh:mm/MMM DD, YYYY')
+      address_mod: x.address == '' ? '-': x.address,
+      blood_group_mod: x.blood_group == '' ? '-':x.blood_group,
+      date_of_birth_mod: x.date_of_birth == '' ? '-' : moment(x.date_of_birth).format('MMM DD, YYYY'),
+      created_time: moment(x.created_time).format('MMM DD, YYYY HH:MM A'),
+      updated_time: moment(x.updated_time).format('MMM DD, YYYY HH:MM A')
     }))
     datatable.clear().draw();  
     datatable.rows.add(data).draw(); 

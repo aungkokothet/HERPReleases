@@ -168,6 +168,8 @@
 							<button class="btn btn-outline-info" id="btn_new"><i class="mdi mdi-plus"></i>&nbsp;New</button>
 							<button class="btn btn-outline-info" id="btn_edit"><i class="mdi mdi-pencil"></i>&nbsp;Edit</button>
 							<button class="btn btn-outline-danger" id="btn_delete"><i class="mdi mdi-delete"></i>&nbsp;Delete</button>
+                            <button class="btn btn-outline-info" id="btn_detail"><i class="mdi mdi-pencil"></i>&nbsp;Detail</button>
+
                             <hr>
 
                             <table id="datatable" class="table table-bordered display">
@@ -272,6 +274,103 @@
                 </div>
                 </div>
 
+                <div class="row d-none" id="detail_panel">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <h4 class="card-title" id="detail_panel_title">Detail</h4>
+                            <div class="card-actions ml-auto">
+                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <a id="btn-detail-close" ><i class="mdi mdi-close"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form">
+                                
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Id</label>
+                                    <div class="col-md-10">
+                                        <div id="detail-id" disabled></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Employee Id</label>
+                                    <div class="col-md-10">
+                                        <div id="detail-employee_id"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Name</label>
+                                    <div class="col-md-10">
+                                        <div id="detail-doctor_name" disabled></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Phone</label>
+                                    <div class="col-md-10">
+                                        <div id="detail-doctor_phone" disabled></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Depatrment</label>
+                                    <div class="col-md-10">
+                                        <div id="detail-doctor-department" disabled></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Position</label>
+                                    <div class="col-md-10">
+                                        <div id="detail-doctor-position" disabled></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Doctor Schedule</label>
+                                    <div class="col-md-10">
+                                        <div id="detail-schedule"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">OPD Charge</label>
+                                    <div class="col-md-10">
+                                        <div id="detail-opd_charge"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">IPD Charge</label>
+                                    <div class="col-md-10">
+                                        <div id="detail-ipd_charge"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Created at</label>
+                                    <div class="col-md-10">
+                                        <div id="created"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Updated at</label>
+                                    <div class="col-md-10">
+                                        <div id="updated"></div>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <button type="button" class="btn btn-light waves-effect waves-light mr-2" id="btn-detail-cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+               
             </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->

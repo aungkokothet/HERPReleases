@@ -223,6 +223,7 @@ function detailButtonClick() {
       $("#data_entry_panel_title").html("Detail");
 
       $("#detail-patient-id").html(data[0].patient_id);
+      $("#detail-queue-ticket").html(data[0].queue_ticket_number);
       $("#detail-patient-name").html(data[0].patient_name);
       $("#detail-patient-age").html(data[0].patient_age);
       $("#detail-patient-phone").html(data[0].patient_phone);
