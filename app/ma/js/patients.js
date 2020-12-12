@@ -20,7 +20,7 @@
       {data : "address_mod"},
       {data : "gender"},
       {data : "status_mod"},
-      {data : "blood_group_mod"},
+      //{data : "blood_group_mod"},
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -132,11 +132,19 @@ $("#btn_delete").click(function() {
 });
 $("#btn_detail").click(function() {
   detailButtonClick();
-})
+});
 $("#btn-detail-cancel, .btn-detail-close").click(function(){
  hideDetailPanel();
+});
+$("#btn_new_medical_record").click(function(){
+  medicalRecordButtonClick();
+});
+$("#btn-medical_record-close, #btn-medical_record-cancel").click(function(){
+  hideMedicalRecordPanel();
+});
+$("#btn_view_medical_record").click(function(){
+  viewMedicalRecordButtonClick();
 })
-
 /*----- End Event Section ------*/
 /*------------------------------*/
 
@@ -166,6 +174,16 @@ function showDetailPanel(){
 function hideDetailPanel(){
   $("#data_table_panel").removeClass("d-none");
   $("#detail_panel").addClass("d-none");
+}
+
+function showMedicalRecordPanel(){
+  $("#data_table_panel").addClass("d-none");
+  $("#medical_record").removeClass("d-none");
+}
+
+function hideMedicalRecordPanel(){
+  $("#data_table_panel").removeClass("d-none");
+  $("#medical_record").addClass("d-none");
 }
 
 function newButtonClick() {
@@ -228,6 +246,20 @@ function detailButtonClick(){
   }
 }
 
+function medicalRecordButtonClick(){
+  if(datatable.rows('.selected').any()) {
+
+    var data = datatable.rows({selected:  true}).data();
+
+    $("#patient_id").html(data[0].id);
+
+    showMedicalRecordPanel();
+  }
+  else {
+      return false;
+  }
+}
+
 function deleteButtonClick() {
     if (datatable.rows('.selected').any()) {
         Swal.fire({
@@ -248,6 +280,18 @@ function deleteButtonClick() {
       else {
         return false;
       }
+}
+
+function viewMedicalRecordButtonClick(){
+  if(datatable.rows('.selected').any()) {
+
+    var data = datatable.rows({selected:  true}).data();
+
+    window.location = 'medical_record.html?patient_id='+data[0].id
+  }
+  else {
+      return false;
+  }
 }
 
 function saveObj() {

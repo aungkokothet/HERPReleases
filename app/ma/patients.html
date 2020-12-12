@@ -167,6 +167,9 @@
 							<button class="btn btn-outline-info" id="btn_edit"><i class="mdi mdi-pencil"></i>&nbsp;Edit</button>
 							<button class="btn btn-outline-danger" id="btn_delete"><i class="mdi mdi-delete"></i>&nbsp;Delete</button>
                             <button class="btn btn-outline-info" id="btn_detail"><i class="mdi mdi-pencil"></i>&nbsp;Detail</button>
+                            <button class="btn btn-outline-info" id="btn_new_medical_record"><i class="mdi mdi-plus"></i>&nbsp;New Medical Record</button>
+                            <button class="btn btn-outline-info" id="btn_view_medical_record"><i class="mdi mdi-pencil"></i>&nbsp;View Medical Record</button>
+
 
                             <hr>
 
@@ -181,7 +184,6 @@
                                         <th>Address</th>
                                         <th>Gender</th>
                                         <th>Status</th>
-                                        <th>Blood Group</th>
                                     </tr>
                                 </thead>
                              
@@ -191,7 +193,9 @@
 						</div>
                     </div>
                 </div>
-
+                <!-- ============================================================== -->
+                <!-- For Patient Table -->
+                <!-- ============================================================== -->
                 <div class="row d-none" id="data_entry_panel">
                 <div class="col-md-12">
                     <div class="card">
@@ -241,7 +245,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group mt-4 row">
+                                <div class="form-group mt-4 row" hidden>
                                     <label for="username" class="col-md-2 col-form-label">Blood Group</label>
                                     <div class="col-md-10">
                                         <input class="form-control" type="text" id="blood_group" name="blood_group">
@@ -267,9 +271,7 @@
                                         </select>
                                     </div>
                                 </div>
-
                         
-
                                 <hr>
                                 <button type="button" class="btn btn-info waves-effect waves-light mr-2" id="btn_save">Save</button>
                                 <button type="button" class="btn btn-light waves-effect waves-light mr-2" id="btn_cancel">Cancel</button>
@@ -279,6 +281,9 @@
                 </div>
                 </div>
 
+                 <!-- ============================================================== -->
+                <!-- For Detail of Patient Panel -->
+                <!-- ============================================================== -->
                 <div class="row d-none" id="detail_panel">
                 <div class="col-md-12">
                     <div class="card">
@@ -371,6 +376,108 @@
 
                                 <hr>
                                 <button type="button" class="btn btn-light waves-effect waves-light mr-2" id="btn-detail-cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- ============================================================== -->
+                <!-- For making medical recoard -->
+                <!-- ============================================================== -->
+
+                <div class="row d-none" id="medical_record">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <h4 class="card-title" id="detail_title">New Medical Record</h4>
+                            <div class="card-actions ml-auto">
+                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <a id="btn-medical_record-close" ><i class="mdi mdi-close"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form">
+
+                                <input type="hidden" id="patient_id">
+
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Record Type</label>
+                                    <div class="col-md-10">
+                                        <select class="custom-select col-12" id="record_type" name="record_type">
+                                            <option value='Outpatient'>Outpatient</option>
+                                            <option value='Inpatient'>Inpatient</option>
+                                            <option value='Emergency'>Emergency</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Weight</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_weight" name="weight">
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Height</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_height" name="height" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Temperature</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_temperature" name="temperature">
+                                    </div>
+                                </div>
+
+                                 <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Blood Pressure</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_blood_pressure" name="blood_pressure">
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Pulse Rate</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_pulse_rate" name="pulse_rate">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Respiratory Rate</label>
+                                    <div class="col-md-10">
+                                        <input class='form-control' type='text' id='patient_respiratory_rate' name='respiratory_rate'>
+                                    </div>
+                                </div>
+
+                                 <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Blood Group</label>
+                                    <div class="col-md-10">
+                                        <input class='form-control' type='text' id='patient_blood_group' name='blood_group'>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Diagnosis</label>
+                                    <div class="col-md-10">
+                                        <textarea type='text' class='form-control' id="diagnosis" name='diagnosis'></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Doctor Note</label>
+                                    <div class="col-md-10">
+                                        <textarea type='text' class='form-control' id='doctor_note' name='doctor_note'></textarea>
+                                    </div>
+                                </div>
+                        
+                                <hr>
+                                <button type="button" class="btn btn-info waves-effect waves-light mr-2" id="btn-medical_record-save">Save</button>
+                                <button type="button" class="btn btn-light waves-effect waves-light mr-2" id="btn-medical_record-cancel">Cancel</button>
                             </div>
                         </div>
                     </div>

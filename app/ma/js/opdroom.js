@@ -134,6 +134,9 @@ $("#btn_appointment").click(function(){
 $("#btn_appointment_close, #btn_appointment_cancel").click(function(){
   hideAppointmentTable();
 });
+$("#btn_view_medical_record").click(function(){
+  viewMedicalRecordButtonClick();
+});
 
 /*----- End Event Section ------*/
 /*------------------------------*/
@@ -238,6 +241,18 @@ function appointmentButtonClick() {
       $("#status").val(data[0].status);
       $("#source").val(data[0].source);
       showAppointmentTable();
+  }
+  else {
+      return false;
+  }
+}
+
+function viewMedicalRecordButtonClick(){
+  if(datatable.rows('.selected').any()) {
+
+    var data = datatable.rows({selected:  true}).data();
+
+    window.location = 'medical_record.html?patient_id='+data[0].patient_id
   }
   else {
       return false;

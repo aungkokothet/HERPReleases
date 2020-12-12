@@ -13,14 +13,16 @@
     ],
     columns : [
       {data : "id"},
+      {data : "patient_name"},
       {data : "record_type"},
-      {data : "care_id"},
-      {data : "doctor_notes"},
-      {data : "attachment"},
-      {data : "created_user_id"},
       {data : "created_time"},
-      {data : "updated_user_id"},
-      {data : "updated_time"}
+      {data : "weight"},
+      {data : "height"},
+      {data : "temperature"},
+      {data : "blood_pressure"},
+      {data : "pulse_rate"},
+      {data : "respiratory_rate"},
+      {data : "blood_group"}
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -130,6 +132,24 @@ $("#btn_save").click(function() {
 $("#btn_delete").click(function() {
     deleteButtonClick();
 });
+$("#btn_detail").click(function(){
+  detailButtonClick();
+});
+$("#btn-detail-cancel, #btn-detail-close").click(function(){
+  hideDetailPanel();
+});
+$("#btn_add_prescription").click(function(){
+  PrescriptionButtonClick();
+});
+$("#btn-prescription-close, #btn-prescription-cancel").click(function(){
+  hidePrescriptionPanel();
+});
+$("#btn_request_investigation").click(function(){
+  InvestigationButtonClick();
+});
+$("#btn-investigation-close, #btn-investigation-cancel").click(function(){
+  hideInvestigationPanel();
+})
 
 /*----- End Event Section ------*/
 /*------------------------------*/
@@ -143,6 +163,44 @@ function showDataEntryPanel() {
 function hideDataEntryPanel() {
     $("#data_table_panel").removeClass("d-none");
     $("#data_entry_panel").addClass("d-none");
+}
+
+function showDetailPanel() {
+  $("#detail_panel").removeClass("d-none");
+  $("#data_table_panel").addClass("d-none");
+}
+
+function hideDetailPanel() {
+  $("#data_table_panel").removeClass("d-none");
+  $("#detail_panel").addClass("d-none");
+}
+
+function showPrescriptionPanel() {
+  $("#add_prescription_panel").removeClass("d-none");
+  $("#data_table_panel").addClass("d-none");
+}
+
+function hidePrescriptionPanel() {
+  $("#data_table_panel").removeClass("d-none");
+  $("#add_prescription_panel").addClass("d-none");
+}
+
+function clearPrescriptionPanel(){
+  $("#medical_record_id, #pharmacy_item_id, #pharmacy_quantity").val('');
+}
+
+function showInvestigationPanel() {
+  $("#add_investigation_panel").removeClass("d-none");
+  $("#data_table_panel").addClass("d-none");
+}
+
+function hideInvestigationPanel() {
+  $("#data_table_panel").removeClass("d-none");
+  $("#add_investigation_panel").addClass("d-none");
+}
+
+function clearInvestigationPanel(){
+  $("#medical_record_id, #lab_item_id").val('');
 }
 
 function clearDataEntryPanel() {
@@ -179,6 +237,52 @@ function editButtonClick() {
     else {
         return false;
     }
+}
+
+function detailButtonClick() {
+  if(datatable.rows('.selected').any()) {
+
+      var data = datatable.rows({selected:  true}).data();
+
+
+      // $("#data_id").val(data[0].id);
+      // $("#record_type").val(data[0].record_type)
+      // $("#care_id").val(data[0].care_id);
+      // $("#doctor_notes").val(data[0].doctor_notes);
+      // $("#attachment").val(data[0].attachment);
+      showDetailPanel();
+  }
+  else {
+      return false;
+  }
+}
+
+function PrescriptionButtonClick(){
+  if(datatable.rows('.selected').any()) {
+    clearPrescriptionPanel()
+    var data = datatable.rows({selected:  true}).data();
+
+    $("#medical_record_id").val(data[0].id);
+
+    showPrescriptionPanel();
+}
+else {
+    return false;
+}
+}
+
+function InvestigationButtonClick(){
+  if(datatable.rows('.selected').any()) {
+    clearInvestigationPanel()
+    var data = datatable.rows({selected:  true}).data();
+
+    $("#medical_record_id").val(data[0].id);
+
+    showInvestigationPanel();
+}
+else {
+    return false;
+}
 }
 
 function deleteButtonClick() {
