@@ -363,8 +363,11 @@ function load() {
 function getStatus(num){
   switch(num){
     case 0: return 'open';
-    case 1: return 'complete';
-    case 2: return 'cancel'
+    case 1: return 'comfirmed';
+    case 2: return 'nurse';
+    case 3: return 'opd';
+    case 4: return 'completed';
+    case 5: return 'canceled';
   }
 }
 

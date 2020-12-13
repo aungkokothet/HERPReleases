@@ -12,10 +12,10 @@
 */
 
 table.dataTable tbody tr.selected {
-	background-color: #043867 !important;
+	background-color: #3066be !important;
 }
 table.dataTable tbody tr.selected > .sorting_1 {
-	background-color: #043867 !important;
+	background-color: #3066be !important;
 }
 
 #main-wrapper[data-layout="vertical"][data-sidebar-position="fixed"] .topbar .top-navbar .navbar-collapse, #main-wrapper[data-layout="vertical"][data-header-position="fixed"][data-sidebar-position="fixed"] .topbar .top-navbar .navbar-collapse {
