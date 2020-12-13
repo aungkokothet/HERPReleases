@@ -149,7 +149,14 @@ $("#btn_request_investigation").click(function(){
 });
 $("#btn-investigation-close, #btn-investigation-cancel").click(function(){
   hideInvestigationPanel();
+});
+$("#btn_view_prescription").click(function(){
+  viewPrescriptionButtonClick();
+});
+$("#btn_view_investigation").click(function(){
+  viewInvestigationButtonClick();
 })
+
 
 /*----- End Event Section ------*/
 /*------------------------------*/
@@ -245,7 +252,7 @@ function detailButtonClick() {
       var data = datatable.rows({selected:  true}).data();
 
 
-      // $("#data_id").val(data[0].id);
+      $("#detail_data_id").val(data[0].id);
       // $("#record_type").val(data[0].record_type)
       // $("#care_id").val(data[0].care_id);
       // $("#doctor_notes").val(data[0].doctor_notes);
@@ -283,6 +290,16 @@ function InvestigationButtonClick(){
 else {
     return false;
 }
+}
+
+function viewInvestigationButtonClick(){
+  const id = $("#detail_data_id").val();
+  window.location = 'investigation_request.html?medical_record_id='+ id
+}
+
+function viewPrescriptionButtonClick(){
+  const id = $("#detail_data_id").val();
+  window.location = 'medical_record_prescription.html?medical_record_id='+ id
 }
 
 function deleteButtonClick() {
