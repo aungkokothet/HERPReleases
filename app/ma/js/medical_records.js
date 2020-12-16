@@ -21,8 +21,7 @@
       {data : "temperature"},
       {data : "blood_pressure"},
       {data : "pulse_rate"},
-      {data : "respiratory_rate"},
-      {data : "blood_group"}
+      {data : "respiratory_rate"}
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -104,7 +103,7 @@ $("#btn_reset_login_attempt").click(function() {
 });
 
 //editing user data detect
-$("input").on("input", function() {
+$("input, textarea").on("input", function() {
   if(!isnew) {
     $(this).addClass("is-valid");
   }  
@@ -211,9 +210,11 @@ function clearInvestigationPanel(){
 }
 
 function clearDataEntryPanel() {
-    $("input").removeClass("is-valid");
+    $("input, textarea").removeClass("is-valid");
     $("select").removeClass("is-valid");
-    $("#record_type, #care_id, #doctor_notes, #attachment").val("");
+    $("#record_type, #record_type, #patient_id, #patient_weight, #patient_height, #patient_temperature").val("");
+    $("#patient_pulse_rate, #patient_blood_pressure, #patient_respiratory_rate, #doctor_assessment, #diagnosis").val("");
+    $("#investigation, #treatments_and_procedures").val("");
 }
 
 function newButtonClick() {
@@ -235,10 +236,18 @@ function editButtonClick() {
         $("#data_entry_panel_title").html("Edit");
 
         $("#data_id").val(data[0].id);
-        $("#record_type").val(data[0].record_type)
-        $("#care_id").val(data[0].care_id);
-        $("#doctor_notes").val(data[0].doctor_notes);
-        $("#attachment").val(data[0].attachment);
+        $("#record_type").val(data[0].record_type);
+        $("#patient_id").val(data[0].patient_id);
+        $("#patient_weight").val(data[0].weight);
+        $("#patient_height").val(data[0].height);
+        $("#patient_temperature").val(data[0].temperature);
+        $("#patient_pulse_rate").val(data[0].pulse_rate);
+        $("#patient_blood_pressure").val(data[0].blood_pressure);
+        $("#patient_respiratory_rate").val(data[0].respiratory_rate);
+        $("#doctor_assessment").val(data[0].doctor_accessment);
+        $("#diagnosis").val(data[0].diagnosis);
+        $("#investigation").val(data[0].investigation);
+        $("#treatments_and_procedures").val(data[0].treatment_procedures);
         showDataEntryPanel();
     }
     else {
@@ -252,11 +261,19 @@ function detailButtonClick() {
       var data = datatable.rows({selected:  true}).data();
 
 
-      $("#detail_data_id").val(data[0].id);
-      // $("#record_type").val(data[0].record_type)
-      // $("#care_id").val(data[0].care_id);
-      // $("#doctor_notes").val(data[0].doctor_notes);
-      // $("#attachment").val(data[0].attachment);
+      $("#detail_data_id").html(data[0].id);
+      $("#record_type_detail").html(data[0].record_type);
+      $("#patient_id_detail").html(data[0].patient_id);
+      $("#patient_weight_detail").html(data[0].weight);
+      $("#patient_height_detail").html(data[0].height);
+      $("#patient_temperature_detail").html(data[0].temperature);
+      $("#patient_pulse_rate_detail").html(data[0].pulse_rate);
+      $("#patient_blood_pressure_detail").html(data[0].blood_pressure);
+      $("#patient_respiratory_rate_detail").html(data[0].respiratory_rate);
+      $("#doctor_assessment_detail").html(data[0].doctor_accessment);
+      $("#diagnosis_detail").html(data[0].diagnosis);
+      $("#investigation_detail").html(data[0].investigation);
+      $("#treatments_and_procedures_detail").html(data[0].treatment_procedures);
       showDetailPanel();
   }
   else {
@@ -334,9 +351,17 @@ function saveObj() {
     if(isnew) { //inserting new
         request_type = "POST";
         data_send.record_type = $("#record_type").val();
-        data_send.care_id = $("#care_id").val();
-        data_send.doctor_notes = $("#doctor_notes").val();
-        data_send.attachment = $("#attachment").val();
+        data_send.patient_id = $("#patient_id").val();
+        data_send.weight = $("#patient_weight").val();
+        data_send.height = $("#patient_height").val();
+        data_send.temperature = $("#patient_temperature").val();
+        data_send.pulse_rate = $("#patient_pulse_rate").val();
+        data_send.blood_pressure = $("#patient_blood_pressure").val();
+        data_send.respiratory_rate = $("#patient_respiratory_rate").val();
+        data_send.doctor_accessment = $("#doctor_assessment").val();
+        data_send.diagnosis = $("#diagnosis").val();
+        data_send.investigation = $("#investigation").val();
+        data_send.treatment_procedures = $("#treatments_and_procedures").val();
     }
     else { //editing update
         request_type = "POST"
@@ -347,6 +372,7 @@ function saveObj() {
             data_send[fieldname] = obj.value;
         });    
     }
+    console.log(data_send)
     var pvar = getPvar();
     $.ajax({
         url : end_point,
@@ -411,8 +437,9 @@ function load() {
 function loadTable(table_data) {
     var data = table_data.map(x => ({
       ...x,
-      created_time: moment(x.created_time).format('hh:mm/MMM-DD-YYYY'),
-      updated_time: moment(x.updated_time).format('hh:mm/MMM-DD-YYYY')
+      patient_name: x.patient ? x.patient.name : "-",
+      created_time: moment(x.created_time).format('MMM DD, YYYY HH:MM A'),
+      updated_time: moment(x.updated_time).format('MMM DD, YYYY HH:MM A')
     }))
     datatable.clear().draw(); 
     datatable.rows.add(data).draw(); 

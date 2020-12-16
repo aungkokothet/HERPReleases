@@ -185,7 +185,6 @@
                                         <th>Blood Pressure</th>
                                         <th>Pulse Rate</th>
                                         <th>Respiratory Rate</th>
-                                        <th>Blood Group</th>
                                     </tr>
                                 </thead>
                              
@@ -213,101 +212,91 @@
                                     <div class="form-group row">
                                         <label for="level" class="col-md-2 col-form-label">Patient Id</label>
                                         <div class="col-md-10">
-                                            <select class="custom-select col-12" id="patient_id" name="patient_id">
-                                                <option>default</option>
-                                            </select>
+                                            <input class="custom-select col-12" id="patient_id" name="patient_id">
+                                                
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label for="level" class="col-md-2 col-form-label">Record Type</label>
-                                        <div class="col-md-10">
-                                            <select class="custom-select col-12" id="record_type" name="record_type">
-                                                <option value='Outpatient'>Outpatient</option>
-                                                <option value='Inpatient'>Inpatient</option>
-                                                <option value='Emergency'>Emergency</option>
-                                            </select>
-                                        </div>
+                                  <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Record Type</label>
+                                    <div class="col-md-10">
+                                        <select class="custom-select col-12" id="record_type" name="record_type">
+                                            <option value='Outpatient'>Outpatient</option>
+                                            <option value='Inpatient'>Inpatient</option>
+                                            <option value='Emergency'>Emergency</option>
+                                        </select>
                                     </div>
+                                </div>
 
-                                    <div class="form-group mt-4 row">
-                                        <label for="username" class="col-md-2 col-form-label">Weight</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" type="text" id="patient_weight" name="weight">
-                                        </div>
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Weight</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_weight" name="weight">
                                     </div>
+                                </div>
 
-                                    <div class="form-group mt-4 row">
-                                        <label for="username" class="col-md-2 col-form-label">Height</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" type="text" id="patient_height" name="height" >
-                                        </div>
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Height</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_height" name="height" >
                                     </div>
+                                </div>
 
-                                    <div class="form-group mt-4 row">
-                                        <label for="username" class="col-md-2 col-form-label">Temperature</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" type="text" id="patient_temperature" name="temperature">
-                                        </div>
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Temperature</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_temperature" name="temperature">
                                     </div>
+                                </div>
 
-                                    <div class="form-group mt-4 row">
-                                        <label for="username" class="col-md-2 col-form-label">Blood Pressure</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" type="text" id="patient_blood_pressure" name="blood_pressure">
-                                        </div>
+                                 <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Blood Pressure</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_blood_pressure" name="blood_pressure">
                                     </div>
+                                </div>
 
-                                    <div class="form-group mt-4 row">
-                                        <label for="username" class="col-md-2 col-form-label">Pulse Rate</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" type="text" id="patient_pulse_rate" name="pulse_rate">
-                                        </div>
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Pulse Rate</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="patient_pulse_rate" name="pulse_rate">
                                     </div>
+                                </div>
 
-                                    <div class="form-group row">
-                                        <label for="level" class="col-md-2 col-form-label">Respiratory Rate</label>
-                                        <div class="col-md-10">
-                                            <input class='form-control' type='text' id='patient_respiratory_rate' name='respiratory_rate'>
-                                        </div>
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Respiratory Rate</label>
+                                    <div class="col-md-10">
+                                        <input class='form-control' type='text' id='patient_respiratory_rate' name='respiratory_rate'>
                                     </div>
-
-                                    <div class="form-group row">
-                                        <label for="level" class="col-md-2 col-form-label">Blood Group</label>
-                                        <div class="col-md-10">
-                                            <input class='form-control' type='text' id='patient_blood_group' name='blood_group'>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
+                                </div>                                   
+                                
+                                <div class="form-group row">
                                         <label for="level" class="col-md-2 col-form-label">Doctor Assessments</label>
                                         <div class="col-md-10">
-                                            <textarea type='text' class='form-control' id='doctor_note' name='doctor_note'></textarea>
+                                            <textarea type='text' class='form-control' id='doctor_assessment' name='doctor_accessment'></textarea>
                                         </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Diagnosis</label>
+                                    <div class="col-md-10">
+                                        <textarea type='text' class='form-control' id="diagnosis" name='diagnosis'></textarea>
                                     </div>
+                                </div>
 
-                                    <div class="form-group row">
-                                        <label for="level" class="col-md-2 col-form-label">Diagnosis</label>
-                                        <div class="col-md-10">
-                                            <textarea type='text' class='form-control' id="diagnosis" name='diagnosis'></textarea>
-                                        </div>
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Opd Investigations</label>
+                                    <div class="col-md-10">
+                                        <textarea type='text' class='form-control' id="investigation" name='investigation'></textarea>
                                     </div>
+                                </div>
 
-                                    <div class="form-group row">
-                                        <label for="level" class="col-md-2 col-form-label">Opd Investigations</label>
-                                        <div class="col-md-10">
-                                            <textarea type='text' class='form-control' id="diagnosis" name='diagnosis'></textarea>
-                                        </div>
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Treatments and Procedures</label>
+                                    <div class="col-md-10">
+                                        <textarea type='text' class='form-control' id="treatments_and_procedures" name='treatment_procedures'></textarea>
                                     </div>
-
-                                    <div class="form-group row">
-                                        <label for="level" class="col-md-2 col-form-label">Treatments and Procedures</label>
-                                        <div class="col-md-10">
-                                            <textarea type='text' class='form-control' id="diagnosis" name='diagnosis'></textarea>
-                                        </div>
-                                    </div>
-
-
+                                </div>
 
 
                                     <hr>
@@ -392,9 +381,9 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="level" class="col-md-2 col-form-label">Blood Group</label>
+                                        <label for="level" class="col-md-2 col-form-label">Doctor Assessments</label>
                                         <div class="col-md-10">
-                                            <div id='patient_blood_group_detail'></div>
+                                            <div id='doctor_assessment_detail'></div>
                                         </div>
                                     </div>
 
@@ -406,25 +395,20 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="level" class="col-md-2 col-form-label">Doctor Assessments</label>
-                                        <div class="col-md-10">
-                                            <div id='doctor_note'></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="level" class="col-md-2 col-form-label">Treadments and Procedures</label>
-                                        <div class="col-md-10">
-                                            <div id='preception'></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
                                         <label for="level" class="col-md-2 col-form-label">Opd Investigations</label>
                                         <div class="col-md-10">
-                                            <div id='investigation'></div>
+                                            <div id='investigation_detail'></div>
                                         </div>
                                     </div>
+
+                                    <div class="form-group row">
+                                        <label for="level" class="col-md-2 col-form-label">Treatments and Procedures</label>
+                                        <div class="col-md-10">
+                                            <div id='treatments_and_procedures_detail'></div>
+                                        </div>
+                                    </div>
+
+                                    
 
                                     <div class="form-group row">
                                         <label for="level" class="col-md-2 col-form-label">Attachements</label>

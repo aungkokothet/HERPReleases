@@ -19,8 +19,8 @@
       {data : 'age'},
       {data : "address_mod"},
       {data : "gender"},
+      {data : "blood_group_mod"},
       {data : "status_mod"},
-      //{data : "blood_group_mod"},
     ],
     dom:
       '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
@@ -144,6 +144,9 @@ $("#btn-medical_record-close, #btn-medical_record-cancel").click(function(){
 });
 $("#btn_view_medical_record").click(function(){
   viewMedicalRecordButtonClick();
+});
+$("#btn-medical_record-save").click(function(){
+  createMedicalRecord();
 })
 /*----- End Event Section ------*/
 /*------------------------------*/
@@ -251,7 +254,7 @@ function medicalRecordButtonClick(){
 
     var data = datatable.rows({selected:  true}).data();
 
-    $("#patient_id").html(data[0].id);
+    $("#patient_id").val(data[0].id);
 
     showMedicalRecordPanel();
   }
@@ -380,6 +383,47 @@ function load() {
     }).fail(function(data_response) {
         dataResponseErrorUI(data_response);
     });
+}
+
+function createMedicalRecord(){
+  var request_type = "POST";
+  var end_point = API_URI + "medical_records/add";
+  var data_send = {};
+
+  data_send.record_type = $("#record_type").val();
+  data_send.patient_id = $("#patient_id").val();
+  data_send.weight = $("#patient_weight").val();
+  data_send.height = $("#patient_height").val();
+  data_send.temperature = $("#patient_temperature").val();
+  data_send.pulse_rate = $("#patient_pulse_rate").val();
+  data_send.blood_pressure = $("#patient_blood_pressure").val();
+  data_send.respiratory_rate = $("#patient_respiratory_rate").val();
+  data_send.doctor_accessment = $("#doctor_assessment").val();
+  data_send.diagnosis = $("#diagnosis").val();
+  data_send.investigation = $("#investigation").val();
+  data_send.treatment_procedures = $("#treatments_and_procedures").val();
+ 
+  var pvar = getPvar();
+  console.log(data_send)
+  $.ajax({
+      url : end_point,
+      type: request_type,
+      dataType : "JSON",
+      headers: {"Authorization":"Bearer"+pvar.token, "Content-Type" : "application/json"},
+      data: JSON.stringify(data_send)
+  }).always(function(data_response) {
+
+  }).done(function(data_response) {
+     
+    hideMedicalRecordPanel();
+    toastr.success("New medical record created.", 'Success', { positionClass: 'toastr toast-top-left', containerId: 'toast-top-left', timeOut: 2000 });
+      // load(); //to reload table after successfully saved
+      // clearDataEntryPanel();
+      // hideDataEntryPanel();
+
+  }).fail(function(data_response) {
+    dataResponseErrorUI(data_response);
+  });
 }
 
 function loadTable(table_data) {

@@ -4,6 +4,7 @@
 
   var opdRooms = [];
   var doctors = [];
+  var appointments = [];
 
   var datatable = $("#datatable").DataTable({
 
@@ -95,7 +96,9 @@ $(document).ready(function() {
 This section organizes user interactions and events on UI that call functions
 */
 
-$("#doctor_id").on("change",fillOpd)
+$("#doctor_id").on("change",fillOpd);
+$("#date-filter").on("change", filterAppointments);
+$("#date-filter-remove").on('click',removeFilter);
 //password field reveal event function when button click in entry form
 $("#btn-see-password").mousedown(function() {
   $("#password").attr("type", "text");
@@ -139,10 +142,10 @@ $("#btn_delete").click(function() {
 });
 $("#btn_detail").click(function() {
    detailButtonClick();
-})
+});
 $("#detail-btn_cancel, .detail-btn-close").click(function(){
   hideDetailPanel();
-})
+});
 
 /*----- End Event Section ------*/
 /*------------------------------*/
@@ -161,9 +164,10 @@ function hideDataEntryPanel() {
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
     $("#patient_id, #doctor_id, #opd_room_id, #appointment_time").val("");
-    $("#doctor-schedule").html('<p></p>')
-    $("#source").val('Walk In')
-    $("#status").val(0)
+    $("#doctor-schedule").html('<p></p>');
+    $("#source").val('Walk In');
+    $("#status").val(0);
+    $("#queue_ticket").prop('hidden', true)
     document.getElementById("doctor_id").fstdropdown.rebind();
     document.getElementById("patient_id").fstdropdown.rebind();
 
@@ -198,8 +202,12 @@ function editButtonClick() {
         $("#data_entry_panel_title").html("Edit");
 
         $("#data_id").val(data[0].id);
+        $("#queue_ticket").prop('hidden', false);
+        $("#queue_token").html(data[0].queue_ticket_number);
         $("#patient_id").val(data[0].patient_id)
+        document.getElementById("patient_id").fstdropdown.rebind();
         $("#doctor_id").val(data[0].doctor_id);
+        document.getElementById("doctor_id").fstdropdown.rebind();
         $("#opd_room_id").val(data[0].opd_room_id);
         $("#appointment_time").val(moment(data[0].appointment_time).format('YYYY-MM-DDTHH:MM'));
         doctor = doctors.filter(x => x.id==data[0].doctor_id)
@@ -351,7 +359,8 @@ function load() {
     }).always(function(data_response) {
 
     }).done(function(data_response) {
-        loadTable(data_response.data); 
+        appointments = data_response.data.appointments
+        loadTable(data_response.data.appointments); 
         loadPatient(data_response.data.patients)  
         loadDoctor(data_response.data.doctors)   
         loadOpdRooms(data_response.data.opds)  
@@ -372,7 +381,7 @@ function getStatus(num){
 }
 
 function loadTable(table_data) {
-    var data = table_data.appointments.map(x => ({
+    var data = table_data.map(x => ({
       ...x,
       id_mod: padToFour(x.id),
       patient_name: x.patient.name,
@@ -380,7 +389,7 @@ function loadTable(table_data) {
       patient_phone: x.patient.phone,
       doctor_name: x.doctor.name,
       doctor_schedule: x.doctor.schedule,
-      opd_room_name: x.opd.name,
+      opd_room_name: x.opd ? x.opd.name: '-',
       status_mod: getStatus(x.status),
       appointment_time_mod: moment(x.appointment_time).format('MMM DD, YYYY, hh:MM A')
     }))
@@ -426,6 +435,14 @@ function fillOpd(e){
     $("#opd_room_id").val(-1)
   $("#doctor-schedule").html(`<p>${doctor[0].schedule}</p>`)
 }
-  
+
+function filterAppointments(e){
+  loadTable(appointments.filter(x => moment(x.appointment_time).format('YYYY-MM-DD') === e.target.value))
+}
+
+function removeFilter(e){
+  loadTable(appointments)
+  $("#date-filter").val('')
+}
 /*----- End Function Section ------*/
 /*---------------------------------*/

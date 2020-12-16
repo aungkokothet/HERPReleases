@@ -16,7 +16,6 @@
       {data : "id_mod"},
       {data : "name"},
       {data : "location"},
-      {data : "current_doctor_id"},
       {data : "current_doctor_name"},
       {data : "current_queue_token"}
     ],
@@ -334,7 +333,7 @@ function load() {
         type: 'POST',
         headers: {"Authorization":'Bearer '+pvar.token}
     }).always(function(data_response) {
-      console.log(data_response)
+      console.log('hello', data_response)
     }).done(function(data_response) {
         loadTable(data_response.data);       
                    

@@ -1338,7 +1338,7 @@ pre {
 .table {
   width: 100%;
   margin-bottom: 1rem;
-  color: #67757c; }
+  color: black; }
   .table th,
   .table td {
     padding: 0.75rem;
@@ -12348,7 +12348,7 @@ body[data-theme="dark"] {
     #main-wrapper[data-layout="vertical"] .left-sidebar[data-sidebarbg="skin6"] .sidebar-nav ul, #main-wrapper[data-layout="horizontal"] .left-sidebar[data-sidebarbg="skin6"] .sidebar-nav ul {
       background: #fff; }
       #main-wrapper[data-layout="vertical"] .left-sidebar[data-sidebarbg="skin6"] .sidebar-nav ul .sidebar-item .sidebar-link, #main-wrapper[data-layout="horizontal"] .left-sidebar[data-sidebarbg="skin6"] .sidebar-nav ul .sidebar-item .sidebar-link {
-        color: #607d8b;
+        color: black;
         opacity: 1; }
         #main-wrapper[data-layout="vertical"] .left-sidebar[data-sidebarbg="skin6"] .sidebar-nav ul .sidebar-item .sidebar-link i, #main-wrapper[data-layout="horizontal"] .left-sidebar[data-sidebarbg="skin6"] .sidebar-nav ul .sidebar-item .sidebar-link i {
           color: #99abb4; }
@@ -12565,7 +12565,7 @@ button.close {
 body {
   overflow-x: hidden;
   margin: 0;
-  color: #67757c;
+  color: black;
   background: #eef5f9; }
 
 html {
