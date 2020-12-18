@@ -166,6 +166,8 @@
 							<button class="btn btn-outline-info" id="btn_new"><i class="mdi mdi-plus"></i>&nbsp;New</button>
 							<button class="btn btn-outline-info" id="btn_edit"><i class="mdi mdi-pencil"></i>&nbsp;Edit</button>
 							<button class="btn btn-outline-danger" id="btn_delete"><i class="mdi mdi-delete"></i>&nbsp;Delete</button>
+                           	<button class="btn btn-outline-info" id="btn_detail"><i class="mdi mdi-pencil"></i>&nbsp;Detail</button>
+
                             <hr>
                             <div style={"overflow-x" : "inherit"}>
                             <table id="datatable" class="table table-bordered display">
@@ -176,8 +178,6 @@
                                         <th>Name</th>
                                         <th>Gender</th>
                                         <th>Education</th>
-                                        <th>Join Date</th>
-                                        <th>Parmanent Date</th>
                                         <th>Merital Status</th>
                                         <th>Number of children</th>
                                         <th>Live with parent</th>
@@ -189,13 +189,9 @@
                                         <th>Bank account Number</th>
                                         <th>Passport Number</th>
                                         <th>Address</th>
-                                        <th>Position Id</th>
-                                        <th>Department Id</th>
+                                        <th>Position</th>
+                                        <th>Department</th>
                                         <th>Status</th>
-                                        <th>Created User Id</th>
-                                        <th>Updated User Id</th>
-                                        <th>Created Time</th>
-                                        <th>Updated Time</th>
                                     </tr>
                                 </thead>
                              
@@ -293,7 +289,7 @@
                                 <div class="form-group mt-4 row">
                                     <label for="username" class="col-md-2 col-form-label">Emergancy Phone Number</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="emergancy_phone" name="emergancy_phone">
+                                        <input class="form-control" type="text" id="emergancy_phone" name="emergency_contact_phone">
                                     </div>
                                 </div>
                                 
@@ -354,15 +350,155 @@
                                     <label for="status" class="col-md-2 col-form-label">Status</label>
                                     <div class="col-md-10">
                                         <select class="custom-select col-12" id="status" name="status">
-                                            <option value="1">Probation</option>
+                                            <option value="1">Full Time</option>
                                             <option value="0">Resigned</option>
-                                            <option value="2">Permant</option>
+                                            <option value="2">Part Time</option>
                                         </select>
                                     </div>
                                 </div>
                                 <hr>
                                 <button type="button" class="btn btn-info waves-effect waves-light mr-2" id="btn_save">Save</button>
                                 <button type="button" class="btn btn-light waves-effect waves-light mr-2" id="btn_cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="row d-none" id="detail_panel">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <h4 class="card-title" id="data_entry_panel_title">Detail</h4>
+                            <div class="card-actions ml-auto">
+                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <a id="btn-detail-close" ><i class="mdi mdi-close"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form">
+                                <input type="hidden" id="data_id_detail">
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Name</label>
+                                    <div class="col-md-10">
+                                        <div id="name_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Gender</label>
+                                    <div class="col-md-10">
+                                        <div id="gender_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="fullname" class="col-md-2 col-form-label">Education</label>
+                                    <div class="col-md-10">
+                                        <div id="education_detail"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Marital Status</label>
+                                    <div class="col-md-10">
+                                        <div id="marital_status_detail"></div>
+                                    </div>
+                                </div>
+
+                                 <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Number of Children</label>
+                                    <div class="col-md-10">
+                                        <div id="num_of_children_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Live with Parent</label>
+                                    <div class="col-md-10">
+                                        <div id="live_with_parent_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Live with Spouse</label>
+                                    <div class="col-md-10">
+                                        <div id="live_with_spouse_parent_detail"></div>
+                                    </div>
+                                </div>
+
+                                 <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Phone Number</label>
+                                    <div class="col-md-10">
+                                        <div id="phone_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Emergancy Phone Number</label>
+                                    <div class="col-md-10">
+                                        <div id="emergancy_phone_detail"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Dath of Birth</label>
+                                    <div class="col-md-10">
+                                        <div id="DOB_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">NRC</label>
+                                    <div class="col-md-10">
+                                        <div id="nrc_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Bank Account</label>
+                                    <div class="col-md-10">
+                                        <div id="bank_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Passport Number</label>
+                                    <div class="col-md-10">
+                                        <div id="passport_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Addresss</label>
+                                    <div class="col-md-10">
+                                        <div id="address_detail"></div>
+                                    </div>
+                                </div>
+                                  
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Position</label>
+                                    <div class="col-md-10">
+                                        <div id="position_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="level" class="col-md-2 col-form-label">Department</label>
+                                    <div class="col-md-10">
+                                        <div id="department_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="status" class="col-md-2 col-form-label">Status</label>
+                                    <div class="col-md-10">
+                                        <div id="status_detail"></div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <button type="button" class="btn btn-light waves-effect waves-light mr-2" id="btn_detail_cancel">Cancel</button>
                             </div>
                         </div>
                     </div>

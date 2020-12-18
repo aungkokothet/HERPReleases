@@ -19,8 +19,6 @@
       {data : "name"},
       {data : "gender"},
       {data : "education"},
-      {data : "join_date"},
-      {data : "permanent_date"},
       {data : "marital_status"},
       {data : "number_of_children"},
       {data : "live_with_parent"},
@@ -34,11 +32,7 @@
       {data : "address"},
       {data : "position"},
       {data : "department"},
-      {data : "status"},
-      {data : "created_user_login_id"},
-      {data : "updated_user_login_id"},
-      {data : "created_time"},
-      {data : "updated_time"}
+      {data : "status_mod"},
 
     ],
     dom:
@@ -149,14 +143,12 @@ $("#btn_save").click(function() {
 $("#btn_delete").click(function() {
     deleteButtonClick();
 });
-
-// $("#DOB").on("change", function() {
-//   this.setAttribute(
-//       "data-date",
-//       moment(this.value, "MM-DD-YYYY")
-//       .format( this.getAttribute("data-date-format") )
-//   )
-// }).trigger("change")
+$("#btn_detail").click(function(){
+  detailButtonClick();
+});
+$("#btn-detail-close, #btn_detail_cancel").click(function(){
+  hideDetailPanel();
+})
 /*----- End Event Section ------*/
 /*------------------------------*/
 
@@ -170,6 +162,17 @@ function hideDataEntryPanel() {
     $("#data_table_panel").removeClass("d-none");
     $("#data_entry_panel").addClass("d-none");
 }
+
+function showDetailPanel() {
+  $("#data_table_panel").addClass("d-none");
+  $("#detail_panel").removeClass("d-none");
+}
+
+function hideDetailPanel() {
+  $("#data_table_panel").removeClass("d-none");
+  $("#detail_panel").addClass("d-none");
+}
+
 
 function clearDataEntryPanel() {
     $("input").removeClass("is-valid");
@@ -241,6 +244,38 @@ function editButtonClick() {
     }
 }
 
+function detailButtonClick(){
+  if(datatable.rows('.selected').any()) {
+
+    var data = datatable.rows({selected:  true}).data();
+
+    $("#data_id_detail").html(data[0].id);
+    $("#name_detail").html(data[0].name)
+    $("#gender_detail").html(data[0].gender);
+    $("#education_detail").html(data[0].education);
+    $("#marital_status_detail").html(data[0].marital_status);
+    $("#num_of_children_detail").html(data[0].number_of_children);
+    $("#live_with_parent_detail").html(data[0].live_with_parent);
+    $("#live_with_spouse_parent_detail").html(data[0].live_with_spouse_parent);
+    $("#phone_detail").html(data[0].phone_number);
+    $("#emergancy_phone_detail").html(data[0].emergency_contact_phone);
+    $("#DOB_detail").html(data[0].date_of_birth);
+    $("#nrc_detail").html(data[0].nrc_number);
+    $("#bank_detail").html(data[0].bank_account_number);
+    $("#passport_detail").html(data[0].passport_number)
+    $("#address_detail").html(data[0].address)
+    $("#position_detail").html(data[0].position)
+    console.log(data[0].department)
+    $("#department_detail").html(data[0].department)
+    $("#status_detail").html(data[0].status_mod)
+
+    showDetailPanel();
+}
+else {
+    return false;
+}
+}
+
 function deleteButtonClick() {
     if (datatable.rows('.selected').any()) {
         Swal.fire({
@@ -278,7 +313,7 @@ function saveObj() {
         data_send.live_with_parent = $("#live_with_parent").val();
         data_send.live_with_spouse_parent = $("#live_with_spouse_parent").val();
         data_send.phone_number = $("#phone").val();
-        data_send.emergacy_contact_phone = $("#emergacy_phone").val();
+        data_send.emergency_contact_phone = $("#emergancy_phone").val();
         data_send.date_of_birth = $("#DOB").val();
         data_send.nrc_number = $("#nrc").val();
         data_send.bank_account_number = $("#bank").val();
@@ -363,13 +398,24 @@ function load() {
     });
 }
 
+function getStatus(data){
+  var data = data + ''
+  switch(data){
+    case '1': return 'Full Time';
+    case '2': return 'Part Time';
+    case '0': return 'Resigned';
+    default: return '..'
+  }
+}
+
 function loadTable(table_data) {
     datatable.clear().draw(); 
-    data = table_data.map(x => ({...x,
+    var data = table_data.map(x => ({...x,
           id_mod: padToFour(x.id),
-          department : x.department.name,
-          department_id: x.department.id,
+          department : x.department && x.department.name,
+          department_id: x.department && x.department.id,
           position : x.position.name,
+          status_mod: getStatus(x.status),
           created_time: moment(x.created_time).format('hh:mm/MMM-DD-YYYY'),
           updated_time: moment(x.updated_time).format('hh:mm/MMM-DD-YYYY')
     }))

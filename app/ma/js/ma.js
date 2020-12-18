@@ -144,7 +144,7 @@ function showMenu() {
 	html_menu += '<li class="nav-small-cap"><span class="hide-menu">Menu</span></li>';
 	
 	html_menu += lev < 0 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="appointments.html" ><i class="mdi  mdi-calendar"></i><span class="hide-menu">Appointments</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="doctors.html" ><i class="mdi  mdi-medical-bag"></i><span class="hide-menu">Doctors</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="doctors_schedule.html" ><i class="mdi  mdi-medical-bag"></i><span class="hide-menu">Doctors Schedules</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="patients.html" ><i class="mdi  mdi-needle"></i><span class="hide-menu">Patients</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="opdroom.html" ><i class="mdi  mdi-home"></i><span class="hide-menu">OPD Rooms</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="medical_record.html" ><i class="mdi  mdi-book-plus"></i><span class="hide-menu">Medical Record</span></a></li>';

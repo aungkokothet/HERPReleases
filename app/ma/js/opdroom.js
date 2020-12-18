@@ -2,6 +2,7 @@
   var accessLevel = 5
 
   var isnew = true;  
+  var doctors = [];
 
   var datatable = $("#datatable").DataTable({
 
@@ -136,6 +137,13 @@ $("#btn_appointment_close, #btn_appointment_cancel").click(function(){
 $("#btn_view_medical_record").click(function(){
   viewMedicalRecordButtonClick();
 });
+$("#current_doctor_id").on('change',fillDoctor);
+$("#btn_detail").click(function(){
+  detailButtonClick();
+});
+$("#btn-detail-close, #btn_detail_cancel").click(function(){
+  hideDetailPanel();
+})
 
 /*----- End Event Section ------*/
 /*------------------------------*/
@@ -159,6 +167,15 @@ function showAppointmentTable(){
 function hideAppointmentTable(){
   $("#data_table_panel").removeClass("d-none");
   $("#appointment_edit_panel").addClass("d-none");
+}
+function showDetailPanel(){
+  $("#data_table_panel").addClass('d-none');
+  $("#detail_panel").removeClass('d-none');
+}
+
+function hideDetailPanel(){
+  $("#data_table_panel").removeClass("d-none");
+  $("#detail_panel").addClass("d-none");
 }
 
 function clearDataEntryPanel() {
@@ -192,6 +209,7 @@ function editButtonClick() {
         $("#name").val(data[0].name);
         $("#location").val(data[0].location);
         $("#current_doctor_id").val(data[0].current_doctor_id);
+        document.getElementById("current_doctor_id").fstdropdown.rebind();
         $("#current_queue_token").val(data[0].current_queue_token);
 
         showDataEntryPanel();
@@ -199,6 +217,28 @@ function editButtonClick() {
     else {
         return false;
     }
+}
+
+function detailButtonClick(){
+  if(datatable.rows('.selected').any()) {
+
+    var data = datatable.rows({selected:  true}).data();
+    console.log(data)
+    $("#name_detail").html(data[0].name);
+    $("#location_detail").html(data[0].location);
+    $("#current_doctor_id_detail").html(data[0].current_doctor_id);
+    $("#current_queue_token_detail").html(data[0].current_queue_token);
+    $("#doctor_name_detail").html(data[0].doctor.employee.name)
+    $("#doctor_phone_detail").html(data[0].doctor.employee.phone_number)
+    $("#doctor_department_detail").html(data[0].doctor.employee.department.name)
+    $("#doctor_position_detail").html(data[0].doctor.employee.position.name)
+    $("#doctor_schedule_detail").html(data[0].doctor.schedule)
+
+    showDetailPanel();
+}
+else {
+    return false;
+}
 }
 
 function deleteButtonClick() {
@@ -274,7 +314,7 @@ function saveObj() {
         request_type = "POST"
         data_send = datatable.rows({selected:  true}).data()[0];
         end_point = API_URI + "opd_rooms/" + data_send.id + '/update';
-
+        data_send.current_doctor_id = $("#current_doctor_id").val();
         $.each($(".is-valid"), function(index, obj) {
             var fieldname = obj.attributes.name.value;
             data_send[fieldname] = obj.value;
@@ -335,7 +375,8 @@ function load() {
     }).always(function(data_response) {
       console.log('hello', data_response)
     }).done(function(data_response) {
-        loadTable(data_response.data);       
+        loadTable(data_response.data.opd_rooms);
+        loadDoctor(data_response.data.doctors);       
                    
     }).fail(function(data_response) {
         dataResponseErrorUI(data_response);
@@ -346,10 +387,40 @@ function loadTable(table_data) {
     data = table_data.map(x => ({
         ...x,
         id_mod: padToFour(x.id),
-        current_doctor_name: x.doctor && x.doctor.name
+        current_doctor_name: x.doctor && x.doctor.employee.name
     }))
     datatable.clear().draw(); 
     datatable.rows.add(data).draw(); 
+}
+
+function loadDoctor(data){
+  var options = '<option value="" disabled selected>Choose doctor</option>';
+  data.forEach(ele => 
+    options += `<option value=${ele.id} name="${ele.employee.name}">${ele.employee.name}</option>`)
+  $("#current_doctor_id").html(options);
+  document.getElementById("current_doctor_id").fstdropdown.rebind();
+  doctors = data
+}
+
+function fillDoctor(e){
+  doctorId = e.target.value;
+  doctor = doctors.filter(x => x.id==doctorId)
+  console.log(doctor)
+  if(doctor[0]){
+    $("#doctor_name").val(doctor[0].employee.name);
+    $("#doctor_phone").val(doctor[0].employee.phone_number);
+    $("#doctor_department").val(doctor[0].employee.department.name);
+    $("#doctor_position").val(doctor[0].employee.position.name);
+    $("#doctor_schedule").val(doctor[0].schedule);
+}
+  else{
+    $("#doctor_name").val("no doctor choosen");
+    $("#doctor_phone").val("no doctor choosen");
+    $("#doctor_department").val("no doctor choosen");
+    $("#doctor_position").val("no doctor choosen");
+    $("#doctor_schedule").val("no doctor choosen");
+  }
+    
 }
 
 /*----- End Function Section ------*/

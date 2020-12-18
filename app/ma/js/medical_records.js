@@ -68,12 +68,19 @@ datatable.on('user-select', function ( e, dt, type, cell, originalEvent ) {
       //select
     }
 });
+const params = new URLSearchParams(window.location.search);
 
 $(document).ready(function() {
   "use strict"
   checkVasibality(accessLevel)
+  if(!params.has('patient_id')){
+    load();
+  }
+  else{
+    loadByPatientId()
+  }
   // init list view datatable
-  load();
+ 
 
   //restrict typing space on username textbox
   $('#username').on('keypress', function(e) {
@@ -386,7 +393,13 @@ function saveObj() {
       console.log('succ',data_response)
 
             toastr.success(data_response.message, 'Success', { positionClass: 'toastr toast-top-left', containerId: 'toast-top-left', timeOut: 2000 });
-            load(); //to reload table after successfully saved
+            if(params.has("patient_id")){
+              loadByPatientId()
+            }
+            else{
+
+              load(); //to reload table after successfully saved
+            }
             clearDataEntryPanel();
             hideDataEntryPanel();
 
@@ -434,6 +447,23 @@ function load() {
     });
 }
 
+function loadByPatientId() {
+    var pvar = getPvar();
+    var end_point = API_URI + "medical_records/patient/"+params.get("patient_id");
+    $.ajax({
+        url : end_point,
+        type: 'POST',
+        headers: {'Authorization': 'Bearer '+ pvar.token, "Content-Type" : "application/json"}
+    }).always(function(data_response) {
+      console.log(data_response)
+    }).done(function(data_response) {
+        loadTableByPatient(data_response.data.medical_record, data_response.data.name);     
+                   
+    }).fail(function(data_response) {
+        dataResponseErrorUI(data_response);
+    });
+}
+
 function loadTable(table_data) {
     var data = table_data.map(x => ({
       ...x,
@@ -443,6 +473,17 @@ function loadTable(table_data) {
     }))
     datatable.clear().draw(); 
     datatable.rows.add(data).draw(); 
+}
+
+function loadTableByPatient(table_data, name) {
+  var data = table_data.map(x => ({
+    ...x,
+    patient_name: name,
+    created_time: moment(x.created_time).format('MMM DD, YYYY HH:MM A'),
+    updated_time: moment(x.updated_time).format('MMM DD, YYYY HH:MM A')
+  }))
+  datatable.clear().draw(); 
+  datatable.rows.add(data).draw(); 
 }
 
 /*----- End Function Section ------*/

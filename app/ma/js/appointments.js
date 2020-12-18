@@ -357,7 +357,7 @@ function load() {
         type: 'POST',
         headers: {'Authorization': 'Bearer '+ pvar.token, "Content-Type" : "application/json"}
     }).always(function(data_response) {
-
+      console.log(data_response)
     }).done(function(data_response) {
         appointments = data_response.data.appointments
         loadTable(data_response.data.appointments); 
@@ -387,8 +387,8 @@ function loadTable(table_data) {
       patient_name: x.patient.name,
       patient_age: x.patient.age,
       patient_phone: x.patient.phone,
-      doctor_name: x.doctor.name,
-      doctor_schedule: x.doctor.schedule,
+      doctor_name: x.doctor && x.doctor.employee ? x.doctor.employee.name:'-',
+      doctor_schedule: x.doctor ? x.doctor.schedule:'-',
       opd_room_name: x.opd ? x.opd.name: '-',
       status_mod: getStatus(x.status),
       appointment_time_mod: moment(x.appointment_time).format('MMM DD, YYYY, hh:MM A')
@@ -409,7 +409,7 @@ function loadPatient(data){
 function loadDoctor(data){
   var options = '<option value="" disabled selected>Choose doctor</option>';
   data.forEach(ele => 
-    options += `<option value=${ele.id} name=${ele.name}>${ele.name}</option>`)
+    options += `<option value=${ele.id} name=${ele.employee.name}>${ele.employee.name}</option>`)
   $("#doctor_id").html(options);
   document.getElementById("doctor_id").fstdropdown.rebind();
   doctors = data

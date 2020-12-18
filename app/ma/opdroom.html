@@ -18,6 +18,7 @@
     <link href="../assets/libs/datatables/datatables.min.css" rel="stylesheet">
     <link href="../assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
     <link href="../assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="../assets/libs/searchDropdown/fstdropdown.min.css" rel="stylesheet">
     <link href="../assets/css/style.css" rel="stylesheet">
 
     <style>
@@ -166,8 +167,9 @@
 							<button class="btn btn-outline-info" id="btn_new"><i class="mdi mdi-plus"></i>&nbsp;New</button>
 							<button class="btn btn-outline-info" id="btn_edit"><i class="mdi mdi-pencil"></i>&nbsp;Edit</button>
 							<button class="btn btn-outline-danger" id="btn_delete"><i class="mdi mdi-delete"></i>&nbsp;Delete</button>
-                            <button class="btn btn-outline-info" id="btn_appointment"><i class="mdi mdi-pencil"></i>&nbsp;Edit Appointment</button>
-                            <button class="btn btn-outline-info" id="btn_view_medical_record"><i class="mdi mdi-pencil"></i>&nbsp;View Medical Record</button>
+                            <button class="btn btn-outline-info" id="btn_detail"><i class="mdi mdi-delete"></i>&nbsp;Detail</button>
+                            <button class="btn btn-outline-info" id="btn_appointment" hidden><i class="mdi mdi-pencil"></i>&nbsp;Edit Appointment</button>
+                            <button class="btn btn-outline-info" id="btn_view_medical_record" hidden><i class="mdi mdi-pencil"></i>&nbsp;View Medical Record</button>
 
                             <hr>
 
@@ -220,9 +222,47 @@
                                 <div class="form-group mt-4 row">
                                     <label for="username" class="col-md-2 col-form-label">Current Doctor Id</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" id="current_doctor_id" name="current_doctor_id" >
+                                        <select class="fstdropdown-select" type="text" id="current_doctor_id" name="current_doctor_id">
+
+                                        </select>
                                     </div>
                                 </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Doctor Name</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="doctor_name" name="name" disabled/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Doctor Phone</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="doctor_phone" name="phone" disabled/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Doctor Depatrment</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="doctor_department" name="phone" disabled/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Doctor Position</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="doctor_position" name="phone" disabled/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Doctor Schedule</label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control" type="text" id="doctor_schedule" disabled/></textarea>
+                                    </div>
+                                </div>
+
 
                                 <div class="form-group mt-4 row">
                                     <label for="username" class="col-md-2 col-form-label">Current Queue Token</label>
@@ -234,6 +274,92 @@
                                 <hr>
                                 <button type="button" class="btn btn-info waves-effect waves-light mr-2" id="btn_save">Save</button>
                                 <button type="button" class="btn btn-light waves-effect waves-light mr-2" id="btn_cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="row d-none" id="detail_panel">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <h4 class="card-title" id="data_entry_panel_title">New</h4>
+                            <div class="card-actions ml-auto">
+                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <a id="btn-detail-close" ><i class="mdi mdi-close"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form">
+                                <input type="hidden" id="data_id">
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Name</label>
+                                    <div class="col-md-10">
+                                        <div type="text" id="name_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Location</label>
+                                    <div class="col-md-10">
+                                        <div type="text" id="location_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Current Doctor Id</label>
+                                    <div class="col-md-10">
+                                        <div id="current_doctor_id_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Doctor Name</label>
+                                    <div class="col-md-10">
+                                        <div id="doctor_name_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Doctor Phone</label>
+                                    <div class="col-md-10">
+                                        <div id="doctor_phone_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Doctor Depatrment</label>
+                                    <div class="col-md-10">
+                                        <div id="doctor_department_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Doctor Position</label>
+                                    <div class="col-md-10">
+                                        <div id="doctor_position_detail"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Doctor Schedule</label>
+                                    <div class="col-md-10">
+                                        <div id="doctor_schedule_detail"></div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group mt-4 row">
+                                    <label for="username" class="col-md-2 col-form-label">Current Queue Token</label>
+                                    <div class="col-md-10">
+                                        <div id="current_queue_token_detail"></div>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <button type="button" class="btn btn-light waves-effect waves-light mr-2" id="btn_detail_cancel">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -361,6 +487,7 @@
     <script src="../assets/libs/toastr/build/toastr.min.js"></script>
     <script src="../assets/libs/sweetalert2/dist/sweetalert2.min.js"></script>
     <script src="../assets/libs/datatables/datatables.min.js"></script>
+     <script src="../assets/libs/searchDropdown/fstdropdown.min.js"></script>
 
     <!-- Common JavaScript -->
     <script src="../assets/js/config.js"></script>
