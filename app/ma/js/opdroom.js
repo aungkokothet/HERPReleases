@@ -210,6 +210,11 @@ function editButtonClick() {
         $("#location").val(data[0].location);
         $("#current_doctor_id").val(data[0].current_doctor_id);
         document.getElementById("current_doctor_id").fstdropdown.rebind();
+        $("#doctor_name").val(data[0].doctor.employee.name);
+        $("#doctor_phone").val(data[0].doctor.employee.phone_number);
+        $("#doctor_department").val(data[0].doctor.employee.department.name);
+        $("#doctor_position").val(data[0].doctor.employee.position.name);
+        $("#doctor_schedule").val(data[0].doctor.schedule);
         $("#current_queue_token").val(data[0].current_queue_token);
 
         showDataEntryPanel();

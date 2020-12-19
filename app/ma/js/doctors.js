@@ -71,7 +71,7 @@ $(document).ready(function() {
   // init list view datatable
   load();
   loadEmployee();
-  getOpdRooms();
+  // getOpdRooms();
 
   //restrict typing space on username textbox
   $('#username').on('keypress', function(e) {
@@ -173,7 +173,7 @@ function clearDataEntryPanel() {
       document.getElementById('employee_id').className = 'fstdropdown-select form-control';
       setFstDropdown();
     document.getElementById("employee_id").fstdropdown.rebind();
-    document.getElementById("opd_room_id").fstdropdown.rebind();
+    // document.getElementById("opd_room_id").fstdropdown.rebind();
 }
 
 function newButtonClick() {
@@ -399,31 +399,31 @@ function employeeIdOnChange(){
   $("#doctor_position").val(post);
 }
 
-function getOpdRooms(){
-  var pvar = getPvar();
-    var end_point = API_URI + "opd_rooms";
-    $.ajax({
-        url : end_point,
-        type: 'POST',
-        headers: {"Authorization":'Bearer '+pvar.token}
-    }).always(function(data_response) {
+// function getOpdRooms(){
+//   var pvar = getPvar();
+//     var end_point = API_URI + "opd_rooms";
+//     $.ajax({
+//         url : end_point,
+//         type: 'POST',
+//         headers: {"Authorization":'Bearer '+pvar.token}
+//     }).always(function(data_response) {
 
-    }).done(function(data_response) {
-        loadOpdRooms(data_response.data.opd_rooms)       
+//     }).done(function(data_response) {
+//         loadOpdRooms(data_response.data.opd_rooms)       
                    
-    }).fail(function(data_response) {
-        dataResponseErrorUI(data_response);
-    });
-}
+//     }).fail(function(data_response) {
+//         dataResponseErrorUI(data_response);
+//     });
+// }
 
-function loadOpdRooms(data){
-  var options = '<option value="" disabled selected>Choose Opd room</option>'
-  data.forEach(ele => 
-    options += `<option value=${ele.id}>${ele.name},${ele.location}</option>`
-  )
-  $("#opd_room_id").html(options);
-  document.getElementById("opd_room_id").fstdropdown.rebind();
-}
+// function loadOpdRooms(data){
+//   var options = '<option value="" disabled selected>Choose Opd room</option>'
+//   data.forEach(ele => 
+//     options += `<option value=${ele.id}>${ele.name},${ele.location}</option>`
+//   )
+//   $("#opd_room_id").html(options);
+//   document.getElementById("opd_room_id").fstdropdown.rebind();
+// }
 
 /*----- End Function Section ------*/
 /*---------------------------------*/

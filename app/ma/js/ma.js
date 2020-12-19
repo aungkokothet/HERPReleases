@@ -150,9 +150,10 @@ function showMenu() {
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="medical_record.html" ><i class="mdi  mdi-book-plus"></i><span class="hide-menu">Medical Record</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="investigation_request.html" ><i class="mdi  mdi-book-plus"></i><span class="hide-menu">Investigation Request</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="medical_record_prescription.html" ><i class="mdi  mdi-book-plus"></i><span class="hide-menu">Prescription</span></a></li>';
-	html_menu += lev < 6 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="user.html" ><i class="mdi mdi-account"></i><span class="hide-menu">Users</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="employee.html" ><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Employees</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="department.html" ><i class="mdi  mdi-hospital-building"></i><span class="hide-menu">Departments</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="position.html" ><i class="mdi  mdi-hospital-building"></i><span class="hide-menu">Positions</span></a></li>';
+	html_menu += lev < 6 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="user.html" ><i class="mdi mdi-account"></i><span class="hide-menu">Users</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="diagnosis_report.html" ><i class="mdi  mdi-file-chart"></i><span class="hide-menu">Diagnosis Report</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="suppliers.html" ><i class="mdi  mdi-truck"></i><span class="hide-menu">Suppliers</span></a></li>';
 	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="billing.html" ><i class="mdi  mdi-credit-card"></i><span class="hide-menu">Billing</span></a></li>';
