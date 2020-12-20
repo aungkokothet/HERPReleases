@@ -252,11 +252,19 @@ function dataResponseErrorUI(data_response) {
         loginPage();
     }
 	if(data_response.responseText) {
-		Swal.fire({
+		if(data_response.responseText.includes("Integrity constraint violation"))
+		  Swal.fire({
 		  type: "error",
 		  title: 'Error!',
-		  text: data_response.responseText
+		  text: "You can't delete this record!"
 		});
+		else
+		  Swal.fire({
+			type: "error",
+			title: 'Error!',
+			text: data_response.responseText
+		  });
+		  
 	}
 	else {
 		Swal.fire({
