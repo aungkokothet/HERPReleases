@@ -36,11 +36,11 @@
     bInfo: false,
     pageLength: 10,
     buttons: [
-        {extend : 'csv', text : '<i class="mdi mdi-file-document"></i>', titleAttr : 'CSV'},
-        {extend : 'excel', text : '<i class="mdi mdi-file-excel"></i>', titleAttr : 'Excel'}, 
-        {extend : 'print', text : '<i class="mdi mdi-printer"></i>', titleAttr : 'Print'},
+        {extend : 'csv', text : '<i class="material-icons md-18">text_snippet</i>', titleAttr : 'CSV'},
+        {extend : 'excel', text : '<i class="material-icons md-18">file_copy</i>', titleAttr : 'Excel'}, 
+        {extend : 'print', text : '<i class="material-icons md-18">print</i>', titleAttr : 'Print'},
         {
-          text: "<i class='mdi mdi-select-off'></i>",
+          text: "<i class='material-icons md-18'>web_asset_off</i>",
           action: function() {
 
             datatable.rows({selected: true}).deselect();

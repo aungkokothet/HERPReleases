@@ -143,16 +143,16 @@ function showMenu() {
 	
 	html_menu += '<li class="nav-small-cap"><span class="hide-menu">Menu</span></li>';
 	
-	html_menu += lev < 0 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="appointments.html" ><i class="mdi  mdi-calendar"></i><span class="hide-menu">Appointments</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="doctors_schedule.html" ><i class="mdi  mdi-medical-bag"></i><span class="hide-menu">Doctors Schedules</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="patients.html" ><i class="mdi  mdi-needle"></i><span class="hide-menu">Patients</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="opdroom.html" ><i class="mdi  mdi-home"></i><span class="hide-menu">OPD Rooms</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="medical_record.html" ><i class="mdi  mdi-book-plus"></i><span class="hide-menu">Medical Record</span></a></li>';
+	html_menu += lev < 0 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="appointments.html" ><i class="material-icons">calendar_today</i><span class="hide-menu">Appointments</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="doctors_schedule.html" ><i class="material-icons">medical_services</i><span class="hide-menu">Doctors Schedules</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="patients.html" ><i class="material-icons">hotel</i><span class="hide-menu">Patients</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="opdroom.html" ><i class="material-icons">meeting_room</i><span class="hide-menu">OPD Rooms</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="medical_record.html" ><i class="material-icons">book</i><span class="hide-menu">Medical Record</span></a></li>';
 	// html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="investigation_request.html" ><i class="mdi  mdi-book-plus"></i><span class="hide-menu">Investigation Request</span></a></li>';
 	// html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="medical_record_prescription.html" ><i class="mdi  mdi-book-plus"></i><span class="hide-menu">Prescription</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="employee.html" ><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Employees</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="department.html" ><i class="mdi  mdi-hospital-building"></i><span class="hide-menu">Departments</span></a></li>';
-	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="position.html" ><i class="mdi  mdi-hospital-building"></i><span class="hide-menu">Positions</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="employee.html" ><i class="material-icons">group</i><span class="hide-menu">Employees</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="department.html" ><i class="material-icons">apartment</i><span class="hide-menu">Departments</span></a></li>';
+	html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="position.html" ><i class="material-icons">apartment</i><span class="hide-menu">Positions</span></a></li>';
 	// html_menu += lev < 6 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="user.html" ><i class="mdi mdi-account"></i><span class="hide-menu">Users</span></a></li>';
 	// html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="diagnosis_report.html" ><i class="mdi  mdi-file-chart"></i><span class="hide-menu">Diagnosis Report</span></a></li>';
 	// html_menu += lev < 5 ? '':'<li class="sidebar-item "><a class="sidebar-link sidebar-link" href="suppliers.html" ><i class="mdi  mdi-truck"></i><span class="hide-menu">Suppliers</span></a></li>';
@@ -183,9 +183,9 @@ function showMenu() {
 		var a_href_path = $this.attr('href');
 		var url_path_file = window.location.pathname.split('/').pop();
 		if(a_href_path == url_path_file) {   
-			/* set page title by grabbing from menu text */        
-			$("#page_title").html(this.firstChild.innerText);
-			document.title = this.firstChild.innerText;
+			/* set page title by grabbing from menu text */       
+			$("#page_title").html(this.firstChild.firstChild.nextSibling.innerText);
+			document.title = this.firstChild.firstChild.nextSibling.innerText;
 		}
 	});
 }

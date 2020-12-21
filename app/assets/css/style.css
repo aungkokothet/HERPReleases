@@ -152,3 +152,6 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
 .hide-menu{
 	white-space: initial !important;
 }
+.md-18{
+	font-size: 18px !important;
+}
